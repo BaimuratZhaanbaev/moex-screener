@@ -2,6 +2,7 @@ import sys
 from PySide6.QtWidgets import QApplication
 from loguru import logger
 from src.core.logger_config import init_logger
+from src.api.client import MoexClient, MoexAPIError
 from src.views.main_window import MainWindow
 
 def main():
@@ -9,11 +10,21 @@ def main():
     init_logger()
     logger.info("Инициализация графического интерфейса скринера акций MOEX...")
     
+    # Создаем экземпляр нашего нового клиента
+    client = MoexClient()
+
+    try:
+        # Пробуем скачать и сразу провалидировать структуру биржи
+        data = client.get_clean_data()
+        logger.success("Сетевой уровень работает успешно.")
+    except MoexAPIError as e:
+        logger.error(f"Тест провален. Сетевой уровень поймал ошибку: {e}")
+
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
     
-    logger.info("Приложение успешно запущено и готово к работе.")
+    logger.success("Приложение успешно запущено и готово к работе.")
     
     # Запуск цикла обработки событий Qt и и сохраняем код возврата (0 — если всё ок)
     exit_code = app.exec()

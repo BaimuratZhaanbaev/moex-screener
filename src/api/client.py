@@ -115,7 +115,8 @@ class MoexClient:
             )
 
     def validate_and_parse(self, raw_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Проверяет структуру ответа согласно ТЗ (наличие columns и data).
+        """
+        Проверяет структуру ответа согласно ТЗ (наличие columns и data).
         Если структура верна, возвращает очищенный словарь.
         """
         logger.debug(
@@ -158,3 +159,29 @@ class MoexClient:
             )
         
         return raw_data
+    
+    def get_clean_data(self, use_fixture: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Универсальный конвейер (фасадный метод). 
+        Скачивает (или берет из фикстуры) данные и сразу прогоняет через валидацию структуры.
+        Именно его мы будем вызывать из фонового потока Qt.
+        """
+        # Логируем начало процесса
+        if use_fixture:
+            logger.info(f"Запуск конвейера данных: используем локальную фикстуру '{use_fixture}'")
+            raw_data = self.fetch_from_fixture(use_fixture)
+        else:
+            logger.info("Запуск конвейера данных: отправка сетевого запроса к MOEX ISS API")
+            raw_data = self.fetch_from_api()
+            
+        # Логируем переход к валидации
+        logger.debug("Сырые данные получены. Начинаем валидацию и парсинг структуры...")
+        
+        try:
+            cleaned_data = self.validate_and_parse(raw_data)
+            logger.success("Конвейер успешно завершен. Данные валидны и готовы к отображению.")
+            return cleaned_data
+        except Exception as e:
+            # Критически важно: ловим ошибки валидации, чтобы поток не упал молча
+            logger.error(f"Конвейер остановлен из-за ошибки валидации: {e}")
+            raise
