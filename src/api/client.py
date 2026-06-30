@@ -2,9 +2,10 @@
 import json
 from pathlib import Path
 from typing import Any, Dict, Optional
+from loguru import logger
 import httpx
 
-# Эндпоинт из ТЗ
+# Эндпоинт MOEX_ISS
 MOEX_ISS_URL = "https://iss.moex.com/iss/engines/stock/markets/shares/securities.json"
 
 
@@ -22,36 +23,67 @@ class MoexClient:
 
     def fetch_from_api(self) -> Dict[str, Any]:
         """Выполняет реальный сетевой запрос к Московской Бирже.
-
         Возвращает сырой словарь (JSON).
         Raises MoexAPIError при любых сетевых проблемах.
         """
+
+        logger.info(
+            "Запрос данных к MOEX ISS (таймаут: {self.timeout}с)..."
+            )
+        
         try:
             # Выполняем GET-запрос с ограничением по времени (timeout)
             response = httpx.get(MOEX_ISS_URL, timeout=self.timeout)
+            logger.debug(
+                f"Ответ сервера: {response.status_code}, размер: {len(response.content)} байт"
+                )
 
             # Проверяем HTTP-статус (вызовет ошибку, если код не 2xx, например 404 или 500)
             response.raise_for_status()
 
             # Десериализуем JSON
-            return response.json()
+            data = response.json()
+            logger.debug(
+                "Данные успешно получены с сервера."
+                )
+            return data      
 
         except httpx.TimeoutException:
+            logger.error(
+                "Ошибка: Превышено время ожидания ответа от сервера."
+                )
             raise MoexAPIError(
                 "Превышено время ожидания ответа от сервера биржи (Timeout)."
             )
         except httpx.HTTPStatusError as e:
+            logger.error(
+                f"Ошибка HTTP {e.response.status_code}: {e.response.text}"
+                )
             raise MoexAPIError(
                 f"Ошибка сервера MOEX. Статус-код: {e.response.status_code}"
             )
         except httpx.RequestError:
+            logger.exception(
+                "Сетевая ошибка при запросе к MOEX."
+                )
             raise MoexAPIError(
                 "Сетевая ошибка: проверьте подключение к Интернету."
             )
         except json.JSONDecodeError:
+            logger.error(
+                "Ошибка: Получен некорректный JSON-пакет."
+                )
             raise MoexAPIError(
                 "Получен некорректный JSON-пакет от сервера MOEX."
             )
+        except Exception as e:
+            # Ловим вообще любую ошибку, которую не предвидели
+            logger.critical(
+                f"Непредвиденная ошибка: {e}", exc_info=True
+                )
+            raise MoexAPIError(
+                f"Произошла непредвиденная ошибка: {type(e).__name__}: {e}"
+                )
 
     def fetch_from_fixture(self, fixture_name: str) -> Dict[str, Any]:
         """Загружает данные из локальной JSON-фикстуры (для тестов и отладки)."""
@@ -59,25 +91,42 @@ class MoexClient:
         fixture_path = (
             Path(__file__).parents[2] / "data" / "fixtures" / fixture_name
         )
+        logger.info(
+            f"Загрузка данных из фикстуры: {fixture_name}"
+            )
 
         if not fixture_path.exists():
-            raise MoexAPIError(f"Файл фикстуры {fixture_name} не найден на диске.")
+            logger.error(
+                f"Файл фикстуры не найден: {fixture_path} не найден на диске."
+                )
+            raise MoexAPIError(
+                f"Файл фикстуры {fixture_name} не найден на диске."
+                )
 
         try:
             with open(fixture_path, "r", encoding="utf-8") as f:
                 return json.load(f)
         except json.JSONDecodeError:
+            logger.exception(
+                f"Ошибка парсинга JSON в файле {fixture_name}, содержит некорректный JSON"
+                )
             raise MoexAPIError(
                 f"Критическая ошибка: Файл фикстуры {fixture_name} содержит некорректный JSON."
             )
 
     def validate_and_parse(self, raw_data: Dict[str, Any]) -> Dict[str, Any]:
         """Проверяет структуру ответа согласно ТЗ (наличие columns и data).
-
         Если структура верна, возвращает очищенный словарь.
         """
+        logger.debug(
+            "Валидация структуры ответа..."
+            )
+
         # Проверяем базовое присутствие корневого блока
         if "securities" not in raw_data:
+            logger.error(
+                "Валидация провалена: блок 'securities' отсутствует."
+                )
             raise MoexAPIError(
                 "Неверная структура ответа API: отсутствует блок 'securities'."
             )
@@ -86,6 +135,9 @@ class MoexClient:
 
         # Жесткое требование ТЗ: проверка колонок и данных перед конвертацией в DataFrame
         if "columns" not in securities or "data" not in securities:
+            logger.error(
+                "Валидация провалена: поля 'columns' или 'data' отсутствуют."
+            )
             raise MoexAPIError(
                 "Ошибка валидации: в структуре 'securities' нет полей 'columns' или 'data'."
             )
@@ -94,8 +146,15 @@ class MoexClient:
         if "marketdata" in raw_data:
             marketdata = raw_data["marketdata"]
             if "columns" not in marketdata or "data" not in marketdata:
+                logger.error(
+                    "Ошибка валидации: в структуре 'marketdata' нарушен формат колонок/данных."
+                )
                 raise MoexAPIError(
                     "Ошибка валидации: в структуре 'marketdata' нарушен формат колонок/данных."
                 )
-
+            
+        logger.info(
+            "Валидация данных прошла успешно."
+            )
+        
         return raw_data

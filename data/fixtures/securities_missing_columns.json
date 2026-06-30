@@ -1,0 +1,8 @@
+{
+  "securities": {
+    "columns": ["SHORTNAME", "PREVPRICE"], 
+    "data": [
+      ["Сбербанк", 250.50]
+    ]
+  }
+}
