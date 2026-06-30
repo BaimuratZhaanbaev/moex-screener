@@ -7,7 +7,6 @@ from src.views.main_window import MainWindow
 def main():
     # Первое действие при старте — включаем логи
     init_logger()
-    
     logger.info("Инициализация графического интерфейса скринера акций MOEX...")
     
     app = QApplication(sys.argv)
@@ -16,8 +15,12 @@ def main():
     
     logger.info("Приложение успешно запущено и готово к работе.")
     
-    # Запуск цикла обработки событий Qt
-    sys.exit(app.exec())
+    # Запуск цикла обработки событий Qt и и сохраняем код возврата (0 — если всё ок)
+    exit_code = app.exec()
+
+    # Логируем закрытие приложения перед выходом из Python
+    logger.info(f"Цикл обработки событий Qt завершен. Код выхода: {exit_code}")
+    sys.exit(exit_code)
 
 if __name__ == "__main__":
     main()

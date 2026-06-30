@@ -6,7 +6,7 @@ def init_logger():
     """Выполняет первоначальную настройку Loguru под требования проекта."""
     # Очищаем стандартный вывод Loguru, чтобы задать свои правила
     logger.remove()
-
+    
     # Определяем путь к папке с логами в корне проекта
     # Path(__file__).parents[2] поднимается из src/core/ до корня moex_screener/
     log_dir = Path(__file__).parents[2] / "logs"
