@@ -1,0 +1,5 @@
+{
+  "securities": {
+    "columns": ["SECID", "BOARDID", "SHORTNAME"],
+    "data": [
+      ["SBER", "TQBR", "Сбербанк"

@@ -1,0 +1,40 @@
+# --- Окружение и зависимости ---
+.venv/
+venv/
+ENV/
+env/
+.poetry/
+dist/
+build/
+
+# --- Кэш Python и компиляции ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# --- Логи и базы данных ---
+*.log
+logs/
+*.sqlite
+
+# --- Файлы данных (чтобы не пушить тяжелые или временные отчеты) ---
+*.csv
+*.xlsx
+data/fixtures/securities_real.json
+
+# --- Настройки IDE (VS Code / PyCharm) ---
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# --- Системные файлы ---
+.DS_Store
+Thumbs.db
