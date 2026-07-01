@@ -71,7 +71,7 @@ class MoexClient:
         """Загружает данные из локальной JSON-фикстуры (для тестов и отладки)."""
         # Ищем папку data/fixtures относительно корня проекта
         fixture_path = Path(__file__).parents[2] / "data" / "fixtures" / fixture_name
-        logger.info(f"Загрузка данных из фикстуры: {fixture_name}")
+        logger.info(f"Процесс загрузки данных из фикстуры: {fixture_name}")
 
         if not fixture_path.exists():
             logger.error(f"Файл фикстуры не найден: {fixture_path} не найден на диске.")
@@ -103,8 +103,16 @@ class MoexClient:
             raise MoexAPIError(
                 "Неверная структура ответа API: отсутствует блок 'securities'."
             )
+        
+        # Проверяем базовое присутствие корневого блока marketdata
+        if "marketdata" not in raw_data:
+            logger.error("Валидация провалена: блок 'marketdata' отсутствует.")
+            raise MoexAPIError(
+                "Неверная структура ответа API: отсутствует блок 'marketdata'."
+            )
 
         securities = raw_data["securities"]
+        marketdata = raw_data["marketdata"]
 
         # Требование ТЗ: проверка колонок и данных перед конвертацией в DataFrame
         if "columns" not in securities or "data" not in securities:
@@ -113,19 +121,13 @@ class MoexClient:
                 "Ошибка валидации: "
                 "в структуре 'securities' нет полей 'columns' или 'data'."
             )
-
-        # Опционально: если мы решили использовать расширенный вариант с marketdata
-        if "marketdata" in raw_data:
-            marketdata = raw_data["marketdata"]
-            if "columns" not in marketdata or "data" not in marketdata:
-                logger.error(
-                    "Ошибка валидации: "
-                    "в структуре 'marketdata' нарушен формат колонок/данных."
-                )
-                raise MoexAPIError(
-                    "Ошибка валидации: "
-                    "в структуре 'marketdata' нарушен формат колонок/данных."
-                )
+        
+        # Точно так же строго проверяем внутренности блока 'marketdata'
+        if "columns" not in marketdata or "data" not in marketdata:
+            logger.error("Валидация провалена: в 'marketdata' отсутствуют 'columns' или 'data'.")
+            raise MoexAPIError(
+                "Ошибка валидации: в структуре 'marketdata' нет полей 'columns' или 'data'."
+            )
 
         logger.info("Валидация данных прошла успешно.")
         return raw_data
@@ -158,6 +160,6 @@ class MoexClient:
             )
             return cleaned_data
         except Exception as e:
-            # Критически важно: ловим ошибки валидации, чтобы поток не упал молча
+            # Ловим ошибки валидации, чтобы поток не упал молча
             logger.error(f"Конвейер остановлен из-за ошибки валидации: {e}")
             raise

@@ -18,6 +18,8 @@ loguru = "^0.7.3"
 pytest = ">=8.0.0,<10.0.0"
 pytest-qt = ">=4.4.0,<5.0.0"
 ruff = ">=0.9.0,<1.0.0"
+pytest-mock = "^3.15.1"
+pytest-html = "^4.2.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
@@ -35,3 +37,28 @@ ignore = []
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-v --tb=short --strict-markers"
+testpaths = [
+    "tests",
+    ]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+norecursedirs = [
+    ".venv",
+    "venv",
+    ".git",
+    "__pycache__",
+    ".ruff_cache",
+    ".pytest_cache",
+]
+markers = [
+    "api: тесты, связанные с сетевым запросами и фикстурами MOEX ISS API",
+    "ui: тесты графического интерфейса на PySide6/Pytest-Qt",
+    "slow: медленные интеграционные тесты",
+    "unit: Быстрые изолированные тесты логики приложения",
+    "integration: Интеграционные тесты с реальной сетью или БД"
+]

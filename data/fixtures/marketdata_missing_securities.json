@@ -1,0 +1,14 @@
+{
+  "marketdata": {
+    "metadata": {
+      "secid": {"type": "string", "bytes": 51},
+      "last": {"type": "double"},
+      "valvalue": {"type": "double"}
+    },
+    "columns": ["secid", "last", "valvalue"],
+    "data": [
+      ["SBER", 260.2, 14500000.0],
+      ["GAZP", 150.5, 8900000.0]
+    ]
+  }
+}

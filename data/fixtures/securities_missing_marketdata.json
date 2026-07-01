@@ -1,0 +1,14 @@
+{
+  "securities": {
+    "metadata": {
+      "secid": {"type": "string", "bytes": 51},
+      "boardid": {"type": "string", "bytes": 12},
+      "shortname": {"type": "string", "bytes": 189}
+    },
+    "columns": ["secid", "boardid", "shortname"],
+    "data": [
+      ["SBER", "TQBR", "Сбербанк"],
+      ["GAZP", "TQBR", "Газпром"]
+    ]
+  }
+}

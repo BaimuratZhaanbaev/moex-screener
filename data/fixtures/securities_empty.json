@@ -10,5 +10,17 @@
     },
     "columns": ["SECID", "BOARDID", "SHORTNAME", "PREVPRICE", "LAST", "LASTTOPREVPRICE"],
     "data": []
+  },
+  "marketdata": {
+    "metadata": {
+      "SECID": {"type": "string", "bytes": 36, "max_size": 0},
+      "BOARDID": {"type": "string", "bytes": 12, "max_size": 0},
+      "SHORTNAME": {"type": "string", "bytes": 30, "max_size": 0},
+      "PREVPRICE": {"type": "double"},
+      "LAST": {"type": "double"},
+      "LASTTOPREVPRICE": {"type": "double"}
+    },
+    "columns": ["SECID", "BOARDID", "SHORTNAME", "PREVPRICE", "LAST", "LASTTOPREVPRICE"],
+    "data": []
   }
 }

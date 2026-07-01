@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title id="head-title">report.html</title>
+      <link href="assets\style.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <h1 id="title">report.html</h1>
+    <p>Report generated on 01-Jul-2026 at 17:46:40 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a>
+        v4.2.0</p>
+    <div id="environment-header">
+      <h2>Environment</h2>
+    </div>
+    <table id="environment"></table>
+    <!-- TEMPLATES -->
+      <template id="template_environment_row">
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </template>
+    <template id="template_results-table__body--empty">
+      <tbody class="results-table-row">
+        <tr id="not-found-message">
+          <td colspan="4">No results found. Check the filters.</td>
+        </tr>
+      </tbody>
+    </template>
+    <template id="template_results-table__tbody">
+      <tbody class="results-table-row">
+        <tr class="collapsible">
+        </tr>
+        <tr class="extras-row">
+          <td class="extra" colspan="4">
+            <div class="extraHTML"></div>
+            <div class="media">
+              <div class="media-container">
+                  <div class="media-container__nav--left">&lt;</div>
+                  <div class="media-container__viewport">
+                    <img src="" />
+                    <video controls>
+                      <source src="" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="media-container__nav--right">&gt;</div>
+                </div>
+                <div class="media__name"></div>
+                <div class="media__counter"></div>
+            </div>
+            <div class="logwrapper">
+              <div class="logexpander"></div>
+              <div class="log"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </template>
+    <!-- END TEMPLATES -->
+    <div class="summary">
+      <div class="summary__data">
+        <h2>Summary</h2>
+        <div class="additional-summary prefix">
+        </div>
+        <p class="run-count">13 tests took 869 ms.</p>
+        <p class="filter">(Un)check the boxes to filter the results.</p>
+        <div class="summary__reload">
+          <div class="summary__reload__button hidden" onclick="location.reload()">
+            <div>There are still tests running. <br />Reload this page to get the latest results!</div>
+          </div>
+        </div>
+        <div class="summary__spacer"></div>
+        <div class="controls">
+          <div class="filters">
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="failed" disabled>
+            <span class="failed">0 Failed,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="passed" >
+            <span class="passed">13 Passed,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="skipped" disabled>
+            <span class="skipped">0 Skipped,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="xfailed" disabled>
+            <span class="xfailed">0 Expected failures,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="xpassed" disabled>
+            <span class="xpassed">0 Unexpected passes,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="error" disabled>
+            <span class="error">0 Errors,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="rerun" disabled>
+            <span class="rerun">0 Reruns</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="retried" disabled>
+            <span class="retried">0 Retried,</span>
+          </div>
+          <div class="collapse">
+            <button id="show_all_details">Show all details</button>&nbsp;/&nbsp;<button id="hide_all_details">Hide all details</button>
+          </div>
+        </div>
+      </div>
+      <div class="additional-summary summary">
+      </div>
+      <div class="additional-summary postfix">
+      </div>
+    </div>
+    <table id="results-table">
+      <thead id="results-table-head">
+        <tr>
+          <th class="sortable" data-column-type="result">Result</th>
+          <th class="sortable" data-column-type="testId">Test</th>
+          <th class="sortable" data-column-type="duration">Duration</th>
+          <th>Links</th>
+        </tr>
+      </thead>
+    </table>
+  <footer>
+    <div id="data-container" data-jsonblob="{&#34;environment&#34;: {&#34;Python&#34;: &#34;3.13.0&#34;, &#34;Platform&#34;: &#34;Windows-11-10.0.26200-SP0&#34;, &#34;Packages&#34;: {&#34;pytest&#34;: &#34;9.1.1&#34;, &#34;pluggy&#34;: &#34;1.6.0&#34;}, &#34;Plugins&#34;: {&#34;anyio&#34;: &#34;4.14.1&#34;, &#34;html&#34;: &#34;4.2.0&#34;, &#34;metadata&#34;: &#34;3.1.1&#34;, &#34;mock&#34;: &#34;3.15.1&#34;, &#34;qt&#34;: &#34;4.5.0&#34;}}, &#34;tests&#34;: {&#34;tests/test_api.py::test_missing_fixture_file_throws_error&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_api.py::test_missing_fixture_file_throws_error&#34;, &#34;duration&#34;: &#34;10 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_api.py::test_missing_fixture_file_throws_error&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;10 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2026-07-01 17:46:40.529 | INFO     | src.api.client:fetch_from_fixture:74 - \u041f\u0440\u043e\u0446\u0435\u0441\u0441 \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0438 \u0434\u0430\u043d\u043d\u044b\u0445 \u0438\u0437 \u0444\u0438\u043a\u0441\u0442\u0443\u0440\u044b: this_file_does_not_exist_12345.json\n2026-07-01 17:46:40.530 | ERROR    | src.api.client:fetch_from_fixture:77 - \u0424\u0430\u0439\u043b \u0444\u0438\u043a\u0441\u0442\u0443\u0440\u044b \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d: C:\\Workspace\\Development\\Software\\moex-screener\\data\\fixtures\\this_file_does_not_exist_12345.json \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d \u043d\u0430 \u0434\u0438\u0441\u043a\u0435.\n&#34;}], &#34;tests/test_api.py::test_fetch_from_valid_fixture&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_api.py::test_fetch_from_valid_fixture&#34;, &#34;duration&#34;: &#34;4 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_api.py::test_fetch_from_valid_fixture&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;4 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2026-07-01 17:46:40.538 | DEBUG    | src.api.client:validate_and_parse:98 - \u0412\u0430\u043b\u0438\u0434\u0430\u0446\u0438\u044f \u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u044b \u043e\u0442\u0432\u0435\u0442\u0430...\n2026-07-01 17:46:40.539 | INFO     | src.api.client:validate_and_parse:132 - \u0412\u0430\u043b\u0438\u0434\u0430\u0446\u0438\u044f \u0434\u0430\u043d\u043d\u044b\u0445 \u043f\u0440\u043e\u0448\u043b\u0430 \u0443\u0441\u043f\u0435\u0448\u043d\u043e.\n&#34;}], &#34;tests/test_api.py::test_fetch_from_empty_fixture&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_api.py::test_fetch_from_empty_fixture&#34;, &#34;duration&#34;: &#34;6 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_api.py::test_fetch_from_empty_fixture&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;6 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2026-07-01 17:46:40.548 | DEBUG    | src.api.client:validate_and_parse:98 - \u0412\u0430\u043b\u0438\u0434\u0430\u0446\u0438\u044f \u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u044b \u043e\u0442\u0432\u0435\u0442\u0430...\n2026-07-01 17:46:40.548 | INFO     | src.api.client:validate_and_parse:132 - \u0412\u0430\u043b\u0438\u0434\u0430\u0446\u0438\u044f \u0434\u0430\u043d\u043d\u044b\u0445 \u043f\u0440\u043e\u0448\u043b\u0430 \u0443\u0441\u043f\u0435\u0448\u043d\u043e.\n&#34;}], &#34;tests/test_api.py::test_corrupted_json_throws_error&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_api.py::test_corrupted_json_throws_error&#34;, &#34;duration&#34;: &#34;67 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_api.py::test_corrupted_json_throws_error&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;67 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2026-07-01 17:46:40.557 | INFO     | src.api.client:fetch_from_fixture:74 - \u041f\u0440\u043e\u0446\u0435\u0441\u0441 \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0438 \u0434\u0430\u043d\u043d\u044b\u0445 \u0438\u0437 \u0444\u0438\u043a\u0441\u0442\u0443\u0440\u044b: securities_corrupted.json\n2026-07-01 17:46:40.558 | ERROR    | src.api.client:fetch_from_fixture:84 - \u041e\u0448\u0438\u0431\u043a\u0430 \u043f\u0430\u0440\u0441\u0438\u043d\u0433\u0430 JSON \u0432 \u0444\u0430\u0439\u043b\u0435 securities_corrupted.json, \u0441\u043e\u0434\u0435\u0440\u0436\u0438\u0442 \u043d\u0435\u043a\u043e\u0440\u0440\u0435\u043a\u0442\u043d\u044b\u0439 JSON\nTraceback (most recent call last):\n\n  File &amp;quot;&amp;lt;frozen runpy&amp;gt;&amp;quot;, line 198, in _run_module_as_main\n  File &amp;quot;&amp;lt;frozen runpy&amp;gt;&amp;quot;, line 88, in _run_code\n\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Scripts\\pytest.exe\\__main__.py&amp;quot;, line 7, in &amp;lt;module&amp;gt;\n    sys.exit(_console_main())\n    \u2502   \u2502    \u2514 &amp;lt;function _console_main at 0x0000027228F7FF60&amp;gt;\n    \u2502   \u2514 &amp;lt;built-in function exit&amp;gt;\n    \u2514 &amp;lt;module &amp;#x27;sys&amp;#x27; (built-in)&amp;gt;\n\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\config\\__init__.py&amp;quot;, line 253, in _console_main\n    code = _main(prog=_get_prog_name(sys.argv))\n           \u2502          \u2502              \u2502   \u2514 [&amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualenvs\\\\moex-screener-CKGL-BSM-py3.13\\\\Scripts\\\\pytest&amp;#x27;, &amp;#x27;--html=repo...\n           \u2502          \u2502              \u2514 &amp;lt;module &amp;#x27;sys&amp;#x27; (built-in)&amp;gt;\n           \u2502          \u2514 &amp;lt;function _get_prog_name at 0x0000027228F7FD80&amp;gt;\n           \u2514 &amp;lt;function _main at 0x0000027228F7FEC0&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\config\\__init__.py&amp;quot;, line 229, in _main\n    ret: ExitCode | int = config.hook.pytest_cmdline_main(config=config)\n         \u2502                \u2502      \u2502    \u2502                          \u2514 &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;\n         \u2502                \u2502      \u2502    \u2514 &amp;lt;HookCaller &amp;#x27;pytest_cmdline_main&amp;#x27;&amp;gt;\n         \u2502                \u2502      \u2514 &amp;lt;pluggy._hooks.HookRelay object at 0x0000027228F357F0&amp;gt;\n         \u2502                \u2514 &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;\n         \u2514 &amp;lt;enum &amp;#x27;ExitCode&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_hooks.py&amp;quot;, line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2502       \u2514 True\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2514 {&amp;#x27;config&amp;#x27;: &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;}\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2514 &amp;lt;member &amp;#x27;_hookimpls&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2502    \u2502     \u2514 &amp;lt;HookCaller &amp;#x27;pytest_cmdline_main&amp;#x27;&amp;gt;\n           \u2502    \u2502         \u2502    \u2514 &amp;lt;member &amp;#x27;name&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2514 &amp;lt;HookCaller &amp;#x27;pytest_cmdline_main&amp;#x27;&amp;gt;\n           \u2502    \u2514 &amp;lt;member &amp;#x27;_hookexec&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2514 &amp;lt;HookCaller &amp;#x27;pytest_cmdline_main&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_manager.py&amp;quot;, line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           \u2502    \u2502               \u2502          \u2502        \u2502       \u2514 True\n           \u2502    \u2502               \u2502          \u2502        \u2514 {&amp;#x27;config&amp;#x27;: &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;}\n           \u2502    \u2502               \u2502          \u2514 [&amp;lt;HookImpl plugin_name=&amp;#x27;main&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.main&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualen...\n           \u2502    \u2502               \u2514 &amp;#x27;pytest_cmdline_main&amp;#x27;\n           \u2502    \u2514 &amp;lt;function _multicall at 0x000002722897B6A0&amp;gt;\n           \u2514 &amp;lt;_pytest.config.PytestPluginManager object at 0x0000027228F35550&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_callers.py&amp;quot;, line 121, in _multicall\n    res = hook_impl.function(*args)\n          \u2502         \u2502         \u2514 [&amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;]\n          \u2502         \u2514 &amp;lt;member &amp;#x27;function&amp;#x27; of &amp;#x27;HookImpl&amp;#x27; objects&amp;gt;\n          \u2514 &amp;lt;HookImpl plugin_name=&amp;#x27;main&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.main&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualenv...\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\main.py&amp;quot;, line 377, in pytest_cmdline_main\n    return wrap_session(config, _main)\n           \u2502            \u2502       \u2514 &amp;lt;function _main at 0x000002722907ADE0&amp;gt;\n           \u2502            \u2514 &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;\n           \u2514 &amp;lt;function wrap_session at 0x000002722907ACA0&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\main.py&amp;quot;, line 330, in wrap_session\n    session.exitstatus = doit(config, session) or 0\n    \u2502       \u2502            \u2502    \u2502       \u2514 &amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;\n    \u2502       \u2502            \u2502    \u2514 &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;\n    \u2502       \u2502            \u2514 &amp;lt;function _main at 0x000002722907ADE0&amp;gt;\n    \u2502       \u2514 &amp;lt;ExitCode.OK: 0&amp;gt;\n    \u2514 &amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\main.py&amp;quot;, line 384, in _main\n    config.hook.pytest_runtestloop(session=session)\n    \u2502      \u2502    \u2502                          \u2514 &amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;\n    \u2502      \u2502    \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtestloop&amp;#x27;&amp;gt;\n    \u2502      \u2514 &amp;lt;pluggy._hooks.HookRelay object at 0x0000027228F357F0&amp;gt;\n    \u2514 &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_hooks.py&amp;quot;, line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2502       \u2514 True\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2514 {&amp;#x27;session&amp;#x27;: &amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;}\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2514 &amp;lt;member &amp;#x27;_hookimpls&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2502    \u2502     \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtestloop&amp;#x27;&amp;gt;\n           \u2502    \u2502         \u2502    \u2514 &amp;lt;member &amp;#x27;name&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtestloop&amp;#x27;&amp;gt;\n           \u2502    \u2514 &amp;lt;member &amp;#x27;_hookexec&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtestloop&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_manager.py&amp;quot;, line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           \u2502    \u2502               \u2502          \u2502        \u2502       \u2514 True\n           \u2502    \u2502               \u2502          \u2502        \u2514 {&amp;#x27;session&amp;#x27;: &amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;}\n           \u2502    \u2502               \u2502          \u2514 [&amp;lt;HookImpl plugin_name=&amp;#x27;main&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.main&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualen...\n           \u2502    \u2502               \u2514 &amp;#x27;pytest_runtestloop&amp;#x27;\n           \u2502    \u2514 &amp;lt;function _multicall at 0x000002722897B6A0&amp;gt;\n           \u2514 &amp;lt;_pytest.config.PytestPluginManager object at 0x0000027228F35550&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_callers.py&amp;quot;, line 121, in _multicall\n    res = hook_impl.function(*args)\n          \u2502         \u2502         \u2514 [&amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;]\n          \u2502         \u2514 &amp;lt;member &amp;#x27;function&amp;#x27; of &amp;#x27;HookImpl&amp;#x27; objects&amp;gt;\n          \u2514 &amp;lt;HookImpl plugin_name=&amp;#x27;main&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.main&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualenv...\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\main.py&amp;quot;, line 408, in pytest_runtestloop\n    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)\n    \u2502    \u2502                                        \u2502              \u2514 &amp;lt;Function test_missing_blocks_throws_error&amp;gt;\n    \u2502    \u2502                                        \u2514 &amp;lt;Function test_corrupted_json_throws_error&amp;gt;\n    \u2502    \u2514 &amp;lt;member &amp;#x27;config&amp;#x27; of &amp;#x27;Node&amp;#x27; objects&amp;gt;\n    \u2514 &amp;lt;Function test_corrupted_json_throws_error&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_hooks.py&amp;quot;, line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2502       \u2514 True\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2514 {&amp;#x27;item&amp;#x27;: &amp;lt;Function test_corrupted_json_throws_error&amp;gt;, &amp;#x27;nextitem&amp;#x27;: &amp;lt;Function test_missing_blocks_throws_error&amp;gt;}\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2514 &amp;lt;member &amp;#x27;_hookimpls&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2502    \u2502     \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_protocol&amp;#x27;&amp;gt;\n           \u2502    \u2502         \u2502    \u2514 &amp;lt;member &amp;#x27;name&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_protocol&amp;#x27;&amp;gt;\n           \u2502    \u2514 &amp;lt;member &amp;#x27;_hookexec&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_protocol&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_manager.py&amp;quot;, line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           \u2502    \u2502               \u2502          \u2502        \u2502       \u2514 True\n           \u2502    \u2502               \u2502          \u2502        \u2514 {&amp;#x27;item&amp;#x27;: &amp;lt;Function test_corrupted_json_throws_error&amp;gt;, &amp;#x27;nextitem&amp;#x27;: &amp;lt;Function test_missing_blocks_throws_error&amp;gt;}\n           \u2502    \u2502               \u2502          \u2514 [&amp;lt;HookImpl plugin_name=&amp;#x27;runner&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.runner&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtu...\n           \u2502    \u2502               \u2514 &amp;#x27;pytest_runtest_protocol&amp;#x27;\n           \u2502    \u2514 &amp;lt;function _multicall at 0x000002722897B6A0&amp;gt;\n           \u2514 &amp;lt;_pytest.config.PytestPluginManager object at 0x0000027228F35550&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_callers.py&amp;quot;, line 121, in _multicall\n    res = hook_impl.function(*args)\n          \u2502         \u2502         \u2514 [&amp;lt;Function test_corrupted_json_throws_error&amp;gt;, &amp;lt;Function test_missing_blocks_throws_error&amp;gt;]\n          \u2502         \u2514 &amp;lt;member &amp;#x27;function&amp;#x27; of &amp;#x27;HookImpl&amp;#x27; objects&amp;gt;\n          \u2514 &amp;lt;HookImpl plugin_name=&amp;#x27;runner&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.runner&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtua...\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 118, in pytest_runtest_protocol\n    runtestprotocol(item, nextitem=nextitem)\n    \u2502               \u2502              \u2514 &amp;lt;Function test_missing_blocks_throws_error&amp;gt;\n    \u2502               \u2514 &amp;lt;Function test_corrupted_json_throws_error&amp;gt;\n    \u2514 &amp;lt;function runtestprotocol at 0x0000027229079E40&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 139, in runtestprotocol\n    reports.append(call_and_report(item, &amp;quot;call&amp;quot;, log))\n    \u2502       \u2502      \u2502               \u2502             \u2514 True\n    \u2502       \u2502      \u2502               \u2514 &amp;lt;Function test_corrupted_json_throws_error&amp;gt;\n    \u2502       \u2502      \u2514 &amp;lt;function call_and_report at 0x000002722907A2A0&amp;gt;\n    \u2502       \u2514 &amp;lt;method &amp;#x27;append&amp;#x27; of &amp;#x27;list&amp;#x27; objects&amp;gt;\n    \u2514 [&amp;lt;TestReport &amp;#x27;tests/test_api.py::test_corrupted_json_throws_error&amp;#x27; when=&amp;#x27;setup&amp;#x27; outcome=&amp;#x27;passed&amp;#x27;&amp;gt;]\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 249, in call_and_report\n    call = CallInfo.from_call(\n           \u2502        \u2514 &amp;lt;classmethod(&amp;lt;function CallInfo.from_call at 0x000002722907A660&amp;gt;)&amp;gt;\n           \u2514 &amp;lt;class &amp;#x27;_pytest.runner.CallInfo&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 361, in from_call\n    result: TResult | None = func()\n            \u2502                \u2514 &amp;lt;function call_and_report.&amp;lt;locals&amp;gt;.&amp;lt;lambda&amp;gt; at 0x000002722C4A2480&amp;gt;\n            \u2514 +TResult\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 250, in &amp;lt;lambda&amp;gt;\n    lambda: runtest_hook(item=item, **kwds),\n            \u2502                 \u2502       \u2514 {}\n            \u2502                 \u2514 &amp;lt;Function test_corrupted_json_throws_error&amp;gt;\n            \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_call&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_hooks.py&amp;quot;, line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2502       \u2514 False\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2514 {&amp;#x27;item&amp;#x27;: &amp;lt;Function test_corrupted_json_throws_error&amp;gt;}\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2514 &amp;lt;member &amp;#x27;_hookimpls&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2502    \u2502     \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_call&amp;#x27;&amp;gt;\n           \u2502    \u2502         \u2502    \u2514 &amp;lt;member &amp;#x27;name&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_call&amp;#x27;&amp;gt;\n           \u2502    \u2514 &amp;lt;member &amp;#x27;_hookexec&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_call&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_manager.py&amp;quot;, line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           \u2502    \u2502               \u2502          \u2502        \u2502       \u2514 False\n           \u2502    \u2502               \u2502          \u2502        \u2514 {&amp;#x27;item&amp;#x27;: &amp;lt;Function test_corrupted_json_throws_error&amp;gt;}\n           \u2502    \u2502               \u2502          \u2514 [&amp;lt;HookImpl plugin_name=&amp;#x27;threadexception&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.threadexception&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypo...\n           \u2502    \u2502               \u2514 &amp;#x27;pytest_runtest_call&amp;#x27;\n           \u2502    \u2514 &amp;lt;function _multicall at 0x000002722897B6A0&amp;gt;\n           \u2514 &amp;lt;_pytest.config.PytestPluginManager object at 0x0000027228F35550&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_callers.py&amp;quot;, line 121, in _multicall\n    res = hook_impl.function(*args)\n          \u2502         \u2502         \u2514 [&amp;lt;Function test_corrupted_json_throws_error&amp;gt;]\n          \u2502         \u2514 &amp;lt;member &amp;#x27;function&amp;#x27; of &amp;#x27;HookImpl&amp;#x27; objects&amp;gt;\n          \u2514 &amp;lt;HookImpl plugin_name=&amp;#x27;runner&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.runner&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtua...\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 184, in pytest_runtest_call\n    item.runtest()\n    \u2502    \u2514 &amp;lt;function Function.runtest at 0x000002722918B380&amp;gt;\n    \u2514 &amp;lt;Function test_corrupted_json_throws_error&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\python.py&amp;quot;, line 1707, in runtest\n    self.ihook.pytest_pyfunc_call(pyfuncitem=self)\n    \u2502    \u2502                                   \u2514 &amp;lt;Function test_corrupted_json_throws_error&amp;gt;\n    \u2502    \u2514 &amp;lt;property object at 0x0000027228FCBB50&amp;gt;\n    \u2514 &amp;lt;Function test_corrupted_json_throws_error&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_hooks.py&amp;quot;, line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2502       \u2514 True\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2514 {&amp;#x27;pyfuncitem&amp;#x27;: &amp;lt;Function test_corrupted_json_throws_error&amp;gt;}\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2514 &amp;lt;member &amp;#x27;_hookimpls&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2502    \u2502     \u2514 &amp;lt;HookCaller &amp;#x27;pytest_pyfunc_call&amp;#x27;&amp;gt;\n           \u2502    \u2502         \u2502    \u2514 &amp;lt;member &amp;#x27;name&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2514 &amp;lt;HookCaller &amp;#x27;pytest_pyfunc_call&amp;#x27;&amp;gt;\n           \u2502    \u2514 &amp;lt;member &amp;#x27;_hookexec&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2514 &amp;lt;HookCaller &amp;#x27;pytest_pyfunc_call&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_manager.py&amp;quot;, line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           \u2502    \u2502               \u2502          \u2502        \u2502       \u2514 True\n           \u2502    \u2502               \u2502          \u2502        \u2514 {&amp;#x27;pyfuncitem&amp;#x27;: &amp;lt;Function test_corrupted_json_throws_error&amp;gt;}\n           \u2502    \u2502               \u2502          \u2514 [&amp;lt;HookImpl plugin_name=&amp;#x27;python&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.python&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtu...\n           \u2502    \u2502               \u2514 &amp;#x27;pytest_pyfunc_call&amp;#x27;\n           \u2502    \u2514 &amp;lt;function _multicall at 0x000002722897B6A0&amp;gt;\n           \u2514 &amp;lt;_pytest.config.PytestPluginManager object at 0x0000027228F35550&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_callers.py&amp;quot;, line 121, in _multicall\n    res = hook_impl.function(*args)\n          \u2502         \u2502         \u2514 [&amp;lt;Function test_corrupted_json_throws_error&amp;gt;]\n          \u2502         \u2514 &amp;lt;member &amp;#x27;function&amp;#x27; of &amp;#x27;HookImpl&amp;#x27; objects&amp;gt;\n          \u2514 &amp;lt;HookImpl plugin_name=&amp;#x27;python&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.python&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtua...\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\python.py&amp;quot;, line 167, in pytest_pyfunc_call\n    result = testfunction(**testargs)\n             \u2502              \u2514 {}\n             \u2514 &amp;lt;function test_corrupted_json_throws_error at 0x000002722C4A1120&amp;gt;\n\n  File &amp;quot;C:\\Workspace\\Development\\Software\\moex-screener\\tests\\test_api.py&amp;quot;, line 46, in test_corrupted_json_throws_error\n    client.fetch_from_fixture(&amp;quot;securities_corrupted.json&amp;quot;)\n    \u2502      \u2514 &amp;lt;function MoexClient.fetch_from_fixture at 0x000002722C4A0EA0&amp;gt;\n    \u2514 &amp;lt;src.api.client.MoexClient object at 0x000002722C36F950&amp;gt;\n\n&amp;gt; File &amp;quot;C:\\Workspace\\Development\\Software\\moex-screener\\src\\api\\client.py&amp;quot;, line 82, in fetch_from_fixture\n    return json.load(f)\n           \u2502    \u2502    \u2514 &amp;lt;_io.TextIOWrapper name=&amp;#x27;C:\\\\Workspace\\\\Development\\\\Software\\\\moex-screener\\\\data\\\\fixtures\\\\securities_corrupted.json&amp;#x27; mode...\n           \u2502    \u2514 &amp;lt;function load at 0x0000027228868040&amp;gt;\n           \u2514 &amp;lt;module &amp;#x27;json&amp;#x27; from &amp;#x27;C:\\\\Program Files\\\\Python313\\\\Lib\\\\json\\\\__init__.py&amp;#x27;&amp;gt;\n\n  File &amp;quot;C:\\Program Files\\Python313\\Lib\\json\\__init__.py&amp;quot;, line 293, in load\n    return loads(fp.read(),\n           \u2502     \u2502  \u2514 &amp;lt;method &amp;#x27;read&amp;#x27; of &amp;#x27;_io.TextIOWrapper&amp;#x27; objects&amp;gt;\n           \u2502     \u2514 &amp;lt;_io.TextIOWrapper name=&amp;#x27;C:\\\\Workspace\\\\Development\\\\Software\\\\moex-screener\\\\data\\\\fixtures\\\\securities_corrupted.json&amp;#x27; mode...\n           \u2514 &amp;lt;function loads at 0x00000272288680E0&amp;gt;\n  File &amp;quot;C:\\Program Files\\Python313\\Lib\\json\\__init__.py&amp;quot;, line 346, in loads\n    return _default_decoder.decode(s)\n           \u2502                \u2502      \u2514 &amp;#x27;{\\n  &amp;quot;securities&amp;quot;: {\\n    &amp;quot;columns&amp;quot;: [&amp;quot;SECID&amp;quot;, &amp;quot;BOARDID&amp;quot;, &amp;quot;SHORTNAME&amp;quot;],\\n    &amp;quot;data&amp;quot;: [\\n      [&amp;quot;SBER&amp;quot;, &amp;quot;TQBR&amp;quot;, &amp;quot;\u0421\u0431\u0435\u0440\u0431\u0430\u043d\u043a&amp;quot;&amp;#x27;\n           \u2502                \u2514 &amp;lt;function JSONDecoder.decode at 0x000002722882F920&amp;gt;\n           \u2514 &amp;lt;json.decoder.JSONDecoder object at 0x0000027228848830&amp;gt;\n  File &amp;quot;C:\\Program Files\\Python313\\Lib\\json\\decoder.py&amp;quot;, line 344, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               \u2502    \u2502          \u2502      \u2502  \u2514 &amp;#x27;{\\n  &amp;quot;securities&amp;quot;: {\\n    &amp;quot;columns&amp;quot;: [&amp;quot;SECID&amp;quot;, &amp;quot;BOARDID&amp;quot;, &amp;quot;SHORTNAME&amp;quot;],\\n    &amp;quot;data&amp;quot;: [\\n      [&amp;quot;SBER&amp;quot;, &amp;quot;TQBR&amp;quot;, &amp;quot;\u0421\u0431\u0435\u0440\u0431\u0430\u043d\u043a&amp;quot;&amp;#x27;\n               \u2502    \u2502          \u2502      \u2514 &amp;lt;built-in method match of re.Pattern object at 0x000002722884C380&amp;gt;\n               \u2502    \u2502          \u2514 &amp;#x27;{\\n  &amp;quot;securities&amp;quot;: {\\n    &amp;quot;columns&amp;quot;: [&amp;quot;SECID&amp;quot;, &amp;quot;BOARDID&amp;quot;, &amp;quot;SHORTNAME&amp;quot;],\\n    &amp;quot;data&amp;quot;: [\\n      [&amp;quot;SBER&amp;quot;, &amp;quot;TQBR&amp;quot;, &amp;quot;\u0421\u0431\u0435\u0440\u0431\u0430\u043d\u043a&amp;quot;&amp;#x27;\n               \u2502    \u2514 &amp;lt;function JSONDecoder.raw_decode at 0x000002722882F9C0&amp;gt;\n               \u2514 &amp;lt;json.decoder.JSONDecoder object at 0x0000027228848830&amp;gt;\n  File &amp;quot;C:\\Program Files\\Python313\\Lib\\json\\decoder.py&amp;quot;, line 360, in raw_decode\n    obj, end = self.scan_once(s, idx)\n               \u2502    \u2502         \u2502  \u2514 0\n               \u2502    \u2502         \u2514 &amp;#x27;{\\n  &amp;quot;securities&amp;quot;: {\\n    &amp;quot;columns&amp;quot;: [&amp;quot;SECID&amp;quot;, &amp;quot;BOARDID&amp;quot;, &amp;quot;SHORTNAME&amp;quot;],\\n    &amp;quot;data&amp;quot;: [\\n      [&amp;quot;SBER&amp;quot;, &amp;quot;TQBR&amp;quot;, &amp;quot;\u0421\u0431\u0435\u0440\u0431\u0430\u043d\u043a&amp;quot;&amp;#x27;\n               \u2502    \u2514 &amp;lt;_json.Scanner object at 0x00000272287F9F30&amp;gt;\n               \u2514 &amp;lt;json.decoder.JSONDecoder object at 0x0000027228848830&amp;gt;\n\njson.decoder.JSONDecodeError: Expecting &amp;#x27;,&amp;#x27; delimiter: line 5 column 34 (char 117)\n&#34;}], &#34;tests/test_api.py::test_missing_blocks_throws_error&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_api.py::test_missing_blocks_throws_error&#34;, &#34;duration&#34;: &#34;5 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_api.py::test_missing_blocks_throws_error&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;5 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2026-07-01 17:46:40.629 | DEBUG    | src.api.client:validate_and_parse:98 - \u0412\u0430\u043b\u0438\u0434\u0430\u0446\u0438\u044f \u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u044b \u043e\u0442\u0432\u0435\u0442\u0430...\n2026-07-01 17:46:40.630 | ERROR    | src.api.client:validate_and_parse:109 - \u0412\u0430\u043b\u0438\u0434\u0430\u0446\u0438\u044f \u043f\u0440\u043e\u0432\u0430\u043b\u0435\u043d\u0430: \u0431\u043b\u043e\u043a &amp;#x27;marketdata&amp;#x27; \u043e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442.\n&#34;}], &#34;tests/test_api.py::test_missing_securities_throws_error&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_api.py::test_missing_securities_throws_error&#34;, &#34;duration&#34;: &#34;27 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_api.py::test_missing_securities_throws_error&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;27 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2026-07-01 17:46:40.658 | DEBUG    | src.api.client:validate_and_parse:98 - \u0412\u0430\u043b\u0438\u0434\u0430\u0446\u0438\u044f \u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u044b \u043e\u0442\u0432\u0435\u0442\u0430...\n2026-07-01 17:46:40.659 | ERROR    | src.api.client:validate_and_parse:102 - \u0412\u0430\u043b\u0438\u0434\u0430\u0446\u0438\u044f \u043f\u0440\u043e\u0432\u0430\u043b\u0435\u043d\u0430: \u0431\u043b\u043e\u043a &amp;#x27;securities&amp;#x27; \u043e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442.\n&#34;}], &#34;tests/test_api.py::test_get_clean_data_pipeline_success&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_api.py::test_get_clean_data_pipeline_success&#34;, &#34;duration&#34;: &#34;34 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_api.py::test_get_clean_data_pipeline_success&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;34 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2026-07-01 17:46:40.697 | INFO     | src.api.client:get_clean_data:148 - \u0417\u0430\u043f\u0443\u0441\u043a \u043a\u043e\u043d\u0432\u0435\u0439\u0435\u0440\u0430 \u0434\u0430\u043d\u043d\u044b\u0445: \u043e\u0442\u043f\u0440\u0430\u0432\u043a\u0430 \u0441\u0435\u0442\u0435\u0432\u043e\u0433\u043e \u0437\u0430\u043f\u0440\u043e\u0441\u0430 \u043a MOEX ISS API\n2026-07-01 17:46:40.697 | INFO     | src.api.client:fetch_from_api:30 - \u0417\u0430\u043f\u0440\u043e\u0441 \u0434\u0430\u043d\u043d\u044b\u0445 \u043a MOEX ISS (\u0442\u0430\u0439\u043c\u0430\u0443\u0442: 10.0\u0441)...\n2026-07-01 17:46:40.698 | DEBUG    | src.api.client:fetch_from_api:35 - \u041e\u0442\u0432\u0435\u0442 \u0441\u0435\u0440\u0432\u0435\u0440\u0430: 200 \u0440\u0430\u0437\u043c\u0435\u0440: 0 \u0431\u0430\u0439\u0442\n2026-07-01 17:46:40.700 | DEBUG    | src.api.client:fetch_from_api:45 - \u0414\u0430\u043d\u043d\u044b\u0435 \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u044b \u0441 \u0441\u0435\u0440\u0432\u0435\u0440\u0430.\n2026-07-01 17:46:40.700 | DEBUG    | src.api.client:get_clean_data:154 - \u0421\u044b\u0440\u044b\u0435 \u0434\u0430\u043d\u043d\u044b\u0435 \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u044b. \u041d\u0430\u0447\u0438\u043d\u0430\u0435\u043c \u0432\u0430\u043b\u0438\u0434\u0430\u0446\u0438\u044e \u0438 \u043f\u0430\u0440\u0441\u0438\u043d\u0433 \u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u044b...\n2026-07-01 17:46:40.701 | DEBUG    | src.api.client:validate_and_parse:98 - \u0412\u0430\u043b\u0438\u0434\u0430\u0446\u0438\u044f \u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u044b \u043e\u0442\u0432\u0435\u0442\u0430...\n2026-07-01 17:46:40.701 | INFO     | src.api.client:validate_and_parse:132 - \u0412\u0430\u043b\u0438\u0434\u0430\u0446\u0438\u044f \u0434\u0430\u043d\u043d\u044b\u0445 \u043f\u0440\u043e\u0448\u043b\u0430 \u0443\u0441\u043f\u0435\u0448\u043d\u043e.\n2026-07-01 17:46:40.701 | SUCCESS  | src.api.client:get_clean_data:158 - \u041a\u043e\u043d\u0432\u0435\u0439\u0435\u0440 \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d. \u0414\u0430\u043d\u043d\u044b\u0435 \u0432\u0430\u043b\u0438\u0434\u043d\u044b \u0438 \u0433\u043e\u0442\u043e\u0432\u044b \u043a \u043e\u0442\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u044e.\n&#34;}], &#34;tests/test_api.py::test_fetch_from_api_success&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_api.py::test_fetch_from_api_success&#34;, &#34;duration&#34;: &#34;26 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_api.py::test_fetch_from_api_success&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;26 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2026-07-01 17:46:40.729 | INFO     | src.api.client:fetch_from_api:30 - \u0417\u0430\u043f\u0440\u043e\u0441 \u0434\u0430\u043d\u043d\u044b\u0445 \u043a MOEX ISS (\u0442\u0430\u0439\u043c\u0430\u0443\u0442: 10.0\u0441)...\n2026-07-01 17:46:40.729 | DEBUG    | src.api.client:fetch_from_api:35 - \u041e\u0442\u0432\u0435\u0442 \u0441\u0435\u0440\u0432\u0435\u0440\u0430: 200 \u0440\u0430\u0437\u043c\u0435\u0440: 0 \u0431\u0430\u0439\u0442\n2026-07-01 17:46:40.730 | DEBUG    | src.api.client:fetch_from_api:45 - \u0414\u0430\u043d\u043d\u044b\u0435 \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u044b \u0441 \u0441\u0435\u0440\u0432\u0435\u0440\u0430.\n&#34;}], &#34;tests/test_api.py::test_fetch_from_api_timeout&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_api.py::test_fetch_from_api_timeout&#34;, &#34;duration&#34;: &#34;5 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_api.py::test_fetch_from_api_timeout&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;5 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2026-07-01 17:46:40.738 | INFO     | src.api.client:fetch_from_api:30 - \u0417\u0430\u043f\u0440\u043e\u0441 \u0434\u0430\u043d\u043d\u044b\u0445 \u043a MOEX ISS (\u0442\u0430\u0439\u043c\u0430\u0443\u0442: 10.0\u0441)...\n2026-07-01 17:46:40.738 | ERROR    | src.api.client:fetch_from_api:48 - \u041e\u0448\u0438\u0431\u043a\u0430: \u041f\u0440\u0435\u0432\u044b\u0448\u0435\u043d\u043e \u0432\u0440\u0435\u043c\u044f \u043e\u0436\u0438\u0434\u0430\u043d\u0438\u044f \u043e\u0442\u0432\u0435\u0442\u0430 \u043e\u0442 \u0441\u0435\u0440\u0432\u0435\u0440\u0430.\n&#34;}], &#34;tests/test_api.py::test_fetch_from_api_http_status_error&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_api.py::test_fetch_from_api_http_status_error&#34;, &#34;duration&#34;: &#34;6 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_api.py::test_fetch_from_api_http_status_error&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;6 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2026-07-01 17:46:40.746 | INFO     | src.api.client:fetch_from_api:30 - \u0417\u0430\u043f\u0440\u043e\u0441 \u0434\u0430\u043d\u043d\u044b\u0445 \u043a MOEX ISS (\u0442\u0430\u0439\u043c\u0430\u0443\u0442: 10.0\u0441)...\n2026-07-01 17:46:40.746 | DEBUG    | src.api.client:fetch_from_api:35 - \u041e\u0442\u0432\u0435\u0442 \u0441\u0435\u0440\u0432\u0435\u0440\u0430: 500 \u0440\u0430\u0437\u043c\u0435\u0440: 0 \u0431\u0430\u0439\u0442\n2026-07-01 17:46:40.747 | ERROR    | src.api.client:fetch_from_api:53 - \u041e\u0448\u0438\u0431\u043a\u0430 HTTP 500: Internal Server Error\n&#34;}], &#34;tests/test_api.py::test_fetch_from_api_request_error&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_api.py::test_fetch_from_api_request_error&#34;, &#34;duration&#34;: &#34;21 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_api.py::test_fetch_from_api_request_error&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;21 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2026-07-01 17:46:40.759 | INFO     | src.api.client:fetch_from_api:30 - \u0417\u0430\u043f\u0440\u043e\u0441 \u0434\u0430\u043d\u043d\u044b\u0445 \u043a MOEX ISS (\u0442\u0430\u0439\u043c\u0430\u0443\u0442: 10.0\u0441)...\n2026-07-01 17:46:40.760 | ERROR    | src.api.client:fetch_from_api:58 - \u0421\u0435\u0442\u0435\u0432\u0430\u044f \u043e\u0448\u0438\u0431\u043a\u0430 \u043f\u0440\u0438 \u0437\u0430\u043f\u0440\u043e\u0441\u0435 \u043a MOEX.\nTraceback (most recent call last):\n\n  File &amp;quot;&amp;lt;frozen runpy&amp;gt;&amp;quot;, line 198, in _run_module_as_main\n  File &amp;quot;&amp;lt;frozen runpy&amp;gt;&amp;quot;, line 88, in _run_code\n\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Scripts\\pytest.exe\\__main__.py&amp;quot;, line 7, in &amp;lt;module&amp;gt;\n    sys.exit(_console_main())\n    \u2502   \u2502    \u2514 &amp;lt;function _console_main at 0x0000027228F7FF60&amp;gt;\n    \u2502   \u2514 &amp;lt;built-in function exit&amp;gt;\n    \u2514 &amp;lt;module &amp;#x27;sys&amp;#x27; (built-in)&amp;gt;\n\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\config\\__init__.py&amp;quot;, line 253, in _console_main\n    code = _main(prog=_get_prog_name(sys.argv))\n           \u2502          \u2502              \u2502   \u2514 [&amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualenvs\\\\moex-screener-CKGL-BSM-py3.13\\\\Scripts\\\\pytest&amp;#x27;, &amp;#x27;--html=repo...\n           \u2502          \u2502              \u2514 &amp;lt;module &amp;#x27;sys&amp;#x27; (built-in)&amp;gt;\n           \u2502          \u2514 &amp;lt;function _get_prog_name at 0x0000027228F7FD80&amp;gt;\n           \u2514 &amp;lt;function _main at 0x0000027228F7FEC0&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\config\\__init__.py&amp;quot;, line 229, in _main\n    ret: ExitCode | int = config.hook.pytest_cmdline_main(config=config)\n         \u2502                \u2502      \u2502    \u2502                          \u2514 &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;\n         \u2502                \u2502      \u2502    \u2514 &amp;lt;HookCaller &amp;#x27;pytest_cmdline_main&amp;#x27;&amp;gt;\n         \u2502                \u2502      \u2514 &amp;lt;pluggy._hooks.HookRelay object at 0x0000027228F357F0&amp;gt;\n         \u2502                \u2514 &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;\n         \u2514 &amp;lt;enum &amp;#x27;ExitCode&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_hooks.py&amp;quot;, line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2502       \u2514 True\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2514 {&amp;#x27;config&amp;#x27;: &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;}\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2514 &amp;lt;member &amp;#x27;_hookimpls&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2502    \u2502     \u2514 &amp;lt;HookCaller &amp;#x27;pytest_cmdline_main&amp;#x27;&amp;gt;\n           \u2502    \u2502         \u2502    \u2514 &amp;lt;member &amp;#x27;name&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2514 &amp;lt;HookCaller &amp;#x27;pytest_cmdline_main&amp;#x27;&amp;gt;\n           \u2502    \u2514 &amp;lt;member &amp;#x27;_hookexec&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2514 &amp;lt;HookCaller &amp;#x27;pytest_cmdline_main&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_manager.py&amp;quot;, line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           \u2502    \u2502               \u2502          \u2502        \u2502       \u2514 True\n           \u2502    \u2502               \u2502          \u2502        \u2514 {&amp;#x27;config&amp;#x27;: &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;}\n           \u2502    \u2502               \u2502          \u2514 [&amp;lt;HookImpl plugin_name=&amp;#x27;main&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.main&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualen...\n           \u2502    \u2502               \u2514 &amp;#x27;pytest_cmdline_main&amp;#x27;\n           \u2502    \u2514 &amp;lt;function _multicall at 0x000002722897B6A0&amp;gt;\n           \u2514 &amp;lt;_pytest.config.PytestPluginManager object at 0x0000027228F35550&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_callers.py&amp;quot;, line 121, in _multicall\n    res = hook_impl.function(*args)\n          \u2502         \u2502         \u2514 [&amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;]\n          \u2502         \u2514 &amp;lt;member &amp;#x27;function&amp;#x27; of &amp;#x27;HookImpl&amp;#x27; objects&amp;gt;\n          \u2514 &amp;lt;HookImpl plugin_name=&amp;#x27;main&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.main&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualenv...\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\main.py&amp;quot;, line 377, in pytest_cmdline_main\n    return wrap_session(config, _main)\n           \u2502            \u2502       \u2514 &amp;lt;function _main at 0x000002722907ADE0&amp;gt;\n           \u2502            \u2514 &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;\n           \u2514 &amp;lt;function wrap_session at 0x000002722907ACA0&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\main.py&amp;quot;, line 330, in wrap_session\n    session.exitstatus = doit(config, session) or 0\n    \u2502       \u2502            \u2502    \u2502       \u2514 &amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;\n    \u2502       \u2502            \u2502    \u2514 &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;\n    \u2502       \u2502            \u2514 &amp;lt;function _main at 0x000002722907ADE0&amp;gt;\n    \u2502       \u2514 &amp;lt;ExitCode.OK: 0&amp;gt;\n    \u2514 &amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\main.py&amp;quot;, line 384, in _main\n    config.hook.pytest_runtestloop(session=session)\n    \u2502      \u2502    \u2502                          \u2514 &amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;\n    \u2502      \u2502    \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtestloop&amp;#x27;&amp;gt;\n    \u2502      \u2514 &amp;lt;pluggy._hooks.HookRelay object at 0x0000027228F357F0&amp;gt;\n    \u2514 &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_hooks.py&amp;quot;, line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2502       \u2514 True\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2514 {&amp;#x27;session&amp;#x27;: &amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;}\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2514 &amp;lt;member &amp;#x27;_hookimpls&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2502    \u2502     \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtestloop&amp;#x27;&amp;gt;\n           \u2502    \u2502         \u2502    \u2514 &amp;lt;member &amp;#x27;name&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtestloop&amp;#x27;&amp;gt;\n           \u2502    \u2514 &amp;lt;member &amp;#x27;_hookexec&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtestloop&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_manager.py&amp;quot;, line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           \u2502    \u2502               \u2502          \u2502        \u2502       \u2514 True\n           \u2502    \u2502               \u2502          \u2502        \u2514 {&amp;#x27;session&amp;#x27;: &amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;}\n           \u2502    \u2502               \u2502          \u2514 [&amp;lt;HookImpl plugin_name=&amp;#x27;main&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.main&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualen...\n           \u2502    \u2502               \u2514 &amp;#x27;pytest_runtestloop&amp;#x27;\n           \u2502    \u2514 &amp;lt;function _multicall at 0x000002722897B6A0&amp;gt;\n           \u2514 &amp;lt;_pytest.config.PytestPluginManager object at 0x0000027228F35550&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_callers.py&amp;quot;, line 121, in _multicall\n    res = hook_impl.function(*args)\n          \u2502         \u2502         \u2514 [&amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;]\n          \u2502         \u2514 &amp;lt;member &amp;#x27;function&amp;#x27; of &amp;#x27;HookImpl&amp;#x27; objects&amp;gt;\n          \u2514 &amp;lt;HookImpl plugin_name=&amp;#x27;main&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.main&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualenv...\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\main.py&amp;quot;, line 408, in pytest_runtestloop\n    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)\n    \u2502    \u2502                                        \u2502              \u2514 &amp;lt;Function test_fetch_from_api_invalid_json&amp;gt;\n    \u2502    \u2502                                        \u2514 &amp;lt;Function test_fetch_from_api_request_error&amp;gt;\n    \u2502    \u2514 &amp;lt;member &amp;#x27;config&amp;#x27; of &amp;#x27;Node&amp;#x27; objects&amp;gt;\n    \u2514 &amp;lt;Function test_fetch_from_api_request_error&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_hooks.py&amp;quot;, line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2502       \u2514 True\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2514 {&amp;#x27;item&amp;#x27;: &amp;lt;Function test_fetch_from_api_request_error&amp;gt;, &amp;#x27;nextitem&amp;#x27;: &amp;lt;Function test_fetch_from_api_invalid_json&amp;gt;}\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2514 &amp;lt;member &amp;#x27;_hookimpls&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2502    \u2502     \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_protocol&amp;#x27;&amp;gt;\n           \u2502    \u2502         \u2502    \u2514 &amp;lt;member &amp;#x27;name&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_protocol&amp;#x27;&amp;gt;\n           \u2502    \u2514 &amp;lt;member &amp;#x27;_hookexec&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_protocol&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_manager.py&amp;quot;, line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           \u2502    \u2502               \u2502          \u2502        \u2502       \u2514 True\n           \u2502    \u2502               \u2502          \u2502        \u2514 {&amp;#x27;item&amp;#x27;: &amp;lt;Function test_fetch_from_api_request_error&amp;gt;, &amp;#x27;nextitem&amp;#x27;: &amp;lt;Function test_fetch_from_api_invalid_json&amp;gt;}\n           \u2502    \u2502               \u2502          \u2514 [&amp;lt;HookImpl plugin_name=&amp;#x27;runner&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.runner&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtu...\n           \u2502    \u2502               \u2514 &amp;#x27;pytest_runtest_protocol&amp;#x27;\n           \u2502    \u2514 &amp;lt;function _multicall at 0x000002722897B6A0&amp;gt;\n           \u2514 &amp;lt;_pytest.config.PytestPluginManager object at 0x0000027228F35550&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_callers.py&amp;quot;, line 121, in _multicall\n    res = hook_impl.function(*args)\n          \u2502         \u2502         \u2514 [&amp;lt;Function test_fetch_from_api_request_error&amp;gt;, &amp;lt;Function test_fetch_from_api_invalid_json&amp;gt;]\n          \u2502         \u2514 &amp;lt;member &amp;#x27;function&amp;#x27; of &amp;#x27;HookImpl&amp;#x27; objects&amp;gt;\n          \u2514 &amp;lt;HookImpl plugin_name=&amp;#x27;runner&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.runner&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtua...\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 118, in pytest_runtest_protocol\n    runtestprotocol(item, nextitem=nextitem)\n    \u2502               \u2502              \u2514 &amp;lt;Function test_fetch_from_api_invalid_json&amp;gt;\n    \u2502               \u2514 &amp;lt;Function test_fetch_from_api_request_error&amp;gt;\n    \u2514 &amp;lt;function runtestprotocol at 0x0000027229079E40&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 139, in runtestprotocol\n    reports.append(call_and_report(item, &amp;quot;call&amp;quot;, log))\n    \u2502       \u2502      \u2502               \u2502             \u2514 True\n    \u2502       \u2502      \u2502               \u2514 &amp;lt;Function test_fetch_from_api_request_error&amp;gt;\n    \u2502       \u2502      \u2514 &amp;lt;function call_and_report at 0x000002722907A2A0&amp;gt;\n    \u2502       \u2514 &amp;lt;method &amp;#x27;append&amp;#x27; of &amp;#x27;list&amp;#x27; objects&amp;gt;\n    \u2514 [&amp;lt;TestReport &amp;#x27;tests/test_api.py::test_fetch_from_api_request_error&amp;#x27; when=&amp;#x27;setup&amp;#x27; outcome=&amp;#x27;passed&amp;#x27;&amp;gt;]\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 249, in call_and_report\n    call = CallInfo.from_call(\n           \u2502        \u2514 &amp;lt;classmethod(&amp;lt;function CallInfo.from_call at 0x000002722907A660&amp;gt;)&amp;gt;\n           \u2514 &amp;lt;class &amp;#x27;_pytest.runner.CallInfo&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 361, in from_call\n    result: TResult | None = func()\n            \u2502                \u2514 &amp;lt;function call_and_report.&amp;lt;locals&amp;gt;.&amp;lt;lambda&amp;gt; at 0x000002722C4A3920&amp;gt;\n            \u2514 +TResult\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 250, in &amp;lt;lambda&amp;gt;\n    lambda: runtest_hook(item=item, **kwds),\n            \u2502                 \u2502       \u2514 {}\n            \u2502                 \u2514 &amp;lt;Function test_fetch_from_api_request_error&amp;gt;\n            \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_call&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_hooks.py&amp;quot;, line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2502       \u2514 False\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2514 {&amp;#x27;item&amp;#x27;: &amp;lt;Function test_fetch_from_api_request_error&amp;gt;}\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2514 &amp;lt;member &amp;#x27;_hookimpls&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2502    \u2502     \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_call&amp;#x27;&amp;gt;\n           \u2502    \u2502         \u2502    \u2514 &amp;lt;member &amp;#x27;name&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_call&amp;#x27;&amp;gt;\n           \u2502    \u2514 &amp;lt;member &amp;#x27;_hookexec&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_call&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_manager.py&amp;quot;, line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           \u2502    \u2502               \u2502          \u2502        \u2502       \u2514 False\n           \u2502    \u2502               \u2502          \u2502        \u2514 {&amp;#x27;item&amp;#x27;: &amp;lt;Function test_fetch_from_api_request_error&amp;gt;}\n           \u2502    \u2502               \u2502          \u2514 [&amp;lt;HookImpl plugin_name=&amp;#x27;threadexception&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.threadexception&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypo...\n           \u2502    \u2502               \u2514 &amp;#x27;pytest_runtest_call&amp;#x27;\n           \u2502    \u2514 &amp;lt;function _multicall at 0x000002722897B6A0&amp;gt;\n           \u2514 &amp;lt;_pytest.config.PytestPluginManager object at 0x0000027228F35550&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_callers.py&amp;quot;, line 121, in _multicall\n    res = hook_impl.function(*args)\n          \u2502         \u2502         \u2514 [&amp;lt;Function test_fetch_from_api_request_error&amp;gt;]\n          \u2502         \u2514 &amp;lt;member &amp;#x27;function&amp;#x27; of &amp;#x27;HookImpl&amp;#x27; objects&amp;gt;\n          \u2514 &amp;lt;HookImpl plugin_name=&amp;#x27;runner&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.runner&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtua...\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 184, in pytest_runtest_call\n    item.runtest()\n    \u2502    \u2514 &amp;lt;function Function.runtest at 0x000002722918B380&amp;gt;\n    \u2514 &amp;lt;Function test_fetch_from_api_request_error&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\python.py&amp;quot;, line 1707, in runtest\n    self.ihook.pytest_pyfunc_call(pyfuncitem=self)\n    \u2502    \u2502                                   \u2514 &amp;lt;Function test_fetch_from_api_request_error&amp;gt;\n    \u2502    \u2514 &amp;lt;property object at 0x0000027228FCBB50&amp;gt;\n    \u2514 &amp;lt;Function test_fetch_from_api_request_error&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_hooks.py&amp;quot;, line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2502       \u2514 True\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2514 {&amp;#x27;pyfuncitem&amp;#x27;: &amp;lt;Function test_fetch_from_api_request_error&amp;gt;}\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2514 &amp;lt;member &amp;#x27;_hookimpls&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2502    \u2502     \u2514 &amp;lt;HookCaller &amp;#x27;pytest_pyfunc_call&amp;#x27;&amp;gt;\n           \u2502    \u2502         \u2502    \u2514 &amp;lt;member &amp;#x27;name&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2514 &amp;lt;HookCaller &amp;#x27;pytest_pyfunc_call&amp;#x27;&amp;gt;\n           \u2502    \u2514 &amp;lt;member &amp;#x27;_hookexec&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2514 &amp;lt;HookCaller &amp;#x27;pytest_pyfunc_call&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_manager.py&amp;quot;, line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           \u2502    \u2502               \u2502          \u2502        \u2502       \u2514 True\n           \u2502    \u2502               \u2502          \u2502        \u2514 {&amp;#x27;pyfuncitem&amp;#x27;: &amp;lt;Function test_fetch_from_api_request_error&amp;gt;}\n           \u2502    \u2502               \u2502          \u2514 [&amp;lt;HookImpl plugin_name=&amp;#x27;python&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.python&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtu...\n           \u2502    \u2502               \u2514 &amp;#x27;pytest_pyfunc_call&amp;#x27;\n           \u2502    \u2514 &amp;lt;function _multicall at 0x000002722897B6A0&amp;gt;\n           \u2514 &amp;lt;_pytest.config.PytestPluginManager object at 0x0000027228F35550&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_callers.py&amp;quot;, line 121, in _multicall\n    res = hook_impl.function(*args)\n          \u2502         \u2502         \u2514 [&amp;lt;Function test_fetch_from_api_request_error&amp;gt;]\n          \u2502         \u2514 &amp;lt;member &amp;#x27;function&amp;#x27; of &amp;#x27;HookImpl&amp;#x27; objects&amp;gt;\n          \u2514 &amp;lt;HookImpl plugin_name=&amp;#x27;python&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.python&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtua...\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\python.py&amp;quot;, line 167, in pytest_pyfunc_call\n    result = testfunction(**testargs)\n             \u2502              \u2514 {&amp;#x27;mocker&amp;#x27;: &amp;lt;pytest_mock.plugin.MockerFixture object at 0x000002722C570510&amp;gt;}\n             \u2514 &amp;lt;function test_fetch_from_api_request_error at 0x000002722C4A1580&amp;gt;\n\n  File &amp;quot;C:\\Workspace\\Development\\Software\\moex-screener\\tests\\test_api.py&amp;quot;, line 156, in test_fetch_from_api_request_error\n    client.fetch_from_api()\n    \u2502      \u2514 &amp;lt;function MoexClient.fetch_from_api at 0x000002722C4A0C20&amp;gt;\n    \u2514 &amp;lt;src.api.client.MoexClient object at 0x000002722C41A6C0&amp;gt;\n\n&amp;gt; File &amp;quot;C:\\Workspace\\Development\\Software\\moex-screener\\src\\api\\client.py&amp;quot;, line 34, in fetch_from_api\n    response = httpx.get(MOEX_ISS_URL, timeout=self.timeout)\n               \u2502     \u2502   \u2502                     \u2502    \u2514 10.0\n               \u2502     \u2502   \u2502                     \u2514 &amp;lt;src.api.client.MoexClient object at 0x000002722C41A6C0&amp;gt;\n               \u2502     \u2502   \u2514 &amp;#x27;https://iss.moex.com/iss/engines/stock/markets/shares/securities.json&amp;#x27;\n               \u2502     \u2514 &amp;lt;MagicMock name=&amp;#x27;get&amp;#x27; id=&amp;#x27;2689392811984&amp;#x27;&amp;gt;\n               \u2514 &amp;lt;module &amp;#x27;httpx&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualenvs\\\\moex-screener-CKGL-BSM-py3.13\\\\Lib\\\\site-...\n\n  File &amp;quot;C:\\Program Files\\Python313\\Lib\\unittest\\mock.py&amp;quot;, line 1167, in __call__\n    return self._mock_call(*args, **kwargs)\n           \u2502    \u2502           \u2502       \u2514 {&amp;#x27;timeout&amp;#x27;: 10.0}\n           \u2502    \u2502           \u2514 (&amp;#x27;https://iss.moex.com/iss/engines/stock/markets/shares/securities.json&amp;#x27;,)\n           \u2502    \u2514 &amp;lt;function CallableMixin._mock_call at 0x000002722B96E840&amp;gt;\n           \u2514 &amp;lt;MagicMock name=&amp;#x27;get&amp;#x27; id=&amp;#x27;2689392811984&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Program Files\\Python313\\Lib\\unittest\\mock.py&amp;quot;, line 1171, in _mock_call\n    return self._execute_mock_call(*args, **kwargs)\n           \u2502    \u2502                   \u2502       \u2514 {&amp;#x27;timeout&amp;#x27;: 10.0}\n           \u2502    \u2502                   \u2514 (&amp;#x27;https://iss.moex.com/iss/engines/stock/markets/shares/securities.json&amp;#x27;,)\n           \u2502    \u2514 &amp;lt;function CallableMixin._execute_mock_call at 0x000002722B96E980&amp;gt;\n           \u2514 &amp;lt;MagicMock name=&amp;#x27;get&amp;#x27; id=&amp;#x27;2689392811984&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Program Files\\Python313\\Lib\\unittest\\mock.py&amp;quot;, line 1226, in _execute_mock_call\n    raise effect\n          \u2514 RequestError(&amp;#x27;Connection refused&amp;#x27;)\n\nhttpx.RequestError: Connection refused\n&#34;}], &#34;tests/test_api.py::test_fetch_from_api_invalid_json&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_api.py::test_fetch_from_api_invalid_json&#34;, &#34;duration&#34;: &#34;6 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_api.py::test_fetch_from_api_invalid_json&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;6 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2026-07-01 17:46:40.781 | INFO     | src.api.client:fetch_from_api:30 - \u0417\u0430\u043f\u0440\u043e\u0441 \u0434\u0430\u043d\u043d\u044b\u0445 \u043a MOEX ISS (\u0442\u0430\u0439\u043c\u0430\u0443\u0442: 10.0\u0441)...\n2026-07-01 17:46:40.781 | DEBUG    | src.api.client:fetch_from_api:35 - \u041e\u0442\u0432\u0435\u0442 \u0441\u0435\u0440\u0432\u0435\u0440\u0430: 200 \u0440\u0430\u0437\u043c\u0435\u0440: 0 \u0431\u0430\u0439\u0442\n2026-07-01 17:46:40.782 | ERROR    | src.api.client:fetch_from_api:61 - \u041e\u0448\u0438\u0431\u043a\u0430: \u041f\u043e\u043b\u0443\u0447\u0435\u043d \u043d\u0435\u043a\u043e\u0440\u0440\u0435\u043a\u0442\u043d\u044b\u0439 JSON-\u043f\u0430\u043a\u0435\u0442.\n&#34;}], &#34;tests/test_api.py::test_fetch_from_api_unexpected_exception&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_api.py::test_fetch_from_api_unexpected_exception&#34;, &#34;duration&#34;: &#34;14 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_api.py::test_fetch_from_api_unexpected_exception&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;14 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;----------------------------- Captured stderr call -----------------------------\n2026-07-01 17:46:40.788 | INFO     | src.api.client:fetch_from_api:30 - \u0417\u0430\u043f\u0440\u043e\u0441 \u0434\u0430\u043d\u043d\u044b\u0445 \u043a MOEX ISS (\u0442\u0430\u0439\u043c\u0430\u0443\u0442: 10.0\u0441)...\n2026-07-01 17:46:40.789 | ERROR    | src.api.client:fetch_from_api:65 - \u041d\u0435\u043f\u0440\u0435\u0434\u0432\u0438\u0434\u0435\u043d\u043d\u0430\u044f \u043e\u0448\u0438\u0431\u043a\u0430: \u0427\u0442\u043e-\u0442\u043e \u043f\u043e\u0448\u043b\u043e \u0441\u043e\u0432\u0441\u0435\u043c \u043d\u0435 \u0442\u0430\u043a\nTraceback (most recent call last):\n\n  File &amp;quot;&amp;lt;frozen runpy&amp;gt;&amp;quot;, line 198, in _run_module_as_main\n  File &amp;quot;&amp;lt;frozen runpy&amp;gt;&amp;quot;, line 88, in _run_code\n\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Scripts\\pytest.exe\\__main__.py&amp;quot;, line 7, in &amp;lt;module&amp;gt;\n    sys.exit(_console_main())\n    \u2502   \u2502    \u2514 &amp;lt;function _console_main at 0x0000027228F7FF60&amp;gt;\n    \u2502   \u2514 &amp;lt;built-in function exit&amp;gt;\n    \u2514 &amp;lt;module &amp;#x27;sys&amp;#x27; (built-in)&amp;gt;\n\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\config\\__init__.py&amp;quot;, line 253, in _console_main\n    code = _main(prog=_get_prog_name(sys.argv))\n           \u2502          \u2502              \u2502   \u2514 [&amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualenvs\\\\moex-screener-CKGL-BSM-py3.13\\\\Scripts\\\\pytest&amp;#x27;, &amp;#x27;--html=repo...\n           \u2502          \u2502              \u2514 &amp;lt;module &amp;#x27;sys&amp;#x27; (built-in)&amp;gt;\n           \u2502          \u2514 &amp;lt;function _get_prog_name at 0x0000027228F7FD80&amp;gt;\n           \u2514 &amp;lt;function _main at 0x0000027228F7FEC0&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\config\\__init__.py&amp;quot;, line 229, in _main\n    ret: ExitCode | int = config.hook.pytest_cmdline_main(config=config)\n         \u2502                \u2502      \u2502    \u2502                          \u2514 &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;\n         \u2502                \u2502      \u2502    \u2514 &amp;lt;HookCaller &amp;#x27;pytest_cmdline_main&amp;#x27;&amp;gt;\n         \u2502                \u2502      \u2514 &amp;lt;pluggy._hooks.HookRelay object at 0x0000027228F357F0&amp;gt;\n         \u2502                \u2514 &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;\n         \u2514 &amp;lt;enum &amp;#x27;ExitCode&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_hooks.py&amp;quot;, line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2502       \u2514 True\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2514 {&amp;#x27;config&amp;#x27;: &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;}\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2514 &amp;lt;member &amp;#x27;_hookimpls&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2502    \u2502     \u2514 &amp;lt;HookCaller &amp;#x27;pytest_cmdline_main&amp;#x27;&amp;gt;\n           \u2502    \u2502         \u2502    \u2514 &amp;lt;member &amp;#x27;name&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2514 &amp;lt;HookCaller &amp;#x27;pytest_cmdline_main&amp;#x27;&amp;gt;\n           \u2502    \u2514 &amp;lt;member &amp;#x27;_hookexec&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2514 &amp;lt;HookCaller &amp;#x27;pytest_cmdline_main&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_manager.py&amp;quot;, line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           \u2502    \u2502               \u2502          \u2502        \u2502       \u2514 True\n           \u2502    \u2502               \u2502          \u2502        \u2514 {&amp;#x27;config&amp;#x27;: &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;}\n           \u2502    \u2502               \u2502          \u2514 [&amp;lt;HookImpl plugin_name=&amp;#x27;main&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.main&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualen...\n           \u2502    \u2502               \u2514 &amp;#x27;pytest_cmdline_main&amp;#x27;\n           \u2502    \u2514 &amp;lt;function _multicall at 0x000002722897B6A0&amp;gt;\n           \u2514 &amp;lt;_pytest.config.PytestPluginManager object at 0x0000027228F35550&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_callers.py&amp;quot;, line 121, in _multicall\n    res = hook_impl.function(*args)\n          \u2502         \u2502         \u2514 [&amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;]\n          \u2502         \u2514 &amp;lt;member &amp;#x27;function&amp;#x27; of &amp;#x27;HookImpl&amp;#x27; objects&amp;gt;\n          \u2514 &amp;lt;HookImpl plugin_name=&amp;#x27;main&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.main&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualenv...\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\main.py&amp;quot;, line 377, in pytest_cmdline_main\n    return wrap_session(config, _main)\n           \u2502            \u2502       \u2514 &amp;lt;function _main at 0x000002722907ADE0&amp;gt;\n           \u2502            \u2514 &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;\n           \u2514 &amp;lt;function wrap_session at 0x000002722907ACA0&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\main.py&amp;quot;, line 330, in wrap_session\n    session.exitstatus = doit(config, session) or 0\n    \u2502       \u2502            \u2502    \u2502       \u2514 &amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;\n    \u2502       \u2502            \u2502    \u2514 &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;\n    \u2502       \u2502            \u2514 &amp;lt;function _main at 0x000002722907ADE0&amp;gt;\n    \u2502       \u2514 &amp;lt;ExitCode.OK: 0&amp;gt;\n    \u2514 &amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\main.py&amp;quot;, line 384, in _main\n    config.hook.pytest_runtestloop(session=session)\n    \u2502      \u2502    \u2502                          \u2514 &amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;\n    \u2502      \u2502    \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtestloop&amp;#x27;&amp;gt;\n    \u2502      \u2514 &amp;lt;pluggy._hooks.HookRelay object at 0x0000027228F357F0&amp;gt;\n    \u2514 &amp;lt;_pytest.config.Config object at 0x0000027228FE2F90&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_hooks.py&amp;quot;, line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2502       \u2514 True\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2514 {&amp;#x27;session&amp;#x27;: &amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;}\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2514 &amp;lt;member &amp;#x27;_hookimpls&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2502    \u2502     \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtestloop&amp;#x27;&amp;gt;\n           \u2502    \u2502         \u2502    \u2514 &amp;lt;member &amp;#x27;name&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtestloop&amp;#x27;&amp;gt;\n           \u2502    \u2514 &amp;lt;member &amp;#x27;_hookexec&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtestloop&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_manager.py&amp;quot;, line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           \u2502    \u2502               \u2502          \u2502        \u2502       \u2514 True\n           \u2502    \u2502               \u2502          \u2502        \u2514 {&amp;#x27;session&amp;#x27;: &amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;}\n           \u2502    \u2502               \u2502          \u2514 [&amp;lt;HookImpl plugin_name=&amp;#x27;main&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.main&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualen...\n           \u2502    \u2502               \u2514 &amp;#x27;pytest_runtestloop&amp;#x27;\n           \u2502    \u2514 &amp;lt;function _multicall at 0x000002722897B6A0&amp;gt;\n           \u2514 &amp;lt;_pytest.config.PytestPluginManager object at 0x0000027228F35550&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_callers.py&amp;quot;, line 121, in _multicall\n    res = hook_impl.function(*args)\n          \u2502         \u2502         \u2514 [&amp;lt;Session  exitstatus=&amp;lt;ExitCode.OK: 0&amp;gt; testsfailed=0 testscollected=13&amp;gt;]\n          \u2502         \u2514 &amp;lt;member &amp;#x27;function&amp;#x27; of &amp;#x27;HookImpl&amp;#x27; objects&amp;gt;\n          \u2514 &amp;lt;HookImpl plugin_name=&amp;#x27;main&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.main&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualenv...\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\main.py&amp;quot;, line 408, in pytest_runtestloop\n    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)\n    \u2502    \u2502                                        \u2502              \u2514 None\n    \u2502    \u2502                                        \u2514 &amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;\n    \u2502    \u2514 &amp;lt;member &amp;#x27;config&amp;#x27; of &amp;#x27;Node&amp;#x27; objects&amp;gt;\n    \u2514 &amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_hooks.py&amp;quot;, line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2502       \u2514 True\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2514 {&amp;#x27;item&amp;#x27;: &amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;, &amp;#x27;nextitem&amp;#x27;: None}\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2514 &amp;lt;member &amp;#x27;_hookimpls&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2502    \u2502     \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_protocol&amp;#x27;&amp;gt;\n           \u2502    \u2502         \u2502    \u2514 &amp;lt;member &amp;#x27;name&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_protocol&amp;#x27;&amp;gt;\n           \u2502    \u2514 &amp;lt;member &amp;#x27;_hookexec&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_protocol&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_manager.py&amp;quot;, line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           \u2502    \u2502               \u2502          \u2502        \u2502       \u2514 True\n           \u2502    \u2502               \u2502          \u2502        \u2514 {&amp;#x27;item&amp;#x27;: &amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;, &amp;#x27;nextitem&amp;#x27;: None}\n           \u2502    \u2502               \u2502          \u2514 [&amp;lt;HookImpl plugin_name=&amp;#x27;runner&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.runner&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtu...\n           \u2502    \u2502               \u2514 &amp;#x27;pytest_runtest_protocol&amp;#x27;\n           \u2502    \u2514 &amp;lt;function _multicall at 0x000002722897B6A0&amp;gt;\n           \u2514 &amp;lt;_pytest.config.PytestPluginManager object at 0x0000027228F35550&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_callers.py&amp;quot;, line 121, in _multicall\n    res = hook_impl.function(*args)\n          \u2502         \u2502         \u2514 [&amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;, None]\n          \u2502         \u2514 &amp;lt;member &amp;#x27;function&amp;#x27; of &amp;#x27;HookImpl&amp;#x27; objects&amp;gt;\n          \u2514 &amp;lt;HookImpl plugin_name=&amp;#x27;runner&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.runner&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtua...\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 118, in pytest_runtest_protocol\n    runtestprotocol(item, nextitem=nextitem)\n    \u2502               \u2502              \u2514 None\n    \u2502               \u2514 &amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;\n    \u2514 &amp;lt;function runtestprotocol at 0x0000027229079E40&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 139, in runtestprotocol\n    reports.append(call_and_report(item, &amp;quot;call&amp;quot;, log))\n    \u2502       \u2502      \u2502               \u2502             \u2514 True\n    \u2502       \u2502      \u2502               \u2514 &amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;\n    \u2502       \u2502      \u2514 &amp;lt;function call_and_report at 0x000002722907A2A0&amp;gt;\n    \u2502       \u2514 &amp;lt;method &amp;#x27;append&amp;#x27; of &amp;#x27;list&amp;#x27; objects&amp;gt;\n    \u2514 [&amp;lt;TestReport &amp;#x27;tests/test_api.py::test_fetch_from_api_unexpected_exception&amp;#x27; when=&amp;#x27;setup&amp;#x27; outcome=&amp;#x27;passed&amp;#x27;&amp;gt;]\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 249, in call_and_report\n    call = CallInfo.from_call(\n           \u2502        \u2514 &amp;lt;classmethod(&amp;lt;function CallInfo.from_call at 0x000002722907A660&amp;gt;)&amp;gt;\n           \u2514 &amp;lt;class &amp;#x27;_pytest.runner.CallInfo&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 361, in from_call\n    result: TResult | None = func()\n            \u2502                \u2514 &amp;lt;function call_and_report.&amp;lt;locals&amp;gt;.&amp;lt;lambda&amp;gt; at 0x000002722C4A3CE0&amp;gt;\n            \u2514 +TResult\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 250, in &amp;lt;lambda&amp;gt;\n    lambda: runtest_hook(item=item, **kwds),\n            \u2502                 \u2502       \u2514 {}\n            \u2502                 \u2514 &amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;\n            \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_call&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_hooks.py&amp;quot;, line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2502       \u2514 False\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2514 {&amp;#x27;item&amp;#x27;: &amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;}\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2514 &amp;lt;member &amp;#x27;_hookimpls&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2502    \u2502     \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_call&amp;#x27;&amp;gt;\n           \u2502    \u2502         \u2502    \u2514 &amp;lt;member &amp;#x27;name&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_call&amp;#x27;&amp;gt;\n           \u2502    \u2514 &amp;lt;member &amp;#x27;_hookexec&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2514 &amp;lt;HookCaller &amp;#x27;pytest_runtest_call&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_manager.py&amp;quot;, line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           \u2502    \u2502               \u2502          \u2502        \u2502       \u2514 False\n           \u2502    \u2502               \u2502          \u2502        \u2514 {&amp;#x27;item&amp;#x27;: &amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;}\n           \u2502    \u2502               \u2502          \u2514 [&amp;lt;HookImpl plugin_name=&amp;#x27;threadexception&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.threadexception&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypo...\n           \u2502    \u2502               \u2514 &amp;#x27;pytest_runtest_call&amp;#x27;\n           \u2502    \u2514 &amp;lt;function _multicall at 0x000002722897B6A0&amp;gt;\n           \u2514 &amp;lt;_pytest.config.PytestPluginManager object at 0x0000027228F35550&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_callers.py&amp;quot;, line 121, in _multicall\n    res = hook_impl.function(*args)\n          \u2502         \u2502         \u2514 [&amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;]\n          \u2502         \u2514 &amp;lt;member &amp;#x27;function&amp;#x27; of &amp;#x27;HookImpl&amp;#x27; objects&amp;gt;\n          \u2514 &amp;lt;HookImpl plugin_name=&amp;#x27;runner&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.runner&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtua...\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\runner.py&amp;quot;, line 184, in pytest_runtest_call\n    item.runtest()\n    \u2502    \u2514 &amp;lt;function Function.runtest at 0x000002722918B380&amp;gt;\n    \u2514 &amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\python.py&amp;quot;, line 1707, in runtest\n    self.ihook.pytest_pyfunc_call(pyfuncitem=self)\n    \u2502    \u2502                                   \u2514 &amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;\n    \u2502    \u2514 &amp;lt;property object at 0x0000027228FCBB50&amp;gt;\n    \u2514 &amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_hooks.py&amp;quot;, line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2502       \u2514 True\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2502                  \u2514 {&amp;#x27;pyfuncitem&amp;#x27;: &amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;}\n           \u2502    \u2502         \u2502    \u2502     \u2502    \u2514 &amp;lt;member &amp;#x27;_hookimpls&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2502    \u2502     \u2514 &amp;lt;HookCaller &amp;#x27;pytest_pyfunc_call&amp;#x27;&amp;gt;\n           \u2502    \u2502         \u2502    \u2514 &amp;lt;member &amp;#x27;name&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2502    \u2502         \u2514 &amp;lt;HookCaller &amp;#x27;pytest_pyfunc_call&amp;#x27;&amp;gt;\n           \u2502    \u2514 &amp;lt;member &amp;#x27;_hookexec&amp;#x27; of &amp;#x27;HookCaller&amp;#x27; objects&amp;gt;\n           \u2514 &amp;lt;HookCaller &amp;#x27;pytest_pyfunc_call&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_manager.py&amp;quot;, line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           \u2502    \u2502               \u2502          \u2502        \u2502       \u2514 True\n           \u2502    \u2502               \u2502          \u2502        \u2514 {&amp;#x27;pyfuncitem&amp;#x27;: &amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;}\n           \u2502    \u2502               \u2502          \u2514 [&amp;lt;HookImpl plugin_name=&amp;#x27;python&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.python&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtu...\n           \u2502    \u2502               \u2514 &amp;#x27;pytest_pyfunc_call&amp;#x27;\n           \u2502    \u2514 &amp;lt;function _multicall at 0x000002722897B6A0&amp;gt;\n           \u2514 &amp;lt;_pytest.config.PytestPluginManager object at 0x0000027228F35550&amp;gt;\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\pluggy\\_callers.py&amp;quot;, line 121, in _multicall\n    res = hook_impl.function(*args)\n          \u2502         \u2502         \u2514 [&amp;lt;Function test_fetch_from_api_unexpected_exception&amp;gt;]\n          \u2502         \u2514 &amp;lt;member &amp;#x27;function&amp;#x27; of &amp;#x27;HookImpl&amp;#x27; objects&amp;gt;\n          \u2514 &amp;lt;HookImpl plugin_name=&amp;#x27;python&amp;#x27;, plugin=&amp;lt;module &amp;#x27;_pytest.python&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtua...\n  File &amp;quot;C:\\Users\\\u0444\u0444\u0444\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\moex-screener-CKGL-BSM-py3.13\\Lib\\site-packages\\_pytest\\python.py&amp;quot;, line 167, in pytest_pyfunc_call\n    result = testfunction(**testargs)\n             \u2502              \u2514 {&amp;#x27;mocker&amp;#x27;: &amp;lt;pytest_mock.plugin.MockerFixture object at 0x000002722C4D4490&amp;gt;}\n             \u2514 &amp;lt;function test_fetch_from_api_unexpected_exception at 0x000002722C4A16C0&amp;gt;\n\n  File &amp;quot;C:\\Workspace\\Development\\Software\\moex-screener\\tests\\test_api.py&amp;quot;, line 185, in test_fetch_from_api_unexpected_exception\n    client.fetch_from_api()\n    \u2502      \u2514 &amp;lt;function MoexClient.fetch_from_api at 0x000002722C4A0C20&amp;gt;\n    \u2514 &amp;lt;src.api.client.MoexClient object at 0x000002722C4EB230&amp;gt;\n\n&amp;gt; File &amp;quot;C:\\Workspace\\Development\\Software\\moex-screener\\src\\api\\client.py&amp;quot;, line 34, in fetch_from_api\n    response = httpx.get(MOEX_ISS_URL, timeout=self.timeout)\n               \u2502     \u2502   \u2502                     \u2502    \u2514 10.0\n               \u2502     \u2502   \u2502                     \u2514 &amp;lt;src.api.client.MoexClient object at 0x000002722C4EB230&amp;gt;\n               \u2502     \u2502   \u2514 &amp;#x27;https://iss.moex.com/iss/engines/stock/markets/shares/securities.json&amp;#x27;\n               \u2502     \u2514 &amp;lt;MagicMock name=&amp;#x27;get&amp;#x27; id=&amp;#x27;2689392809296&amp;#x27;&amp;gt;\n               \u2514 &amp;lt;module &amp;#x27;httpx&amp;#x27; from &amp;#x27;C:\\\\Users\\\\\u0444\u0444\u0444\\\\AppData\\\\Local\\\\pypoetry\\\\Cache\\\\virtualenvs\\\\moex-screener-CKGL-BSM-py3.13\\\\Lib\\\\site-...\n\n  File &amp;quot;C:\\Program Files\\Python313\\Lib\\unittest\\mock.py&amp;quot;, line 1167, in __call__\n    return self._mock_call(*args, **kwargs)\n           \u2502    \u2502           \u2502       \u2514 {&amp;#x27;timeout&amp;#x27;: 10.0}\n           \u2502    \u2502           \u2514 (&amp;#x27;https://iss.moex.com/iss/engines/stock/markets/shares/securities.json&amp;#x27;,)\n           \u2502    \u2514 &amp;lt;function CallableMixin._mock_call at 0x000002722B96E840&amp;gt;\n           \u2514 &amp;lt;MagicMock name=&amp;#x27;get&amp;#x27; id=&amp;#x27;2689392809296&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Program Files\\Python313\\Lib\\unittest\\mock.py&amp;quot;, line 1171, in _mock_call\n    return self._execute_mock_call(*args, **kwargs)\n           \u2502    \u2502                   \u2502       \u2514 {&amp;#x27;timeout&amp;#x27;: 10.0}\n           \u2502    \u2502                   \u2514 (&amp;#x27;https://iss.moex.com/iss/engines/stock/markets/shares/securities.json&amp;#x27;,)\n           \u2502    \u2514 &amp;lt;function CallableMixin._execute_mock_call at 0x000002722B96E980&amp;gt;\n           \u2514 &amp;lt;MagicMock name=&amp;#x27;get&amp;#x27; id=&amp;#x27;2689392809296&amp;#x27;&amp;gt;\n  File &amp;quot;C:\\Program Files\\Python313\\Lib\\unittest\\mock.py&amp;quot;, line 1226, in _execute_mock_call\n    raise effect\n          \u2514 ValueError(&amp;#x27;\u0427\u0442\u043e-\u0442\u043e \u043f\u043e\u0448\u043b\u043e \u0441\u043e\u0432\u0441\u0435\u043c \u043d\u0435 \u0442\u0430\u043a&amp;#x27;)\n\nValueError: \u0427\u0442\u043e-\u0442\u043e \u043f\u043e\u0448\u043b\u043e \u0441\u043e\u0432\u0441\u0435\u043c \u043d\u0435 \u0442\u0430\u043a\n&#34;}]}, &#34;renderCollapsed&#34;: [&#34;passed&#34;], &#34;initialSort&#34;: &#34;result&#34;, &#34;title&#34;: &#34;report.html&#34;}"></div>
+    <script>
+      (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const { getCollapsedCategory, setCollapsedIds } = require('./storage.js')
+
+class DataManager {
+    setManager(data) {
+        const collapsedCategories = [...getCollapsedCategory(data.renderCollapsed)]
+        const collapsedIds = []
+        const tests = Object.values(data.tests).flat().map((test, index) => {
+            const collapsed = collapsedCategories.includes(test.result.toLowerCase())
+            const id = `test_${index}`
+            if (collapsed) {
+                collapsedIds.push(id)
+            }
+            return {
+                ...test,
+                id,
+                collapsed,
+            }
+        })
+        const dataBlob = { ...data, tests }
+        this.data = { ...dataBlob }
+        this.renderData = { ...dataBlob }
+        setCollapsedIds(collapsedIds)
+    }
+
+    get allData() {
+        return { ...this.data }
+    }
+
+    resetRender() {
+        this.renderData = { ...this.data }
+    }
+
+    setRender(data) {
+        this.renderData.tests = [...data]
+    }
+
+    toggleCollapsedItem(id) {
+        this.renderData.tests = this.renderData.tests.map((test) =>
+            test.id === id ? { ...test, collapsed: !test.collapsed } : test,
+        )
+    }
+
+    set allCollapsed(collapsed) {
+        this.renderData = { ...this.renderData, tests: [...this.renderData.tests.map((test) => (
+            { ...test, collapsed }
+        ))] }
+    }
+
+    get testSubset() {
+        return [...this.renderData.tests]
+    }
+
+    get environment() {
+        return this.renderData.environment
+    }
+
+    get initialSort() {
+        return this.data.initialSort
+    }
+}
+
+module.exports = {
+    manager: new DataManager(),
+}
+
+},{"./storage.js":8}],2:[function(require,module,exports){
+const mediaViewer = require('./mediaviewer.js')
+const templateEnvRow = document.getElementById('template_environment_row')
+const templateResult = document.getElementById('template_results-table__tbody')
+
+function htmlToElements(html) {
+    const temp = document.createElement('template')
+    temp.innerHTML = html
+    return temp.content.childNodes
+}
+
+const find = (selector, elem) => {
+    if (!elem) {
+        elem = document
+    }
+    return elem.querySelector(selector)
+}
+
+const findAll = (selector, elem) => {
+    if (!elem) {
+        elem = document
+    }
+    return [...elem.querySelectorAll(selector)]
+}
+
+const dom = {
+    getStaticRow: (key, value) => {
+        const envRow = templateEnvRow.content.cloneNode(true)
+        const isObj = typeof value === 'object' && value !== null
+        const values = isObj ? Object.keys(value).map((k) => `${k}: ${value[k]}`) : null
+
+        const valuesElement = htmlToElements(
+            values ? `<ul>${values.map((val) => `<li>${val}</li>`).join('')}<ul>` : `<div>${value}</div>`)[0]
+        const td = findAll('td', envRow)
+        td[0].textContent = key
+        td[1].appendChild(valuesElement)
+
+        return envRow
+    },
+    getResultTBody: ({ testId, id, log, extras, resultsTableRow, tableHtml, result, collapsed }) => {
+        const resultBody = templateResult.content.cloneNode(true)
+        resultBody.querySelector('tbody').classList.add(result.toLowerCase())
+        resultBody.querySelector('tbody').id = testId
+        resultBody.querySelector('.collapsible').dataset.id = id
+
+        resultsTableRow.forEach((html) => {
+            const t = document.createElement('template')
+            t.innerHTML = html
+            resultBody.querySelector('.collapsible').appendChild(t.content)
+        })
+
+        if (log) {
+            // Wrap lines starting with "E" with span.error to color those lines red
+            const wrappedLog = log.replace(/^E.*$/gm, (match) => `<span class="error">${match}</span>`)
+            resultBody.querySelector('.log').innerHTML = wrappedLog
+        } else {
+            resultBody.querySelector('.log').remove()
+        }
+
+        if (collapsed) {
+            resultBody.querySelector('.collapsible > .col-result')?.classList.add('collapsed')
+            resultBody.querySelector('.extras-row').classList.add('hidden')
+        } else {
+            resultBody.querySelector('.collapsible > .col-result')?.classList.remove('collapsed')
+        }
+
+        const media = []
+        extras?.forEach(({ name, format_type, content }) => {
+            if (['image', 'video'].includes(format_type)) {
+                media.push({ path: content, name, format_type })
+            }
+
+            if (format_type === 'html') {
+                resultBody.querySelector('.extraHTML').insertAdjacentHTML('beforeend', `<div>${content}</div>`)
+            }
+        })
+        mediaViewer.setup(resultBody, media)
+
+        // Add custom html from the pytest_html_results_table_html hook
+        tableHtml?.forEach((item) => {
+            resultBody.querySelector('td[class="extra"]').insertAdjacentHTML('beforeend', item)
+        })
+
+        return resultBody
+    },
+}
+
+module.exports = {
+    dom,
+    htmlToElements,
+    find,
+    findAll,
+}
+
+},{"./mediaviewer.js":6}],3:[function(require,module,exports){
+const { manager } = require('./datamanager.js')
+const { doSort } = require('./sort.js')
+const storageModule = require('./storage.js')
+
+const getFilteredSubSet = (filter) =>
+    manager.allData.tests.filter(({ result }) => filter.includes(result.toLowerCase()))
+
+const doInitFilter = () => {
+    const currentFilter = storageModule.getVisible()
+    const filteredSubset = getFilteredSubSet(currentFilter)
+    manager.setRender(filteredSubset)
+}
+
+const doFilter = (type, show) => {
+    if (show) {
+        storageModule.showCategory(type)
+    } else {
+        storageModule.hideCategory(type)
+    }
+
+    const currentFilter = storageModule.getVisible()
+    const filteredSubset = getFilteredSubSet(currentFilter)
+    manager.setRender(filteredSubset)
+
+    const sortColumn = storageModule.getSort()
+    doSort(sortColumn, true)
+}
+
+module.exports = {
+    doFilter,
+    doInitFilter,
+}
+
+},{"./datamanager.js":1,"./sort.js":7,"./storage.js":8}],4:[function(require,module,exports){
+const { redraw, bindEvents, renderStatic } = require('./main.js')
+const { doInitFilter } = require('./filter.js')
+const { doInitSort } = require('./sort.js')
+const { manager } = require('./datamanager.js')
+const data = JSON.parse(document.getElementById('data-container').dataset.jsonblob)
+
+function init() {
+    manager.setManager(data)
+    doInitFilter()
+    doInitSort()
+    renderStatic()
+    redraw()
+    bindEvents()
+}
+
+init()
+
+},{"./datamanager.js":1,"./filter.js":3,"./main.js":5,"./sort.js":7}],5:[function(require,module,exports){
+const { dom, find, findAll } = require('./dom.js')
+const { manager } = require('./datamanager.js')
+const { doSort } = require('./sort.js')
+const { doFilter } = require('./filter.js')
+const {
+    getVisible,
+    getCollapsedIds,
+    setCollapsedIds,
+    getSort,
+    getSortDirection,
+    possibleFilters,
+} = require('./storage.js')
+
+const removeChildren = (node) => {
+    while (node.firstChild) {
+        node.removeChild(node.firstChild)
+    }
+}
+
+const renderStatic = () => {
+    const renderEnvironmentTable = () => {
+        const environment = manager.environment
+        const rows = Object.keys(environment).map((key) => dom.getStaticRow(key, environment[key]))
+        const table = document.getElementById('environment')
+        removeChildren(table)
+        rows.forEach((row) => table.appendChild(row))
+    }
+    renderEnvironmentTable()
+}
+
+const addItemToggleListener = (elem) => {
+    elem.addEventListener('click', ({ target }) => {
+        const id = target.parentElement.dataset.id
+        manager.toggleCollapsedItem(id)
+
+        const collapsedIds = getCollapsedIds()
+        if (collapsedIds.includes(id)) {
+            const updated = collapsedIds.filter((item) => item !== id)
+            setCollapsedIds(updated)
+        } else {
+            collapsedIds.push(id)
+            setCollapsedIds(collapsedIds)
+        }
+        redraw()
+    })
+}
+
+const renderContent = (tests) => {
+    const sortAttr = getSort(manager.initialSort)
+    const sortAsc = JSON.parse(getSortDirection())
+    const rows = tests.map(dom.getResultTBody)
+    const table = document.getElementById('results-table')
+    const tableHeader = document.getElementById('results-table-head')
+
+    const newTable = document.createElement('table')
+    newTable.id = 'results-table'
+
+    // remove all sorting classes and set the relevant
+    findAll('.sortable', tableHeader).forEach((elem) => elem.classList.remove('asc', 'desc'))
+    tableHeader.querySelector(`.sortable[data-column-type="${sortAttr}"]`)?.classList.add(sortAsc ? 'desc' : 'asc')
+    newTable.appendChild(tableHeader)
+
+    if (!rows.length) {
+        const emptyTable = document.getElementById('template_results-table__body--empty').content.cloneNode(true)
+        newTable.appendChild(emptyTable)
+    } else {
+        rows.forEach((row) => {
+            if (!!row) {
+                findAll('.collapsible td:not(.col-links', row).forEach(addItemToggleListener)
+                find('.logexpander', row).addEventListener('click',
+                    (evt) => evt.target.parentNode.classList.toggle('expanded'),
+                )
+                newTable.appendChild(row)
+            }
+        })
+    }
+
+    table.replaceWith(newTable)
+}
+
+const renderDerived = () => {
+    const currentFilter = getVisible()
+    possibleFilters.forEach((result) => {
+        const input = document.querySelector(`input[data-test-result="${result}"]`)
+        input.checked = currentFilter.includes(result)
+    })
+}
+
+const bindEvents = () => {
+    const filterColumn = (evt) => {
+        const { target: element } = evt
+        const { testResult } = element.dataset
+
+        doFilter(testResult, element.checked)
+        const collapsedIds = getCollapsedIds()
+        const updated = manager.renderData.tests.map((test) => {
+            return {
+                ...test,
+                collapsed: collapsedIds.includes(test.id),
+            }
+        })
+        manager.setRender(updated)
+        redraw()
+    }
+
+    const header = document.getElementById('environment-header')
+    header.addEventListener('click', () => {
+        const table = document.getElementById('environment')
+        table.classList.toggle('hidden')
+        header.classList.toggle('collapsed')
+    })
+
+    findAll('input[name="filter_checkbox"]').forEach((elem) => {
+        elem.addEventListener('click', filterColumn)
+    })
+
+    findAll('.sortable').forEach((elem) => {
+        elem.addEventListener('click', (evt) => {
+            const { target: element } = evt
+            const { columnType } = element.dataset
+            doSort(columnType)
+            redraw()
+        })
+    })
+
+    document.getElementById('show_all_details').addEventListener('click', () => {
+        manager.allCollapsed = false
+        setCollapsedIds([])
+        redraw()
+    })
+    document.getElementById('hide_all_details').addEventListener('click', () => {
+        manager.allCollapsed = true
+        const allIds = manager.renderData.tests.map((test) => test.id)
+        setCollapsedIds(allIds)
+        redraw()
+    })
+}
+
+const redraw = () => {
+    const { testSubset } = manager
+
+    renderContent(testSubset)
+    renderDerived()
+}
+
+module.exports = {
+    redraw,
+    bindEvents,
+    renderStatic,
+}
+
+},{"./datamanager.js":1,"./dom.js":2,"./filter.js":3,"./sort.js":7,"./storage.js":8}],6:[function(require,module,exports){
+class MediaViewer {
+    constructor(assets) {
+        this.assets = assets
+        this.index = 0
+    }
+
+    nextActive() {
+        this.index = this.index === this.assets.length - 1 ? 0 : this.index + 1
+        return [this.activeFile, this.index]
+    }
+
+    prevActive() {
+        this.index = this.index === 0 ? this.assets.length - 1 : this.index -1
+        return [this.activeFile, this.index]
+    }
+
+    get currentIndex() {
+        return this.index
+    }
+
+    get activeFile() {
+        return this.assets[this.index]
+    }
+}
+
+
+const setup = (resultBody, assets) => {
+    if (!assets.length) {
+        resultBody.querySelector('.media').classList.add('hidden')
+        return
+    }
+
+    const mediaViewer = new MediaViewer(assets)
+    const container = resultBody.querySelector('.media-container')
+    const leftArrow = resultBody.querySelector('.media-container__nav--left')
+    const rightArrow = resultBody.querySelector('.media-container__nav--right')
+    const mediaName = resultBody.querySelector('.media__name')
+    const counter = resultBody.querySelector('.media__counter')
+    const imageEl = resultBody.querySelector('img')
+    const sourceEl = resultBody.querySelector('source')
+    const videoEl = resultBody.querySelector('video')
+
+    const setImg = (media, index) => {
+        if (media?.format_type === 'image') {
+            imageEl.src = media.path
+
+            imageEl.classList.remove('hidden')
+            videoEl.classList.add('hidden')
+        } else if (media?.format_type === 'video') {
+            sourceEl.src = media.path
+
+            videoEl.classList.remove('hidden')
+            imageEl.classList.add('hidden')
+        }
+
+        mediaName.innerText = media?.name
+        counter.innerText = `${index + 1} / ${assets.length}`
+    }
+    setImg(mediaViewer.activeFile, mediaViewer.currentIndex)
+
+    const moveLeft = () => {
+        const [media, index] = mediaViewer.prevActive()
+        setImg(media, index)
+    }
+    const doRight = () => {
+        const [media, index] = mediaViewer.nextActive()
+        setImg(media, index)
+    }
+    const openImg = () => {
+        window.open(mediaViewer.activeFile.path, '_blank')
+    }
+    if (assets.length === 1) {
+        container.classList.add('media-container--fullscreen')
+    } else {
+        leftArrow.addEventListener('click', moveLeft)
+        rightArrow.addEventListener('click', doRight)
+    }
+    imageEl.addEventListener('click', openImg)
+}
+
+module.exports = {
+    setup,
+}
+
+},{}],7:[function(require,module,exports){
+const { manager } = require('./datamanager.js')
+const storageModule = require('./storage.js')
+
+const genericSort = (list, key, ascending, customOrder) => {
+    let sorted
+    if (customOrder) {
+        sorted = list.sort((a, b) => {
+            const aValue = a.result.toLowerCase()
+            const bValue = b.result.toLowerCase()
+
+            const aIndex = customOrder.findIndex((item) => item.toLowerCase() === aValue)
+            const bIndex = customOrder.findIndex((item) => item.toLowerCase() === bValue)
+
+            // Compare the indices to determine the sort order
+            return aIndex - bIndex
+        })
+    } else {
+        sorted = list.sort((a, b) => a[key] === b[key] ? 0 : a[key] > b[key] ? 1 : -1)
+    }
+
+    if (ascending) {
+        sorted.reverse()
+    }
+    return sorted
+}
+
+const durationSort = (list, ascending) => {
+    const parseDuration = (duration) => {
+        if (duration.includes(':')) {
+            // If it's in the format "HH:mm:ss"
+            const [hours, minutes, seconds] = duration.split(':').map(Number)
+            return (hours * 3600 + minutes * 60 + seconds) * 1000
+        } else {
+            // If it's in the format "nnn ms"
+            return parseInt(duration)
+        }
+    }
+    const sorted = list.sort((a, b) => parseDuration(a['duration']) - parseDuration(b['duration']))
+    if (ascending) {
+        sorted.reverse()
+    }
+    return sorted
+}
+
+const doInitSort = () => {
+    const type = storageModule.getSort(manager.initialSort)
+    const ascending = storageModule.getSortDirection()
+    const list = manager.testSubset
+    const initialOrder = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed', 'Skipped', 'Passed']
+
+    storageModule.setSort(type)
+    storageModule.setSortDirection(ascending)
+
+    if (type?.toLowerCase() === 'original') {
+        manager.setRender(list)
+    } else {
+        let sortedList
+        switch (type) {
+        case 'duration':
+            sortedList = durationSort(list, ascending)
+            break
+        case 'result':
+            sortedList = genericSort(list, type, ascending, initialOrder)
+            break
+        default:
+            sortedList = genericSort(list, type, ascending)
+            break
+        }
+        manager.setRender(sortedList)
+    }
+}
+
+const doSort = (type, skipDirection) => {
+    const newSortType = storageModule.getSort(manager.initialSort) !== type
+    const currentAsc = storageModule.getSortDirection()
+    let ascending
+    if (skipDirection) {
+        ascending = currentAsc
+    } else {
+        ascending = newSortType ? false : !currentAsc
+    }
+    storageModule.setSort(type)
+    storageModule.setSortDirection(ascending)
+
+    const list = manager.testSubset
+    const sortedList = type === 'duration' ? durationSort(list, ascending) : genericSort(list, type, ascending)
+    manager.setRender(sortedList)
+}
+
+module.exports = {
+    doInitSort,
+    doSort,
+}
+
+},{"./datamanager.js":1,"./storage.js":8}],8:[function(require,module,exports){
+const possibleFilters = [
+    'passed',
+    'skipped',
+    'failed',
+    'error',
+    'xfailed',
+    'xpassed',
+    'rerun',
+]
+
+const getVisible = () => {
+    const url = new URL(window.location.href)
+    const settings = new URLSearchParams(url.search).get('visible')
+    const lower = (item) => {
+        const lowerItem = item.toLowerCase()
+        if (possibleFilters.includes(lowerItem)) {
+            return lowerItem
+        }
+        return null
+    }
+    return settings === null ?
+        possibleFilters :
+        [...new Set(settings?.split(',').map(lower).filter((item) => item))]
+}
+
+const hideCategory = (categoryToHide) => {
+    const url = new URL(window.location.href)
+    const visibleParams = new URLSearchParams(url.search).get('visible')
+    const currentVisible = visibleParams ? visibleParams.split(',') : [...possibleFilters]
+    const settings = [...new Set(currentVisible)].filter((f) => f !== categoryToHide).join(',')
+
+    url.searchParams.set('visible', settings)
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const showCategory = (categoryToShow) => {
+    if (typeof window === 'undefined') {
+        return
+    }
+    const url = new URL(window.location.href)
+    const currentVisible = new URLSearchParams(url.search).get('visible')?.split(',').filter(Boolean) ||
+        [...possibleFilters]
+    const settings = [...new Set([categoryToShow, ...currentVisible])]
+    const noFilter = possibleFilters.length === settings.length || !settings.length
+
+    noFilter ? url.searchParams.delete('visible') : url.searchParams.set('visible', settings.join(','))
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const getSort = (initialSort) => {
+    const url = new URL(window.location.href)
+    let sort = new URLSearchParams(url.search).get('sort')
+    if (!sort) {
+        sort = initialSort || 'result'
+    }
+    return sort
+}
+
+const setSort = (type) => {
+    const url = new URL(window.location.href)
+    url.searchParams.set('sort', type)
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const getCollapsedCategory = (renderCollapsed) => {
+    let categories
+    if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href)
+        const collapsedItems = new URLSearchParams(url.search).get('collapsed')
+        switch (true) {
+        case !renderCollapsed && collapsedItems === null:
+            categories = ['passed']
+            break
+        case collapsedItems?.length === 0 || /^["']{2}$/.test(collapsedItems):
+            categories = []
+            break
+        case /^all$/.test(collapsedItems) || collapsedItems === null && /^all$/.test(renderCollapsed):
+            categories = [...possibleFilters]
+            break
+        default:
+            categories = collapsedItems?.split(',').map((item) => item.toLowerCase()) || renderCollapsed
+            break
+        }
+    } else {
+        categories = []
+    }
+    return categories
+}
+
+const getSortDirection = () => JSON.parse(sessionStorage.getItem('sortAsc')) || false
+const setSortDirection = (ascending) => sessionStorage.setItem('sortAsc', ascending)
+
+const getCollapsedIds = () => JSON.parse(sessionStorage.getItem('collapsedIds')) || []
+const setCollapsedIds = (list) => sessionStorage.setItem('collapsedIds', JSON.stringify(list))
+
+module.exports = {
+    getVisible,
+    hideCategory,
+    showCategory,
+    getCollapsedIds,
+    setCollapsedIds,
+    getSort,
+    setSort,
+    getSortDirection,
+    setSortDirection,
+    getCollapsedCategory,
+    possibleFilters,
+}
+
+},{}]},{},[4]);
+    </script>
+  </footer>
+  </body>
+</html>
