@@ -36,7 +36,7 @@ class MoexClient:
                 f"Ответ сервера: {response.status_code} "
                 f"размер: {len(response.content)} байт"
             )
-            # Проверяем HTTP-статус 
+            # Проверяем HTTP-статус
             # (вызовет ошибку, если код не 2xx, например 404 или 500)
             response.raise_for_status()
 
@@ -48,12 +48,12 @@ class MoexClient:
             logger.error("Ошибка: Превышено время ожидания ответа от сервера.")
             raise MoexAPIError(
                 "Превышено время ожидания ответа от сервера биржи (Timeout)."
-                )        
+            )
         except httpx.HTTPStatusError as e:
             logger.error(f"Ошибка HTTP {e.response.status_code}: {e.response.text}")
             raise MoexAPIError(
                 f"Ошибка сервера MOEX. Статус-код: {e.response.status_code}"
-            )        
+            )
         except httpx.RequestError:
             logger.exception("Сетевая ошибка при запросе к MOEX.")
             raise MoexAPIError("Сетевая ошибка: проверьте подключение к Интернету.")
@@ -83,7 +83,7 @@ class MoexClient:
         except json.JSONDecodeError:
             logger.exception(
                 f"Ошибка парсинга JSON в файле {fixture_name}, "
-                 "содержит некорректный JSON"
+                "содержит некорректный JSON"
             )
             raise MoexAPIError(
                 f"Критическая ошибка: Файл фикстуры {fixture_name} "
@@ -103,7 +103,7 @@ class MoexClient:
             raise MoexAPIError(
                 "Неверная структура ответа API: отсутствует блок 'securities'."
             )
-        
+
         # Проверяем базовое присутствие корневого блока marketdata
         if "marketdata" not in raw_data:
             logger.error("Валидация провалена: блок 'marketdata' отсутствует.")
@@ -121,12 +121,15 @@ class MoexClient:
                 "Ошибка валидации: "
                 "в структуре 'securities' нет полей 'columns' или 'data'."
             )
-        
+
         # Точно так же строго проверяем внутренности блока 'marketdata'
         if "columns" not in marketdata or "data" not in marketdata:
-            logger.error("Валидация провалена: в 'marketdata' отсутствуют 'columns' или 'data'.")
+            logger.error(
+                "Валидация провалена: в 'marketdata' отсутствуют 'columns' или 'data'."
+            )
             raise MoexAPIError(
-                "Ошибка валидации: в структуре 'marketdata' нет полей 'columns' или 'data'."
+                "Ошибка валидации: "
+                "в структуре 'marketdata' нет полей 'columns' или 'data'."
             )
 
         logger.info("Валидация данных прошла успешно.")

@@ -10,24 +10,20 @@ PROFESSIONAL_COLUMNS = [
     "SHORTNAME",
     "ISIN",
     "LISTLEVEL",
-
     # Масштаб и Объемы
     "ISSUECAPITALIZATION",
     "VOLTODAY",
     "VALTODAY_RUR",
     "NUMTRADES",
-
     # Ценовые экстремумы
     "OPEN",
     "HIGH",
     "LOW",
     "LAST",
     "PREVPRICE",
-
     # Моментум
     "LASTCHANGEPRCNT",
     "LASTTOPREVPRICE",
-
     # Микроструктура стакана
     "BID",
     "OFFER",
@@ -36,7 +32,6 @@ PROFESSIONAL_COLUMNS = [
     "OFFERDEPTHT",
     "NUMBIDS",
     "NUMOFFERS",
-    
     # Контекст
     "TRADINGSTATUS",
     "TRADINGSESSION",

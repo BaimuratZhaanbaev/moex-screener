@@ -18,7 +18,7 @@ def main():
 
     try:
         # Пробуем скачать и сразу провалидировать структуру биржи
-        data = client.get_clean_data() # noqa: F841
+        data = client.get_clean_data()  # noqa: F841
         logger.success("Сетевой уровень работает успешно.")
     except MoexAPIError as e:
         logger.error(f"Тест провален. Сетевой уровень поймал ошибку: {e}")
