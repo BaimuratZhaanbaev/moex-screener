@@ -5,6 +5,7 @@ description = "Desktop stock screener for MOEX shares using PySide6, pandas, and
 authors = ["Baika <bajmurat.zaanbaev@gmail.com>"]
 package-mode = false
 license = "MIT"
+packages = [{ include = "src" }]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.15"
@@ -62,3 +63,6 @@ markers = [
     "unit: Быстрые изолированные тесты логики приложения",
     "integration: Интеграционные тесты с реальной сетью или БД"
 ]
+
+[tool.poetry.scripts]
+screener = "src.main:main"
