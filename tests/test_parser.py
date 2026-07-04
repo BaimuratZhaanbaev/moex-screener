@@ -7,7 +7,7 @@ from src.core.parser import MoexDataParser
 
 
 def test_parse_valid_data(real_api_data: dict[str, Any]):
-    """Проверка корректности работы главного конвейера и реляционного слияния."""
+    """Тест: Проверка корректности работы главного конвейера и реляционного слияния."""
     parser = MoexDataParser()
     df = parser.parse_to_dataframe(real_api_data)
 
@@ -37,7 +37,7 @@ def test_parse_valid_data(real_api_data: dict[str, Any]):
 
 
 def test_get_numeric_columns_logic(numeric_casting_case):
-    """Тестируем логику парсинга типов на контролируемых синтетических данных."""
+    """Тест: Тестируем логику парсинга типов на контролируемых синтетических данных."""
     parser = MoexDataParser()
 
     # Распаковываем кортеж из фикстуры
@@ -67,7 +67,7 @@ def test_get_numeric_columns_logic(numeric_casting_case):
 
 
 def test_dynamic_numeric_casting_on_real_data(real_api_data: dict[str, Any]):
-    """
+    """Тест:
     Проверка, что на реальных данных извлекаются
     хоть какие-то числовые колонки и нет дубликатов.
     """
@@ -95,7 +95,7 @@ def test_dynamic_numeric_casting_on_real_data(real_api_data: dict[str, Any]):
 
 
 def test_null_values_isolation(real_api_data: dict[str, Any]):
-    """Проверка требования, что null должен переходить в NaN, а не в 0."""
+    """Тест: Проверка требования, что null должен переходить в NaN, а не в 0."""
     parser = MoexDataParser()
     df = parser.parse_to_dataframe(real_api_data)
 
@@ -120,7 +120,7 @@ def test_null_values_isolation(real_api_data: dict[str, Any]):
 
 
 def test_parser_resilience_to_corrupted_data(corrupted_fixture_source, load_fixture):
-    """Проверка отказоустойчивости к аномалиям структуры JSON-товетов."""
+    """Тест: Проверка отказоустойчивости к аномалиям структуры JSON-товетов."""
     parser = MoexDataParser()
 
     # Извлекаем данные (из файла или берем сырую структуру)

@@ -1,9 +1,10 @@
-from typing import Any, Optional
-import numpy as np
+from typing import Any
+
 import pandas as pd
-from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt
 from loguru import logger
-from src.core.config import FORMAT_GROUPS, COLUMN_MAPPING
+from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt
+
+from src.core.constants import COLUMN_MAPPING, FORMAT_GROUPS
 
 
 class MoexTableModel(QAbstractTableModel):
@@ -12,12 +13,12 @@ class MoexTableModel(QAbstractTableModel):
     Pandas DataFrame с графическим представлением QTableView.
     """
 
-    def __init__(self, parent: Optional[Any] = None):
+    def __init__(self, parent: Any | None = None):
         super().__init__(parent)
         # Шаг 1: Инициализация скрытых полей для хранения данных
         self._source_df = pd.DataFrame()  # Эталонный (мастер) массив от биржи
         # Текущий отображаемый срез (отфильтрованный/отсортированный)
-        self._df = pd.DataFrame()  
+        self._df = pd.DataFrame()
         logger.debug("MoexTableModel успешно инициализирована.")
 
     # Переопределение "Святой Троицы" методов модели Qt
@@ -36,8 +37,8 @@ class MoexTableModel(QAbstractTableModel):
     def data(self, index: QModelIndex, role: int = Qt.ItemDataRole.DisplayRole) -> Any:
         """
         Поставляет данные ячейкам таблицы.
-        Это самый важный, объемный и производительный узел модели. 
-        Он вызывается движком Qt динамически в реальном времени для каждой видимой 
+        Это самый важный, объемный и производительный узел модели.
+        Он вызывается движком Qt динамически в реальном времени для каждой видимой
         ячейки при запуске программы и при прокрутке (скроллинге) таблицы.
         """
         if not index.isValid():
@@ -47,12 +48,13 @@ class MoexTableModel(QAbstractTableModel):
         row = index.row()
         col = index.column()
 
-        # Защита от выхода за границы DataFrame (если интерфейс и данные рассинхронизировались)
+        # Защита от выхода за границы DataFrame 
+        # (если интерфейс и данные рассинхронизировались)
         if row >= len(self._df) or col >= len(self._df.columns):
             logger.warning(
                 f"Индекс Qt [{row}, {col}] "
                 f"вышел за границы DataFrame ({self._df.shape})"
-                )
+            )
             return None
 
         col_name = self._df.columns[col]
@@ -60,7 +62,9 @@ class MoexTableModel(QAbstractTableModel):
 
         # Включаем TRACE-логирование для детальной отладки отрисовки конкретных ячеек
         # Будет срабатывать только если в настройках логгера явно включен TRACE
-        logger.trace(f"Запрос ячейки [{row}, {col}] ({col_name}), значение: {val}, роль: {role}")
+        logger.trace(
+            f"Запрос ячейки [{row}, {col}] ({col_name}), значение: {val}, роль: {role}"
+        )
 
         # 1. Отображение текста в ячейках (DisplayRole)
         if role == Qt.ItemDataRole.DisplayRole:
@@ -69,19 +73,19 @@ class MoexTableModel(QAbstractTableModel):
                 logger.trace(
                     f"Ячейка [{row}, {col}]: "
                     f"обнаружено null-значение, заменяем на прочерк"
-                    )
+                )
                 return "-"
 
             # Универсальное динамическое форматирование на основе групп из config.py
             if col_name in FORMAT_GROUPS["price_2dp"]:
                 return f"{val:,.2f}".replace(",", " ")
-                
+
             elif col_name in FORMAT_GROUPS["percent"]:
                 return f"{val:+.2f}%"
-                
+
             elif col_name in FORMAT_GROUPS["integer_volume"]:
                 return f"{int(val):,}".replace(",", " ")
-                
+
             elif col_name in FORMAT_GROUPS["large_money"]:
                 return f"{val:,.0f}".replace(",", " ")
 
@@ -98,17 +102,20 @@ class MoexTableModel(QAbstractTableModel):
 
     # Настройка человекочитаемых заголовков таблицы
     def headerData(
-        self, 
-        section: int, 
-        orientation: Qt.Orientation, 
-        role: int = Qt.ItemDataRole.DisplayRole
+        self,
+        section: int,
+        orientation: Qt.Orientation,
+        role: int = Qt.ItemDataRole.DisplayRole,
     ) -> Any:
         """Определяет названия столбцов на верхней панели QTableView."""
         logger.trace(
             f"Запрос заголовка: секция={section}, ориентация={orientation}, роль={role}"
-            )
-        
-        if orientation == Qt.Orientation.Horizontal and role == Qt.ItemDataRole.DisplayRole:
+        )
+
+        if (
+            orientation == Qt.Orientation.Horizontal
+            and role == Qt.ItemDataRole.DisplayRole
+        ):
             if not self._df.empty and section < len(self._df.columns):
                 technical_name = self._df.columns[section]
 
@@ -117,7 +124,7 @@ class MoexTableModel(QAbstractTableModel):
 
                 logger.trace(
                     f"Успешный маппинг заголовка: {technical_name} -> '{display_name}'"
-                    )
+                )
                 return display_name
             else:
                 logger.warning(
@@ -127,13 +134,9 @@ class MoexTableModel(QAbstractTableModel):
                 )
 
         return None
-    
+
     # Реализация алгоритма быстрой сортировки
-    def sort(
-            self, 
-            column: int, 
-            order: Qt.SortOrder = Qt.SortOrder.AscendingOrder
-            ):
+    def sort(self, column: int, order: Qt.SortOrder = Qt.SortOrder.AscendingOrder):
         """Выполняет мгновенную сортировку строк в Pandas."""
         if self._df.empty:
             logger.debug(
@@ -153,7 +156,7 @@ class MoexTableModel(QAbstractTableModel):
         ascending = order == Qt.SortOrder.AscendingOrder
 
         # na_position='last' — критически важное требование!
-        # Бумаги без сделок (у которых цена LAST = null) при любой сортировке уходят вниз таблицы
+        # Бумаги у которых цена LAST = null при любой сортировке уходят вниз таблицы
         self._df.sort_values(
             by=col_name, ascending=ascending, inplace=True, na_position="last"
         )
@@ -164,7 +167,7 @@ class MoexTableModel(QAbstractTableModel):
     # Безопасный метод заливки новых данных от АПИ-клиента
     def set_dataframe(self, new_df: pd.DataFrame):
         """
-        Принимает очищенный на DataFrame, обновляет мастер-копию 
+        Принимает очищенный на DataFrame, обновляет мастер-копию
         и сбрасывает виджет к исходному состоянию.
         """
         # Гарантируем жесткий сброс модели через встроенные транзакции Qt

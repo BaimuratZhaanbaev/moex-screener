@@ -1,0 +1,22 @@
+{
+  "securities": {
+    "columns": ["SECID", "BOARDID", "SHORTNAME"],
+    "data": [
+      ["SBER", "TQBR", "Сбербанк"],
+      ["GAZP", "TQBR", "Газпром"],
+      ["LKOH", "TQBR", "ЛУКОЙЛ"],
+      ["VTBR", "TQBR", "ВТБ"],
+      ["TEST", "TQBR", "Тест Null"]
+    ]
+  },
+  "marketdata": {
+    "columns": ["SECID", "PREVPRICE", "LAST", "LASTTOPREVPRICE"],
+    "data": [
+      ["SBER", 250.50, 255.10, 1.84],
+      ["GAZP", 160.20, 158.90, -0.81],
+      ["LKOH", 7100.00, 7150.00, 0.70],
+      ["VTBR", 0.025, 0.024, -4.00],
+      ["TEST", 100.00, null, null]
+    ]
+  }
+}

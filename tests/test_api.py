@@ -9,7 +9,7 @@ pytestmark = pytest.mark.unit
 
 
 def test_missing_fixture_file_throws_error():
-    """Проверяем, что если файла фикстуры нет на диске, выбрасывается MoexAPIError."""
+    """Тест: Если файла фикстуры нет на диске, выбрасывается MoexAPIError."""
     client = MoexClient()
 
     with pytest.raises(MoexAPIError) as exc_info:
@@ -21,7 +21,7 @@ def test_missing_fixture_file_throws_error():
 
 
 def test_fetch_from_valid_fixture(load_fixture):
-    """Проверяем, что клиент успешно читает и валидирует правильную фикстуру."""
+    """Тест: Проверяем, что клиент успешно читает и валидирует правильную фикстуру."""
     client = MoexClient()
 
     # Загружаем данные через фикстуру-фабрику
@@ -50,7 +50,7 @@ def test_fetch_from_valid_fixture(load_fixture):
 
 
 def test_fetch_from_empty_fixture(load_fixture):
-    """Проверяем, что пустая фикстура (но с колонками) проходит валидацию,"""
+    """Тест: Проверяем, что пустая фикстура (но с колонками) проходит валидацию,"""
     # по ТЗ пустой результат — тоже результат (например, выходной на бирже)
     client = MoexClient()
     data = load_fixture("securities_empty.json")
@@ -63,7 +63,7 @@ def test_fetch_from_empty_fixture(load_fixture):
 
 
 def test_corrupted_json_throws_error():
-    """Проверяем, что при поврежденном JSON клиент выбрасывает MoexAPIError."""
+    """Тест: Проверяем, что при поврежденном JSON клиент выбрасывает MoexAPIError."""
     client = MoexClient()
 
     # Метод fetch_from_fixture должен поймать ошибку парсинга и выдать MoexAPIError
@@ -76,7 +76,7 @@ def test_corrupted_json_throws_error():
 
 
 def test_missing_blocks_throws_error(load_fixture):
-    """Проверяем валидатор: если в JSON нет блока marketdata, должна быть ошибка."""
+    """Тест: если в JSON нет блока marketdata, должна быть ошибка."""
     client = MoexClient()
     data = load_fixture("securities_missing_marketdata.json")
 
@@ -90,7 +90,7 @@ def test_missing_blocks_throws_error(load_fixture):
 
 
 def test_missing_securities_throws_error(load_fixture):
-    """Проверяем валидатор: если в JSON нет блока securities, должна быть ошибка."""
+    """Тест: если в JSON нет блока securities, должна быть ошибка."""
     client = MoexClient()
 
     # Загружаем новый JSON, где нет блока securities
@@ -108,7 +108,7 @@ def test_missing_securities_throws_error(load_fixture):
 
 
 def test_get_clean_data_pipeline_success(mocker, real_api_data):
-    """Проверяем полный цикл конвейера (загрузка + валидация) через get_clean_data."""
+    """Тест: Проверяем цикл конвейера (загрузка + валидация) через get_clean_data."""
     client = MoexClient()
     # data = client.get_clean_data(use_fixture="securities_valid.json")
 
@@ -135,7 +135,7 @@ def test_get_clean_data_pipeline_success(mocker, real_api_data):
 
 
 def test_fetch_from_api_success(mocker, real_api_data):
-    """Проверяем успешный сетевой запрос, подменяя httpx.get реальными данными."""
+    """Тест: Проверяем успешный сетевой запрос, подменяя httpx.get реальными данными."""
     client = MoexClient()
 
     # Создаем фальшивый ответ от сервера
@@ -160,7 +160,7 @@ def test_fetch_from_api_success(mocker, real_api_data):
 
 
 def test_fetch_from_api_timeout(mocker):
-    """
+    """Тест:
     Проверяем, что при таймауте сети fetch_from_api оборачивает его в MoexAPIError.
     """
     client = MoexClient()
@@ -178,7 +178,7 @@ def test_fetch_from_api_timeout(mocker):
 
 
 def test_fetch_from_api_http_status_error(mocker):
-    """Проверяем обработку ошибок HTTP (например, 404 или 500 от сервера)."""
+    """Тест: Проверяем обработку ошибок HTTP (например, 404 или 500 от сервера)."""
     client = MoexClient()
 
     # Имитируем объект ответа с ошибкой сервера
@@ -202,7 +202,7 @@ def test_fetch_from_api_http_status_error(mocker):
 
 
 def test_fetch_from_api_request_error(mocker):
-    """Проверяем общую сетевую ошибку (проблемы с подключением)."""
+    """Тест: Проверяем общую сетевую ошибку (проблемы с подключением)."""
     client = MoexClient()
 
     # Заставляем httpx.get выбросить ошибку запроса
@@ -219,7 +219,7 @@ def test_fetch_from_api_request_error(mocker):
 
 
 def test_fetch_from_api_invalid_json(mocker):
-    """Проверяем, что если сервер вернул не JSON, падает правильная ошибка."""
+    """Тест: Проверяем, что если сервер вернул не JSON, падает правильная ошибка."""
     client = MoexClient()
 
     mock_response = mocker.Mock()
@@ -240,7 +240,7 @@ def test_fetch_from_api_invalid_json(mocker):
 
 
 def test_fetch_from_api_unexpected_exception(mocker):
-    """Проверяем обработку абсолютно любой непредвиденной ошибки."""
+    """Тест: Проверяем обработку абсолютно любой непредвиденной ошибки."""
     client = MoexClient()
 
     # Выбрасываем стандартный ValueError, который не ловится специфичными except
