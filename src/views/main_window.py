@@ -140,6 +140,15 @@ class MainWindow(QMainWindow):
                 self.table_model.index(0, 0), 
                 self.table_model.index(len(filtered_df)-1, len(filtered_df.columns)-1)
             )
+        
+        # Принудительно возвращаем строки в тот порядок, который выбрал пользователь
+        header = self.table_view.horizontalHeader()
+        sort_column = header.sortIndicatorSection()
+        sort_order = header.sortIndicatorOrder()
+
+        # Вызываем сортировку модели для нового отфильтрованного набора данных
+        if sort_column != -1: # Проверяем, активна ли сортировка вообще
+            self.table_model.sort(sort_column, sort_order)
 
     def closeEvent(self, event: QCloseEvent):
         """Вызывается автоматически при закрытии главного окна пользователем"""

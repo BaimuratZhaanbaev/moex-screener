@@ -22,26 +22,41 @@ class DataFilterService:
             
         working_df = df # Работаем по ссылке, память не дублируем
 
+        # Текстовые фильтры (регистронезависимые)
         if ticker:
             working_df = working_df[
                 working_df["SECID"].str.contains(ticker, case=False, na=False)
             ]
+
         if name:
             working_df = working_df[
                 working_df["SHORTNAME"].str.contains(name, case=False, na=False)
             ]
             
-        # Фильтры чисел (с автоматическим корректным пропуском NaN)
+        # Числовые фильтры цены (LAST)
         if price_from is not None:
-            working_df = working_df[working_df["LAST"] >= price_from]
+            working_df = working_df[
+                (working_df["LAST"].notna()) & (working_df["LAST"] >= price_from)
+            ]
+
         if price_to is not None:
-            working_df = working_df[working_df["LAST"] <= price_to]
+            working_df = working_df[
+                (working_df["LAST"].notna()) & (working_df["LAST"] <= price_to)
+            ]
             
+        # Числовые фильтры изменения цены (LASTTOPREVPRICE)
         if change_from is not None:
-            working_df = working_df[working_df["LASTTOPREVPRICE"] >= change_from]
+            working_df = working_df[
+                working_df["LASTTOPREVPRICE"].notna()
+                & (working_df["LASTTOPREVPRICE"] >= change_from)
+            ]
+
         if change_to is not None:
-            working_df = working_df[working_df["LASTTOPREVPRICE"] <= change_to]
-            
+            working_df = working_df[
+                working_df["LASTTOPREVPRICE"].notna()
+                & (working_df["LASTTOPREVPRICE"] <= change_to)
+            ]
+
         logger.debug(f"Фильтрация завершена. ")
         return working_df
     
