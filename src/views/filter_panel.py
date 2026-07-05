@@ -267,6 +267,30 @@ class FilterPanel(QWidget):
                 "Сбой графического интерфейса при фильтрации данных"
                 ) from e
 
+    def _on_reset_clicked(self):
+        """Слот интеллектуального сброса всех фильтров в дефолтное состояние."""
+        try:
+            logger.info("Пользователь инициировал полный сброс панели фильтров")
+            
+            # Очищаем текстовые поля
+            self.ticker_input.clear()
+            self.name_input.clear()
+
+            # Сбрасываем числовые счетчики на минимум (чтобы отобразился прочерк "—")
+            self.price_from.setValue(self.price_from.minimum())
+            self.price_to.setValue(self.price_to.minimum())
+            self.change_from.setValue(self.change_from.minimum())
+            self.change_to.setValue(self.change_to.minimum())
+
+            # Возвращаем режим отображения колонок в "Базовый"
+            self.mode_combo.setCurrentIndex(0)
+
+            # Эмитим сигнал применения пустых фильтров, чтобы вернуть исходную таблицу
+            self.apply_filters_requested.emit(self.get_filter_params())
+        except Exception as e:
+            logger.exception("Ошибка при выполнении сброса параметров интерфейса")
+            raise RuntimeError("Сбой графической подсистемы при сбросе настроек") from e
+
     # Внутренние слоты для перенаправления сигналов с техническими параметрами
     def _on_mode_changed(self, index):
         try:
