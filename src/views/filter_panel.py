@@ -102,19 +102,21 @@ class FilterPanel(QWidget):
         # Уровень 2: Аналитические фильтры (Нижний ряд)
 
         bottom_layout = QHBoxLayout()
-        bottom_layout.setSpacing(8)
+        bottom_layout.setSpacing(12)
 
         # Текстовый поиск (SECID и SHORTNAME)
         self.ticker_input = QLineEdit()
         self.ticker_input.setPlaceholderText("Тикер...")
-        self.ticker_input.setFixedWidth(90)
+        self.ticker_input.setMinimumWidth(80)
+        self.ticker_input.setMaximumWidth(100)
         self.ticker_input.textChanged.connect(
             lambda: self._update_widget_style(self.ticker_input)
         )
 
         self.name_input = QLineEdit()
         self.name_input.setPlaceholderText("Наименование...")
-        self.name_input.setFixedWidth(140)
+        self.name_input.setMinimumWidth(120)
+        self.name_input.setMaximumWidth(160)
         self.name_input.textChanged.connect(
             lambda: self._update_widget_style(self.name_input)
         )
@@ -126,6 +128,7 @@ class FilterPanel(QWidget):
         self.price_from.setMinimum(0.0)
         self.price_from.setMaximum(1000000.0)
         self.price_from.setValue(0.0)
+        self.price_from.setMinimumWidth(100)
         self.price_from.setSpecialValueText("—")
         self.price_from.valueChanged.connect(
             lambda: self._update_widget_style(self.price_from)
@@ -137,6 +140,7 @@ class FilterPanel(QWidget):
         self.price_to.setMinimum(0.0)
         self.price_to.setMaximum(1000000.0)
         self.price_to.setValue(1000000.0)
+        self.price_to.setMinimumWidth(100)
         self.price_to.setSpecialValueText("—")
         self.price_to.valueChanged.connect(
             lambda: self._update_widget_style(self.price_to)

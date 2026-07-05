@@ -41,3 +41,7 @@ QPushButton#ApplyBtn {
 QPushButton#ApplyBtn:hover {
     background-color: #106EBE;
 }
+
+QDoubleSpinBox {
+    padding-right: 20px; /* Резервируем гарантированное место под системные стрелочки */
+}
