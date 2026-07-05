@@ -252,6 +252,20 @@ class FilterPanel(QWidget):
             "change_from": c_from,
             "change_to": c_to,
         }
+    
+    def _on_apply_clicked(self):
+        """Слот обработки клика по кнопке 'Применить'."""
+        try:
+            params = self.get_filter_params()
+            logger.info(f"Пользователь применил фильтры бизнес-логики: {params}")
+            self.apply_filters_requested.emit(params)
+        except Exception as e:
+            logger.exception(
+                "Критическая ошибка при формировании параметров фильтрации"
+                )
+            raise RuntimeError(
+                "Сбой графического интерфейса при фильтрации данных"
+                ) from e
 
     # Внутренние слоты для перенаправления сигналов с техническими параметрами
     def _on_mode_changed(self, index):
