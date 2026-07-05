@@ -172,6 +172,21 @@ class FilterPanel(QWidget):
         self.reset_btn.setObjectName("ResetBtn")
         self.reset_btn.clicked.connect(self._on_reset_clicked)
 
+        # Сборка нижней строки аналитических фильтров
+        bottom_layout.addWidget(self.ticker_input)
+        bottom_layout.addWidget(self.name_input)
+        bottom_layout.addWidget(price_label)
+        bottom_layout.addWidget(self.price_from)
+        bottom_layout.addWidget(price_to_label)
+        bottom_layout.addWidget(self.price_to)
+        bottom_layout.addWidget(change_label)
+        bottom_layout.addWidget(self.change_from)
+        bottom_layout.addWidget(change_to_label)
+        bottom_layout.addWidget(self.change_to)
+        bottom_layout.addWidget(divider)
+        bottom_layout.addWidget(self.apply_btn)
+        bottom_layout.addWidget(self.reset_btn)
+
         # ------------------------------------------------------------------------------
 
         # Добавляем обе строки в разметку фрейма
