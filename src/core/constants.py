@@ -6,17 +6,35 @@ DEFAULT_COLUMNS = ["SECID", "SHORTNAME", "LAST", "LASTTOPREVPRICE", "VALTODAY_RU
 # 2. Профессиональные колонки (без технического шума)
 PROFESSIONAL_COLUMNS = [
     # Идентификаторы
-    "SECID", "SHORTNAME", "ISIN", "LISTLEVEL",
+    "SECID",
+    "SHORTNAME",
+    "ISIN",
+    "LISTLEVEL",
     # Масштаб и Объемы
-    "ISSUECAPITALIZATION", "VOLTODAY", "VALTODAY_RUR", "NUMTRADES",
+    "ISSUECAPITALIZATION",
+    "VOLTODAY",
+    "VALTODAY_RUR",
+    "NUMTRADES",
     # Ценовые экстремумы
-    "OPEN", "HIGH", "LOW", "LAST", "PREVPRICE",
+    "OPEN",
+    "HIGH",
+    "LOW",
+    "LAST",
+    "PREVPRICE",
     # Моментум
-    "LASTCHANGEPRCNT", "LASTTOPREVPRICE",
+    "LASTCHANGEPRCNT",
+    "LASTTOPREVPRICE",
     # Микроструктура стакана
-    "BID", "OFFER", "SPREAD", "BIDDEPTHT", "OFFERDEPTHT", "NUMBIDS", "NUMOFFERS",
+    "BID",
+    "OFFER",
+    "SPREAD",
+    "BIDDEPTHT",
+    "OFFERDEPTHT",
+    "NUMBIDS",
+    "NUMOFFERS",
     # Контекст
-    "TRADINGSTATUS", "TRADINGSESSION",
+    "TRADINGSTATUS",
+    "TRADINGSESSION",
 ]
 
 # Человекочитаемые заголовки для GUI
@@ -45,17 +63,18 @@ COLUMN_MAPPING = {
 # Группы форматирования финансовых данных для Qt-модели
 FORMAT_GROUPS = {
     "price_2dp": [
-        "LAST", "OPEN", "HIGH", "LOW", "PREVPRICE", "BID", "OFFER", "WAPRICE"
+        "LAST",
+        "OPEN",
+        "HIGH",
+        "LOW",
+        "PREVPRICE",
+        "BID",
+        "OFFER",
+        "WAPRICE",
     ],
-    "percent": [
-        "LASTTOPREVPRICE", "LASTCHANGEPRCNT", "SPREAD"
-    ],
-    "money_int": [
-        "VALTODAY_RUR", "ISSUECAPITALIZATION"
-    ],
-    "volume_int": [
-        "VOLTODAY", "NUMTRADES", "NUMBIDS", "NUMOFFERS"
-    ]
+    "percent": ["LASTTOPREVPRICE", "LASTCHANGEPRCNT", "SPREAD"],
+    "money_int": ["VALTODAY_RUR", "ISSUECAPITALIZATION"],
+    "volume_int": ["VOLTODAY", "NUMTRADES", "NUMBIDS", "NUMOFFERS"],
 }
 
 # Группы форматирования финансовых данных

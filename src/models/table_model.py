@@ -48,7 +48,7 @@ class MoexTableModel(QAbstractTableModel):
         row = index.row()
         col = index.column()
 
-        # Защита от выхода за границы DataFrame 
+        # Защита от выхода за границы DataFrame
         # (если интерфейс и данные рассинхронизировались)
         if row >= len(self._df) or col >= len(self._df.columns):
             logger.warning(

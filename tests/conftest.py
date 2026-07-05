@@ -111,6 +111,7 @@ def corrupted_fixture_source(request):
 
 REFERENCE_DIR = Path(__file__).parents[1] / "data" / "reference"
 
+
 @pytest.fixture(scope="session")
 def reference_market_data() -> pd.DataFrame:
     """
@@ -118,7 +119,7 @@ def reference_market_data() -> pd.DataFrame:
     Динамически загружается из физического CSV-файла в папке data/reference/.
     """
     csv_path = REFERENCE_DIR / "master_market_data.csv"
-    
+
     if not csv_path.exists():
         raise FileNotFoundError(
             f"Критическая ошибка тестов: "
@@ -126,11 +127,11 @@ def reference_market_data() -> pd.DataFrame:
             f"Пожалуйста, создайте папку data/reference/ и "
             f"положите туда master_market_data.csv"
         )
-    
+
     # Читаем CSV. Pandas автоматически превратит пустые ячейки в np.nan (null)
     # keep_default_na=True обеспечивает правильную конвертацию null-значений для ТЗ
     df = pd.read_csv(csv_path, encoding="utf-8")
-    
+
     # Гарантируем сброс индекса к упорядоченному виду 0, 1, 2...
     df.index = range(len(df))
     return df
