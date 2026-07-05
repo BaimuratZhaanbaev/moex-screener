@@ -167,6 +167,21 @@ class FilterPanel(QWidget):
         # Помещаем фрейм в корневой слой виджета
         root_layout.addWidget(main_frame)
 
+    def _update_widget_style(self, widget: QWidget):
+        """Интеллектуальная динамическая QSS-подсветка активных полей ввода."""
+        is_active = False
+
+        if isinstance(widget, QLineEdit):
+            is_active = len(widget.text().strip()) > 0
+        elif isinstance(widget, QDoubleSpinBox):
+            # Если значение больше минимального, значит фильтр активен (не равен "—")
+            is_active = widget.value() > widget.minimum()
+
+        # Меняем динамическое Qt-свойство для селекторов QSS
+        widget.setProperty("active", is_active)
+        widget.style().unpolish(widget)
+        widget.style().polish(widget)
+
     # Внутренние слоты для перенаправления сигналов с техническими параметрами
     def _on_mode_changed(self, index):
         try:
