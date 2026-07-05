@@ -123,9 +123,9 @@ class FilterPanel(QWidget):
         price_label = QLabel("Цена от:")
         self.price_from = QDoubleSpinBox()
         self.price_from.setDecimals(4)
-        self.price_from.setMinimum(-1.0)
-        self.price_from.setMaximum(1000001.0)
-        self.price_from.setValue(-1.0)
+        self.price_from.setMinimum(0.0)
+        self.price_from.setMaximum(1000000.0)
+        self.price_from.setValue(0.0)
         self.price_from.setSpecialValueText("—")
         self.price_from.valueChanged.connect(
             lambda: self._update_widget_style(self.price_from)
@@ -134,9 +134,9 @@ class FilterPanel(QWidget):
         price_to_label = QLabel("до:")
         self.price_to = QDoubleSpinBox()
         self.price_to.setDecimals(4)
-        self.price_to.setMinimum(-1.0)
-        self.price_to.setMaximum(1000001.0)
-        self.price_to.setValue(-1.0)
+        self.price_to.setMinimum(0.0)
+        self.price_to.setMaximum(1000000.0)
+        self.price_to.setValue(1000000.0)
         self.price_to.setSpecialValueText("—")
         self.price_to.valueChanged.connect(
             lambda: self._update_widget_style(self.price_to)
@@ -146,9 +146,9 @@ class FilterPanel(QWidget):
         change_label = QLabel("Изм. % от:")
         self.change_from = QDoubleSpinBox()
         self.change_from.setDecimals(2)
-        self.change_from.setMinimum(-101.0)
-        self.change_from.setMaximum(101.0)
-        self.change_from.setValue(-101.0)
+        self.change_from.setMinimum(-100.0)
+        self.change_from.setMaximum(100.0)
+        self.change_from.setValue(-100.0)
         self.change_from.setSpecialValueText("—")
         self.change_from.valueChanged.connect(
             lambda: self._update_widget_style(self.change_from)
@@ -157,9 +157,9 @@ class FilterPanel(QWidget):
         change_to_label = QLabel("до:")
         self.change_to = QDoubleSpinBox()
         self.change_to.setDecimals(2)
-        self.change_to.setMinimum(-101.0)
-        self.change_to.setMaximum(101.0)
-        self.change_to.setValue(-101.0)
+        self.change_to.setMinimum(-100.0)
+        self.change_to.setMaximum(100.0)
+        self.change_to.setValue(100.0)
         self.change_to.setSpecialValueText("—")
         self.change_to.valueChanged.connect(
             lambda: self._update_widget_style(self.change_to)
@@ -210,9 +210,16 @@ class FilterPanel(QWidget):
         """Вспомогательный метод для точного определения активности фильтра."""
         if isinstance(widget, QLineEdit):
             return len(widget.text().strip()) > 0
+            
         if isinstance(widget, QDoubleSpinBox):
-            # Фильтр активен, только если значение строго больше зарезервированного системного минимума
-            return widget.value() > widget.minimum()
+            # Если это поле "ОТ" — оно активно, когда сдвинулось от минимума вверх
+            if widget in (self.price_from, self.change_from):
+                return widget.value() >= widget.minimum()
+                
+            # Если это поле "ДО" — оно активно, когда оно МЕНЬШЕ максимума (сдвинулось от бесконечности вниз)
+            if widget in (self.price_to, self.change_to):
+                return widget.value() <= widget.maximum()
+                
         return False
 
     def _update_widget_style(self, widget: QWidget):
@@ -291,9 +298,9 @@ class FilterPanel(QWidget):
 
             # Сбрасываем числовые счетчики на минимум (чтобы отобразился прочерк "—")
             self.price_from.setValue(self.price_from.minimum())
-            self.price_to.setValue(self.price_to.minimum())
+            self.price_to.setValue(self.price_to.maximum())
             self.change_from.setValue(self.change_from.minimum())
-            self.change_to.setValue(self.change_to.minimum())
+            self.change_to.setValue(self.change_to.maximum())
 
             # Возвращаем режим отображения колонок в "Базовый"
             self.mode_combo.setCurrentIndex(0)
