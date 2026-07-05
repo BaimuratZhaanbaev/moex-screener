@@ -137,7 +137,7 @@ class FilterPanel(QWidget):
             lambda: self._update_widget_style(self.price_to)
             )
         
-        # 3. Фильтры изменений (LASTTOPREVPRICE) с диапазоном отрицательных чисел
+        # Фильтры изменений (LASTTOPREVPRICE) с диапазоном отрицательных чисел
         change_label = QLabel("Изм. % от:")
         self.change_from = QDoubleSpinBox()
         self.change_from.setDecimals(2)
@@ -157,6 +157,12 @@ class FilterPanel(QWidget):
         self.change_to.valueChanged.connect(
             lambda: self._update_widget_style(self.change_to)
         )
+
+
+        # Вертикальный микро-разделитель между фильтрами и кнопками действий
+        divider = QFrame()
+        divider.setFrameShape(QFrame.Shape.VLine)
+        divider.setFrameShadow(QFrame.Shadow.Sunken)
 
         # ------------------------------------------------------------------------------
 
