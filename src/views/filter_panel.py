@@ -7,6 +7,7 @@ from PySide6.QtWidgets import (
     QFrame,
     QHBoxLayout,
     QLabel,
+    QLineEdit,
     QPushButton,
     QSizePolicy,
     QSpacerItem,
@@ -56,7 +57,7 @@ class FilterPanel(QWidget):
             raise FileNotFoundError(
                 f"Не удалось запустить FilterPanel: отсутствует файл стилей {qss_path}"
             ) from e
-        
+
         # ------------------------------------------------------------------------------
         # Уровень 1: Управляющий слой (Верхний ряд)
 
@@ -109,15 +110,15 @@ class FilterPanel(QWidget):
         self.ticker_input.setFixedWidth(90)
         self.ticker_input.textChanged.connect(
             lambda: self._update_widget_style(self.ticker_input)
-            )
+        )
 
         self.name_input = QLineEdit()
         self.name_input.setPlaceholderText("Наименование...")
         self.name_input.setFixedWidth(140)
         self.name_input.textChanged.connect(
             lambda: self._update_widget_style(self.name_input)
-            )
-        
+        )
+
         # Фильтры цен (LAST) с точностью 4 знака
         price_label = QLabel("Цена от:")
         self.price_from = QDoubleSpinBox()
@@ -126,7 +127,7 @@ class FilterPanel(QWidget):
         self.price_from.setSpecialValueText("—")
         self.price_from.valueChanged.connect(
             lambda: self._update_widget_style(self.price_from)
-            )
+        )
 
         price_to_label = QLabel("до:")
         self.price_to = QDoubleSpinBox()
@@ -135,8 +136,8 @@ class FilterPanel(QWidget):
         self.price_to.setSpecialValueText("—")
         self.price_to.valueChanged.connect(
             lambda: self._update_widget_style(self.price_to)
-            )
-        
+        )
+
         # Фильтры изменений (LASTTOPREVPRICE) с диапазоном отрицательных чисел
         change_label = QLabel("Изм. % от:")
         self.change_from = QDoubleSpinBox()
@@ -216,7 +217,7 @@ class FilterPanel(QWidget):
 
     def get_filter_params(self) -> dict:
         """
-        Конвейер сборки параметров: считывает данные из виджетов 
+        Конвейер сборки параметров: считывает данные из виджетов
         и упаковывает в очищенный словарь для слоя Pandas.
         """
         ticker = self.ticker_input.text().strip().upper()
@@ -224,25 +225,25 @@ class FilterPanel(QWidget):
 
         # Если числовое поле показывает "—", возвращаем None
         p_from = (
-            self.price_from.value() 
-            if self.price_from.value() > self.price_from.minimum() 
+            self.price_from.value()
+            if self.price_from.value() > self.price_from.minimum()
             else None
-            )
+        )
         p_to = (
-            self.price_to.value() 
-            if self.price_to.value() > self.price_to.minimum() 
+            self.price_to.value()
+            if self.price_to.value() > self.price_to.minimum()
             else None
-            )
+        )
         c_from = (
-            self.change_from.value() 
-            if self.change_from.value() > self.change_from.minimum() 
+            self.change_from.value()
+            if self.change_from.value() > self.change_from.minimum()
             else None
-            )
+        )
         c_to = (
-            self.change_to.value() 
-            if self.change_to.value() > self.change_to.minimum() 
+            self.change_to.value()
+            if self.change_to.value() > self.change_to.minimum()
             else None
-            )
+        )
 
         return {
             "SECID": ticker if ticker else None,
@@ -252,7 +253,7 @@ class FilterPanel(QWidget):
             "change_from": c_from,
             "change_to": c_to,
         }
-    
+
     def _on_apply_clicked(self):
         """Слот обработки клика по кнопке 'Применить'."""
         try:
@@ -262,16 +263,16 @@ class FilterPanel(QWidget):
         except Exception as e:
             logger.exception(
                 "Критическая ошибка при формировании параметров фильтрации"
-                )
+            )
             raise RuntimeError(
                 "Сбой графического интерфейса при фильтрации данных"
-                ) from e
+            ) from e
 
     def _on_reset_clicked(self):
         """Слот интеллектуального сброса всех фильтров в дефолтное состояние."""
         try:
             logger.info("Пользователь инициировал полный сброс панели фильтров")
-            
+
             # Очищаем текстовые поля
             self.ticker_input.clear()
             self.name_input.clear()

@@ -29,3 +29,17 @@ QPushButton#RefreshBtn {
 QPushButton#RefreshBtn:hover {
     background-color: #D2D0CE;
 }
+QComboBox {
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    padding: 4px;
+    background-color: #FFFFFF;
+}
+QPushButton#ApplyBtn {
+    background-color: #0078D4;
+    color: white;
+    border: none;
+}
+QPushButton#ApplyBtn:hover {
+    background-color: #106EBE;
+}
