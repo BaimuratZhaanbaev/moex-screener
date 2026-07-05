@@ -1,45 +1,43 @@
+/* Главный контейнер панели — наследует цвет фона системы, меняем только рамку */
 QFrame#FilterPanelFrame { 
-    border: 1px solid #E0E0E0; 
+    border: 1px solid rgba(128, 128, 128, 0.3); /* Полупрозрачная рамка */
     border-radius: 6px; 
-    background-color: #F9F9F9; 
 }
-QLineEdit, QDoubleSpinBox {
-    border: 1px solid #CCCCCC;
+
+/* Поля ввода текста и чисел */
+QLineEdit, QDoubleSpinBox, QComboBox {
+    border: 1px solid rgba(128, 128, 128, 0.5);
     border-radius: 4px;
     padding: 4px;
-    background-color: #FFFFFF;
+    /* Фоны и цвета текста УДАЛЕНЫ — они подтягиваются из системы автоматически */
 }
+
+/* Подсветка активных фильтров — тут мы принудительно подсвечиваем поле */
 QLineEdit[active="true"], QDoubleSpinBox[active="true"] { 
     border: 1px solid #0078D4; 
-    background-color: #F0F7FF; 
+    background-color: rgba(0, 120, 212, 0.15); /* Полупрозрачный синий (работает и на темном, и на светлом) */
 }
+
+/* Базовый стиль кнопок */
 QPushButton {
-    padding: 5px 10px;
-    border: 1px solid #CCCCCC;
+    padding: 5px 12px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
     border-radius: 4px;
-    background-color: #FFFFFF;
+    font-weight: 500;
 }
-QPushButton:hover {
-    background-color: #F0F0F0;
-}
+
+/* Кнопка Обновить данные */
 QPushButton#RefreshBtn {
-    background-color: #E1DFDD;
     font-weight: bold;
 }
-QPushButton#RefreshBtn:hover {
-    background-color: #D2D0CE;
-}
-QComboBox {
-    border: 1px solid #CCCCCC;
-    border-radius: 4px;
-    padding: 4px;
-    background-color: #FFFFFF;
-}
+
+/* Кнопка Применить (Синяя акцентная — она обычно остается синей в любой теме) */
 QPushButton#ApplyBtn {
     background-color: #0078D4;
-    color: white;
+    color: #FFFFFF; /* Белый текст */
     border: none;
 }
+
 QPushButton#ApplyBtn:hover {
     background-color: #106EBE;
 }
