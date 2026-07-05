@@ -56,7 +56,8 @@ class FilterPanel(QWidget):
             raise FileNotFoundError(
                 f"Не удалось запустить FilterPanel: отсутствует файл стилей {qss_path}"
             ) from e
-
+        
+        # ------------------------------------------------------------------------------
         # Уровень 1: Управляющий слой (Верхний ряд)
 
         top_layout = QHBoxLayout()
@@ -96,20 +97,28 @@ class FilterPanel(QWidget):
         top_layout.addSpacerItem(spacer)
         top_layout.addWidget(self.refresh_btn)
 
+        # ------------------------------------------------------------------------------
         # Уровень 2: Аналитические фильтры (Нижний ряд)
 
         bottom_layout = QHBoxLayout()
+        bottom_layout.setSpacing(8)
 
-        # Временная заглушка-метка. На следующем этапе мы заменим её
-        # на полноценную сетку текстовых полей и QDoubleSpinBox
-        self.filter_placeholder_label = QLabel(
-            "⏳ Место для фильтров "
-            "(QLineEdit, QDoubleSpinBox, кнопки Применить/Сбросить)..."
-        )
-        self.filter_placeholder_label.setStyleSheet(
-            "color: #666666; font-style: italic;"
-        )
-        bottom_layout.addWidget(self.filter_placeholder_label)
+        # Текстовый поиск (SECID и SHORTNAME)
+        self.ticker_input = QLineEdit()
+        self.ticker_input.setPlaceholderText("Тикер...")
+        self.ticker_input.setFixedWidth(90)
+        self.ticker_input.textChanged.connect(
+            lambda: self._update_widget_style(self.ticker_input)
+            )
+
+        self.name_input = QLineEdit()
+        self.name_input.setPlaceholderText("Наименование...")
+        self.name_input.setFixedWidth(140)
+        self.name_input.textChanged.connect(
+            lambda: self._update_widget_style(self.name_input)
+            )
+
+        # ------------------------------------------------------------------------------
 
         # Добавляем обе строки в разметку фрейма
         frame_layout.addLayout(top_layout)
