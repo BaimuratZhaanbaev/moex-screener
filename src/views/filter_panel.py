@@ -196,6 +196,9 @@ class FilterPanel(QWidget):
         # Помещаем фрейм в корневой слой виджета
         root_layout.addWidget(main_frame)
 
+    # ----------------------------------------------------------------------------------
+    # Логический слой и UI/UX механики
+
     def _update_widget_style(self, widget: QWidget):
         """Интеллектуальная динамическая QSS-подсветка активных полей ввода."""
         is_active = False
@@ -210,6 +213,45 @@ class FilterPanel(QWidget):
         widget.setProperty("active", is_active)
         widget.style().unpolish(widget)
         widget.style().polish(widget)
+
+    def get_filter_params(self) -> dict:
+        """
+        Конвейер сборки параметров: считывает данные из виджетов 
+        и упаковывает в очищенный словарь для слоя Pandas.
+        """
+        ticker = self.ticker_input.text().strip().upper()
+        name = self.name_input.text().strip()
+
+        # Если числовое поле показывает "—", возвращаем None
+        p_from = (
+            self.price_from.value() 
+            if self.price_from.value() > self.price_from.minimum() 
+            else None
+            )
+        p_to = (
+            self.price_to.value() 
+            if self.price_to.value() > self.price_to.minimum() 
+            else None
+            )
+        c_from = (
+            self.change_from.value() 
+            if self.change_from.value() > self.change_from.minimum() 
+            else None
+            )
+        c_to = (
+            self.change_to.value() 
+            if self.change_to.value() > self.change_to.minimum() 
+            else None
+            )
+
+        return {
+            "SECID": ticker if ticker else None,
+            "SHORTNAME": name if name else None,
+            "price_from": p_from,
+            "price_to": p_to,
+            "change_from": c_from,
+            "change_to": c_to,
+        }
 
     # Внутренние слоты для перенаправления сигналов с техническими параметрами
     def _on_mode_changed(self, index):
