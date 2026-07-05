@@ -158,11 +158,19 @@ class FilterPanel(QWidget):
             lambda: self._update_widget_style(self.change_to)
         )
 
-
         # Вертикальный микро-разделитель между фильтрами и кнопками действий
         divider = QFrame()
         divider.setFrameShape(QFrame.Shape.VLine)
         divider.setFrameShadow(QFrame.Shadow.Sunken)
+
+        # Кнопки действий
+        self.apply_btn = QPushButton("🚀 Применить")
+        self.apply_btn.setObjectName("ApplyBtn")
+        self.apply_btn.clicked.connect(self._on_apply_clicked)
+
+        self.reset_btn = QPushButton("❌ Сбросить")
+        self.reset_btn.setObjectName("ResetBtn")
+        self.reset_btn.clicked.connect(self._on_reset_clicked)
 
         # ------------------------------------------------------------------------------
 
