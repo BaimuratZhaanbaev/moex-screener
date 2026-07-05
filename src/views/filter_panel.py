@@ -136,6 +136,27 @@ class FilterPanel(QWidget):
         self.price_to.valueChanged.connect(
             lambda: self._update_widget_style(self.price_to)
             )
+        
+        # 3. Фильтры изменений (LASTTOPREVPRICE) с диапазоном отрицательных чисел
+        change_label = QLabel("Изм. % от:")
+        self.change_from = QDoubleSpinBox()
+        self.change_from.setDecimals(2)
+        self.change_from.setMinimum(-100.0)
+        self.change_from.setMaximum(100.0)
+        self.change_from.setSpecialValueText("—")
+        self.change_from.valueChanged.connect(
+            lambda: self._update_widget_style(self.change_from)
+        )
+
+        change_to_label = QLabel("до:")
+        self.change_to = QDoubleSpinBox()
+        self.change_to.setDecimals(2)
+        self.change_to.setMinimum(-100.0)
+        self.change_to.setMaximum(100.0)
+        self.change_to.setSpecialValueText("—")
+        self.change_to.valueChanged.connect(
+            lambda: self._update_widget_style(self.change_to)
+        )
 
         # ------------------------------------------------------------------------------
 
