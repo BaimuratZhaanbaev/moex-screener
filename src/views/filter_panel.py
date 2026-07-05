@@ -123,7 +123,9 @@ class FilterPanel(QWidget):
         price_label = QLabel("Цена от:")
         self.price_from = QDoubleSpinBox()
         self.price_from.setDecimals(4)
-        self.price_from.setMaximum(1000000.0)
+        self.price_from.setMinimum(-1.0)
+        self.price_from.setMaximum(1000001.0)
+        self.price_from.setValue(-1.0)
         self.price_from.setSpecialValueText("—")
         self.price_from.valueChanged.connect(
             lambda: self._update_widget_style(self.price_from)
@@ -132,7 +134,9 @@ class FilterPanel(QWidget):
         price_to_label = QLabel("до:")
         self.price_to = QDoubleSpinBox()
         self.price_to.setDecimals(4)
-        self.price_to.setMaximum(1000000.0)
+        self.price_to.setMinimum(-1.0)
+        self.price_to.setMaximum(1000001.0)
+        self.price_to.setValue(-1.0)
         self.price_to.setSpecialValueText("—")
         self.price_to.valueChanged.connect(
             lambda: self._update_widget_style(self.price_to)
@@ -142,8 +146,9 @@ class FilterPanel(QWidget):
         change_label = QLabel("Изм. % от:")
         self.change_from = QDoubleSpinBox()
         self.change_from.setDecimals(2)
-        self.change_from.setMinimum(-100.0)
-        self.change_from.setMaximum(100.0)
+        self.change_from.setMinimum(-101.0)
+        self.change_from.setMaximum(101.0)
+        self.change_from.setValue(-101.0)
         self.change_from.setSpecialValueText("—")
         self.change_from.valueChanged.connect(
             lambda: self._update_widget_style(self.change_from)
@@ -152,8 +157,9 @@ class FilterPanel(QWidget):
         change_to_label = QLabel("до:")
         self.change_to = QDoubleSpinBox()
         self.change_to.setDecimals(2)
-        self.change_to.setMinimum(-100.0)
-        self.change_to.setMaximum(100.0)
+        self.change_to.setMinimum(-101.0)
+        self.change_to.setMaximum(101.0)
+        self.change_to.setValue(-101.0)
         self.change_to.setSpecialValueText("—")
         self.change_to.valueChanged.connect(
             lambda: self._update_widget_style(self.change_to)
@@ -200,17 +206,23 @@ class FilterPanel(QWidget):
     # ----------------------------------------------------------------------------------
     # Логический слой и UI/UX механики
 
-    def _update_widget_style(self, widget: QWidget):
-        """Интеллектуальная динамическая QSS-подсветка активных полей ввода."""
-        is_active = False
-
+    def _is_widget_active(self, widget: QWidget) -> bool:
+        """Вспомогательный метод для точного определения активности фильтра."""
         if isinstance(widget, QLineEdit):
-            is_active = len(widget.text().strip()) > 0
-        elif isinstance(widget, QDoubleSpinBox):
-            # Если значение больше минимального, значит фильтр активен (не равен "—")
-            is_active = widget.value() > widget.minimum()
+            return len(widget.text().strip()) > 0
+        if isinstance(widget, QDoubleSpinBox):
+            # Фильтр активен, только если значение строго больше зарезервированного системного минимума
+            return widget.value() > widget.minimum()
+        return False
 
-        # Меняем динамическое Qt-свойство для селекторов QSS
+    def _update_widget_style(self, widget: QWidget):
+        """Динамическая подсветка активных полей ввода на основе точного флага активности."""
+        is_active = False
+        if isinstance(widget, QLineEdit):
+            is_active = bool(widget.text().strip())
+        elif isinstance(widget, QDoubleSpinBox):
+            is_active = self._is_widget_active(widget)
+
         widget.setProperty("active", is_active)
         widget.style().unpolish(widget)
         widget.style().polish(widget)
@@ -225,25 +237,25 @@ class FilterPanel(QWidget):
 
         # Если числовое поле показывает "—", возвращаем None
         p_from = (
-            self.price_from.value()
-            if self.price_from.value() > self.price_from.minimum()
+            self.price_from.value() 
+            if self._is_widget_active(self.price_from) 
             else None
-        )
+            )
         p_to = (
-            self.price_to.value()
-            if self.price_to.value() > self.price_to.minimum()
+            self.price_to.value() 
+            if self._is_widget_active(self.price_to) 
             else None
-        )
+            )
         c_from = (
-            self.change_from.value()
-            if self.change_from.value() > self.change_from.minimum()
+            self.change_from.value() 
+            if self._is_widget_active(self.change_from) 
             else None
-        )
+            )
         c_to = (
-            self.change_to.value()
-            if self.change_to.value() > self.change_to.minimum()
+            self.change_to.value() 
+            if self._is_widget_active(self.change_to) 
             else None
-        )
+            )
 
         return {
             "SECID": ticker if ticker else None,
