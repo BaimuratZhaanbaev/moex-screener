@@ -3,6 +3,7 @@ from loguru import logger
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import (
     QComboBox,
+    QDoubleSpinBox,
     QFrame,
     QHBoxLayout,
     QLabel,
@@ -24,6 +25,7 @@ class FilterPanel(QWidget):
     mode_changed = Signal(str)  # Передает: "basic", "professional", "full"
     export_requested = Signal(str)  # Передает: "csv"
     refresh_api_requested = Signal()  # Сигнал на обновление данных из сети
+    apply_filters_requested = Signal(dict)  # Передает словарь с активными фильтрами
 
     def __init__(self, parent=None):
         super().__init__(parent)
