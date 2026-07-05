@@ -117,6 +117,25 @@ class FilterPanel(QWidget):
         self.name_input.textChanged.connect(
             lambda: self._update_widget_style(self.name_input)
             )
+        
+        # Фильтры цен (LAST) с точностью 4 знака
+        price_label = QLabel("Цена от:")
+        self.price_from = QDoubleSpinBox()
+        self.price_from.setDecimals(4)
+        self.price_from.setMaximum(1000000.0)
+        self.price_from.setSpecialValueText("—")
+        self.price_from.valueChanged.connect(
+            lambda: self._update_widget_style(self.price_from)
+            )
+
+        price_to_label = QLabel("до:")
+        self.price_to = QDoubleSpinBox()
+        self.price_to.setDecimals(4)
+        self.price_to.setMaximum(1000000.0)
+        self.price_to.setSpecialValueText("—")
+        self.price_to.valueChanged.connect(
+            lambda: self._update_widget_style(self.price_to)
+            )
 
         # ------------------------------------------------------------------------------
 
