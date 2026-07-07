@@ -79,9 +79,11 @@ class MainWindow(QMainWindow):
 
         try:
             # Временная заглушка
-            raw_data = self.moex_client.get_clean_data(
-                use_fixture="securities_valid_little.json"
-            )
+            #raw_data = self.moex_client.get_clean_data(
+            #    use_fixture="securities_valid_little.json"
+            #)
+
+            raw_data = self.moex_client.get_clean_data()
 
             # Передаем сырой JSON в парсер
             df = self.moex_parser.parse_to_dataframe(raw_data)
@@ -147,7 +149,7 @@ class MainWindow(QMainWindow):
             price_to=filter_params.get("price_to"),
             change_from=filter_params.get("change_from"),
             change_to=filter_params.get("change_to"),
-            shortname=filter_params.get("SHORTNAME")
+            name=filter_params.get("SHORTNAME")
         )
         
         old_df = self.table_model._df
@@ -240,16 +242,16 @@ class MainWindow(QMainWindow):
         try:
             logger.info(f"Переключение пресета колонок таблицы на режим: '{mode}'")
             
-            # (Опционально) Если твой ui_config хранит текущий режим:
-            # self.ui_config.current_mode = mode
-            
-            # Заменяем на твою реальную бизнес-логику получения колонок:
-            # Здесь для примера берется PROFESSIONAL_COLUMNS или все колонки модели
+            if not self.table_model or self.table_model._df is None:
+                logger.warning("Отмена переключения режима: модель или данные еще не инициализированы.")
+                return
+
+            # Определяем список разрешенных колонок для каждого режима
             if mode == "basic":
                 allowed_columns = ["SECID", "SHORTNAME", "LAST"]
             elif mode == "professional":
                 allowed_columns = PROFESSIONAL_COLUMNS
-            else: # "full"
+            else:  # Режим "full" (Все поля)
                 allowed_columns = (
                     list(self.table_model._source_df.columns) 
                     if self.table_model._source_df is not None 
@@ -258,22 +260,22 @@ class MainWindow(QMainWindow):
 
             # Запускаем цикл скрытия/отображения по всем столбцам QTableView
             for i in range(self.table_model.columnCount()):
-                col_name = self.table_model.headerData(i, header_type=None)  # Или технический метод модели
-                # Если названия столбцов не строковые в заголовках, берем из DataFrame:
-                if self.table_model._df is not None and i < len(self.table_model._df.columns):
+                # Безопасно вытаскиваем техническое имя колонки из Pandas DataFrame по её индексу
+                if i < len(self.table_model._df.columns):
                     col_name = self.table_model._df.columns[i]
+                else:
+                    continue
 
+                # Скрываем колонку, если её имени нет в списке разрешенных
                 is_hidden = col_name not in allowed_columns
                 self.table_view.setColumnHidden(i, is_hidden)
                 
             self.statusBar().showMessage(f"Применен режим отображения: {mode}")
+            logger.success(f"Сетка колонок успешно перестроена для режима '{mode}'.")
+            
         except Exception as e:
-            logger.exception(
-                f"Ошибка динамической перестройки колонок для режима {mode}"
-                )
-            QMessageBox.critical(
-                self, "Ошибка интерфейса", f"Не удалось изменить режим отображения: {e}"
-                )
+            logger.exception(f"Ошибка динамической перестройки колонок для режима {mode}")
+            QMessageBox.critical(self, "Ошибка интерфейса", f"Не удалось изменить режим отображения: {e}")
 
     @Slot(str)
     def handle_export_data(self, file_format: str):

@@ -139,7 +139,7 @@ class FilterPanel(QWidget):
         self.price_to.setDecimals(4)
         self.price_to.setMinimum(0.0)
         self.price_to.setMaximum(1000000.0)
-        self.price_to.setValue(1000000.0)
+        self.price_to.setValue(0.0)
         self.price_to.setMinimumWidth(100)
         self.price_to.setSpecialValueText("—")
         self.price_to.valueChanged.connect(
@@ -163,7 +163,7 @@ class FilterPanel(QWidget):
         self.change_to.setDecimals(2)
         self.change_to.setMinimum(-100.0)
         self.change_to.setMaximum(100.0)
-        self.change_to.setValue(100.0)
+        self.change_to.setValue(-100.0)
         self.change_to.setSpecialValueText("—")
         self.change_to.valueChanged.connect(
             lambda: self._update_widget_style(self.change_to)
@@ -216,18 +216,12 @@ class FilterPanel(QWidget):
             return len(widget.text().strip()) > 0
             
         if isinstance(widget, QDoubleSpinBox):
-            # Если это поле "ОТ" — оно активно, когда сдвинулось от минимума вверх
-            if widget in (self.price_from, self.change_from):
-                return widget.value() >= widget.minimum()
-                
-            # Если это поле "ДО" — оно активно, когда оно МЕНЬШЕ максимума (сдвинулось от бесконечности вниз)
-            if widget in (self.price_to, self.change_to):
-                return widget.value() <= widget.maximum()
-                
+            return widget.value() > widget.minimum()
+        
         return False
 
     def _update_widget_style(self, widget: QWidget):
-        """Динамическая подсветка активных полей ввода на основе точного флага активности."""
+        """Динамическая подсветка активных полей ввода на основе флага активности."""
         is_active = False
         if isinstance(widget, QLineEdit):
             is_active = bool(widget.text().strip())
@@ -302,9 +296,9 @@ class FilterPanel(QWidget):
 
             # Сбрасываем числовые счетчики на минимум (чтобы отобразился прочерк "—")
             self.price_from.setValue(self.price_from.minimum())
-            self.price_to.setValue(self.price_to.maximum())
+            self.price_to.setValue(self.price_to.minimum())
             self.change_from.setValue(self.change_from.minimum())
-            self.change_to.setValue(self.change_to.maximum())
+            self.change_to.setValue(self.change_to.minimum())
 
             # Возвращаем режим отображения колонок в "Базовый"
             self.mode_combo.setCurrentIndex(0)
