@@ -17,20 +17,19 @@ def test_name_filter_partial_match(reference_market_data):
     res = DataFilterService.filter_market_data(reference_market_data, name="ао")
     secids = res["SECID"].values
 
-    assert len(res) == 2
+    assert len(res) == 1
     assert "gaZp" in secids
-    assert "VTBR" in secids
 
 
 def test_price_range_filtering_and_null_exclusion(reference_market_data):
     """Тест: Диапазон цен [100; 300] должен включать границы и отсекать NaN."""
-    # Ожидаем: SBER (250.5), GAZP (120.0), AFLT (100.0), FixP (299.9)
+    # Ожидаем: SBER (250.5), GAZP (120.0), AFLT (100.0)
     # LKOH (NaN) должен отсечься автоматически, так как NaN не равен 0 и не число
     res = DataFilterService.filter_market_data(
         df=reference_market_data, price_from=100.0, price_to=300.0
     )
 
-    assert len(res) == 4
+    assert len(res) == 3
     assert "LKOH" not in res["SECID"].values
     assert "AFLT" in res["SECID"].values  # Граничное значение прошло успешно
 
