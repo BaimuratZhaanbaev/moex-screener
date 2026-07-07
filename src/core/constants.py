@@ -1,30 +1,40 @@
-# src/core/constants.py
+"""Глобальные константы и справочники Скринера Московской Биржи.
 
-# 1. Базовые колонки для быстрого просмотра
-DEFAULT_COLUMNS = ["SECID", "SHORTNAME", "LAST", "LASTTOPREVPRICE", "VALTODAY_RUR"]
+Содержит конфигурации пресетов колонок, правила локализации заголовков
+и группы форматирования финансовых данных для слоя отображения (View).
+"""
 
-# 2. Профессиональные колонки (без технического шума)
-PROFESSIONAL_COLUMNS = [
-    # Идентификаторы
+# Пресет 1. Базовые колонки для экспресс-анализа (Минимальный трафик)
+DEFAULT_COLUMNS: list[str] = [
+    "SECID",
+    "SHORTNAME",
+    "LAST",
+    "LASTTOPREVPRICE",
+    "VALTODAY_RUR",
+]
+
+# Пресет 2. Профессиональные метрики (Анализ ликвидности и микроструктуры стакана)
+PROFESSIONAL_COLUMNS: list[str] = [
+    # Идентификаторы бумаги
     "SECID",
     "SHORTNAME",
     "ISIN",
     "LISTLEVEL",
-    # Масштаб и Объемы
+    # Объемы торгов и масштабы эмитента
     "ISSUECAPITALIZATION",
     "VOLTODAY",
     "VALTODAY_RUR",
     "NUMTRADES",
-    # Ценовые экстремумы
+    # Ценовые экстремумы текущей сессии
     "OPEN",
     "HIGH",
     "LOW",
     "LAST",
     "PREVPRICE",
-    # Моментум
+    # Скорость и изменение (Моментум)
     "LASTCHANGEPRCNT",
     "LASTTOPREVPRICE",
-    # Микроструктура стакана
+    # Параметры ликвидности (Очередь заявок)
     "BID",
     "OFFER",
     "SPREAD",
@@ -32,32 +42,38 @@ PROFESSIONAL_COLUMNS = [
     "OFFERDEPTHT",
     "NUMBIDS",
     "NUMOFFERS",
-    # Контекст
+    # Системные флаги торговой сессии
     "TRADINGSTATUS",
     "TRADINGSESSION",
 ]
 
-# Человекочитаемые заголовки для GUI
-COLUMN_MAPPING = {
+# Справочник локализации системных полей MOEX ISS API для шапки таблицы GUI
+COLUMN_MAPPING: dict[str, str] = {
     "SECID": "Тикер",
     "SHORTNAME": "Наименование",
-    "ISIN": "ISIN",
-    "LISTLEVEL": "Эшелон",
-    "ISSUECAPITALIZATION": "Капитализация",
-    "VOLTODAY": "Объем (шт.)",
-    "VALTODAY_RUR": "Оборот (руб.)",
-    "NUMTRADES": "Кол-во сделок",
-    "OPEN": "Открытие",
-    "HIGH": "Максимум",
-    "LOW": "Минимум",
-    "LAST": "Цена последней",
-    "PREVPRICE": "Вчерашнее закр.",
-    "LASTTOPREVPRICE": "Изм. (%)",
+    "ISIN": "Международный код (ISIN)",
+    "LISTLEVEL": "Уровень листинга",
+    "ISSUECAPITALIZATION": "Рыночная капитализация",
+    "VOLTODAY": "Объем торгов (шт.)",
+    "VALTODAY_RUR": "Оборот торгов (руб.)",
+    "NUMTRADES": "Количество сделок",
+    "OPEN": "Цена открытия",
+    "HIGH": "Дневной максимум",
+    "LOW": "Дневной минимум",
+    "LAST": "Цена последней сделки",
+    "PREVPRICE": "Цена закрытия вчера",
+    "LASTTOPREVPRICE": "Изменение к закрытию (%)",
+    "LASTCHANGEPRCNT": "Изменение к открытию (%)",
     "BID": "Лучший спрос (BID)",
-    "OFFER": "Лучшее предл. (OFFER)",
-    "SPREAD": "Спред",
-    "WAPRICE": "Средневзв. цена (VWAP)",
-    # ... сюда добавляем все остальные нужные колонки ...
+    "OFFER": "Лучшее предложение (OFFER)",
+    "SPREAD": "Абсолютный спред",
+    "WAPRICE": "Средневзвешенная цена (VWAP)",
+    "BIDDEPTHT": "Суммарный спрос в стакане",
+    "OFFERDEPTHT": "Суммарное предложение в стакане",
+    "NUMBIDS": "Заявок на покупку",
+    "NUMOFFERS": "Заявок на продажу",
+    "TRADINGSTATUS": "Статус торгов",
+    "TRADINGSESSION": "Тип сессии",
 }
 
 # Группы форматирования финансовых данных для Qt-модели
@@ -77,9 +93,10 @@ FORMAT_GROUPS = {
     "volume_int": ["VOLTODAY", "NUMTRADES", "NUMBIDS", "NUMOFFERS"],
 }
 
-# Группы форматирования финансовых данных
-FORMAT_GROUPS = {
-    "price_2dp": [  # Дробные цены с 2 знаками и пробелом
+# Правила распределения финансовых полей по группам отображения.
+# Используются MoexTableModel для точечного применения стилей форматирования.
+FORMAT_GROUPS: dict[str, list[str]] = {
+    "price_2dp": [
         "LAST",
         "OPEN",
         "HIGH",
@@ -92,20 +109,23 @@ FORMAT_GROUPS = {
         "WAPRICE",
         "PREVWAPRICE",
     ],
-    "percent": [  # Проценты со знаком +/-
+    "percent": [
         "LASTCHANGEPRCNT",
         "LASTTOPREVPRICE",
         "WAPTOPREVWAPRICEPRCNT",
+        "SPREAD",
     ],
-    "integer_volume": [  # Целые штуки
+    "integer_volume": [
         "VOLTODAY",
         "NUMTRADES",
         "BIDDEPTH",
         "OFFERDEPTH",
+        "BIDDEPTHT",
+        "OFFERDEPTHT",
         "NUMBIDS",
         "NUMOFFERS",
     ],
-    "large_money": [  # Огромные суммы без копеек
+    "large_money": [
         "VALTODAY_RUR",
         "ISSUECAPITALIZATION",
     ],

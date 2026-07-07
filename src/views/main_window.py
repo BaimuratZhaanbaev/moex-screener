@@ -14,7 +14,7 @@ from PySide6.QtWidgets import (
 
 from src.api.client import MoexAPIError, MoexClient
 from src.core.analytics import DataFilterService
-from src.core.constants import PROFESSIONAL_COLUMNS, DEFAULT_COLUMNS
+from src.core.constants import DEFAULT_COLUMNS, PROFESSIONAL_COLUMNS
 from src.core.parser import MoexDataParser
 from src.models.table_model import MoexTableModel
 from src.views.filter_panel import FilterPanel
