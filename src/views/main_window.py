@@ -66,7 +66,7 @@ class MainWindow(QMainWindow):
         self.moex_parser = MoexDataParser(allowed_columns=PROFESSIONAL_COLUMNS)
         self.moex_client = MoexClient()
 
-        # ЗАПУСК: Загружаем реальные данные с биржи вместо фейкового теста!
+        # ЗАПУСК: Загружаем реальные данные с биржи!
         self.load_market_data()
 
     def load_market_data(self):
@@ -78,11 +78,6 @@ class MainWindow(QMainWindow):
         self.statusBar().showMessage("Запрос данных от MOEX ISS API...")
 
         try:
-            # Временная заглушка
-            #raw_data = self.moex_client.get_clean_data(
-            #    use_fixture="securities_valid_little.json"
-            #)
-
             raw_data = self.moex_client.get_clean_data()
 
             # Передаем сырой JSON в парсер
@@ -243,7 +238,10 @@ class MainWindow(QMainWindow):
             logger.info(f"Переключение пресета колонок таблицы на режим: '{mode}'")
             
             if not self.table_model or self.table_model._df is None:
-                logger.warning("Отмена переключения режима: модель или данные еще не инициализированы.")
+                logger.warning(
+                    "Отмена переключения режима: "
+                    "модель или данные еще не инициализированы."
+                    )
                 return
 
             # Определяем список разрешенных колонок для каждого режима
@@ -260,7 +258,7 @@ class MainWindow(QMainWindow):
 
             # Запускаем цикл скрытия/отображения по всем столбцам QTableView
             for i in range(self.table_model.columnCount()):
-                # Безопасно вытаскиваем техническое имя колонки из Pandas DataFrame по её индексу
+                # Безопасно вытаскиваем техническое имя колонки из DataFrame по индексу
                 if i < len(self.table_model._df.columns):
                     col_name = self.table_model._df.columns[i]
                 else:
@@ -274,8 +272,12 @@ class MainWindow(QMainWindow):
             logger.success(f"Сетка колонок успешно перестроена для режима '{mode}'.")
             
         except Exception as e:
-            logger.exception(f"Ошибка динамической перестройки колонок для режима {mode}")
-            QMessageBox.critical(self, "Ошибка интерфейса", f"Не удалось изменить режим отображения: {e}")
+            logger.exception(
+                f"Ошибка динамической перестройки колонок для режима {mode}"
+                )
+            QMessageBox.critical(
+                self, "Ошибка интерфейса", f"Не удалось изменить режим отображения: {e}"
+                )
 
     @Slot(str)
     def handle_export_data(self, file_format: str):

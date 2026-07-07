@@ -4,7 +4,9 @@ from pathlib import Path
 import pandas as pd
 import pytest
 from loguru import logger
+import os
 
+from src.views.main_window import MainWindow
 from src.models.table_model import MoexTableModel
 
 
@@ -144,3 +146,53 @@ def initialized_qt_model(reference_market_data):
     # Загружаем наш Master-DataFrame в модель таблицы
     model.set_dataframe(reference_market_data)
     return model
+
+
+@pytest.fixture
+def filter_panel(qtbot):
+    """
+    Фикстура для изоляции и тестирования панели фильтров.
+    Автоматически регистрирует виджет в движке qtbot.
+    """
+    # Гарантируем наличие директории ресурсов в тестовом окружении,
+    # чтобы FilterPanel не упала при инициализации QSS стилей
+    os.makedirs("src/resources", exist_ok=True)
+    qss_file = "src/resources/styles.qss"
+    if not os.path.exists(qss_file):
+        with open(qss_file, "w", encoding="utf-8") as f:
+            f.write("/* Test mock style */")
+
+    from src.views.filter_panel import FilterPanel
+    
+    panel = FilterPanel()
+    qtbot.addWidget(panel)
+    return panel
+
+
+@pytest.fixture
+def main_window(qtbot, mocker, reference_market_data):
+    """
+    Фикстура для изолированного тестирования MainWindow.
+    Заливает в модель эталонный DataFrame, чтобы не зависеть от сети.
+    """
+    mocker.patch(
+        "src.api.client.MoexClient.fetch_from_api", 
+        return_value={
+            "securities": {"columns": [], "data": []}, 
+            "marketdata": {"columns": [], "data": []}
+            }
+    )
+
+    mocker.patch("PySide6.QtWidgets.QMessageBox.critical", return_value=None)
+    mocker.patch("PySide6.QtWidgets.QMessageBox.information", return_value=None)
+    mocker.patch("PySide6.QtWidgets.QMessageBox.warning", return_value=None)
+
+    window = MainWindow()
+
+    window.table_model.beginResetModel()
+    window.table_model._df = reference_market_data.copy()
+    window.table_model._source_df = reference_market_data.copy()
+    window.table_model.endResetModel()
+    
+    qtbot.addWidget(window)
+    return window
