@@ -214,10 +214,10 @@ class FilterPanel(QWidget):
         """Вспомогательный метод для точного определения активности фильтра."""
         if isinstance(widget, QLineEdit):
             return len(widget.text().strip()) > 0
-            
+
         if isinstance(widget, QDoubleSpinBox):
             return widget.value() > widget.minimum()
-        
+
         return False
 
     def _update_widget_style(self, widget: QWidget):
@@ -242,25 +242,17 @@ class FilterPanel(QWidget):
 
         # Если числовое поле показывает "—", возвращаем None
         p_from = (
-            self.price_from.value() 
-            if self._is_widget_active(self.price_from) 
-            else None
-            )
-        p_to = (
-            self.price_to.value() 
-            if self._is_widget_active(self.price_to) 
-            else None
-            )
+            self.price_from.value() if self._is_widget_active(self.price_from) else None
+        )
+        p_to = self.price_to.value() if self._is_widget_active(self.price_to) else None
         c_from = (
-            self.change_from.value() 
-            if self._is_widget_active(self.change_from) 
+            self.change_from.value()
+            if self._is_widget_active(self.change_from)
             else None
-            )
+        )
         c_to = (
-            self.change_to.value() 
-            if self._is_widget_active(self.change_to) 
-            else None
-            )
+            self.change_to.value() if self._is_widget_active(self.change_to) else None
+        )
 
         return {
             "SECID": ticker if ticker else None,

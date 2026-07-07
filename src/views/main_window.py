@@ -1,14 +1,15 @@
 from datetime import datetime
+
 from loguru import logger
+from PySide6.QtCore import QModelIndex, Slot
 from PySide6.QtGui import QCloseEvent
-from PySide6.QtCore import Slot, QModelIndex
 from PySide6.QtWidgets import (
+    QFileDialog,
     QMainWindow,
     QMessageBox,
     QTableView,
     QVBoxLayout,
     QWidget,
-    QFileDialog
 )
 
 from src.api.client import MoexAPIError, MoexClient
@@ -89,7 +90,7 @@ class MainWindow(QMainWindow):
                 )
                 logger.warning("Парсер вернул пустой DataFrame после обработки.")
                 return
-            
+
             self.table_model._source_df = df.copy()
 
             # Передаем DataFrame в модель Qt
@@ -121,7 +122,7 @@ class MainWindow(QMainWindow):
 
     @Slot(dict)
     def handle_filter_changed(self, filter_params: dict):
-        """Слот-Контроллер: 
+        """Слот-Контроллер:
 
         срабатывает при нажатии кнопки 'Применить' или 'Сбросить'.
         """
@@ -131,9 +132,9 @@ class MainWindow(QMainWindow):
         ):
             logger.warning(
                 "Попытка отфильтровать пустую или неинициализированную модель данных."
-                )
+            )
             return
-        
+
         logger.info(f"Запрос на фильтрацию таблицы. Параметры: {filter_params}")
 
         # Передаем задачу фильтрации в изолированный слой Бизнес-логики
@@ -144,14 +145,14 @@ class MainWindow(QMainWindow):
             price_to=filter_params.get("price_to"),
             change_from=filter_params.get("change_from"),
             change_to=filter_params.get("change_to"),
-            name=filter_params.get("SHORTNAME")
+            name=filter_params.get("SHORTNAME"),
         )
-        
+
         old_df = self.table_model._df
         logger.debug(
             f"Структура: было строк: "
             f"{len(old_df)}, после фильтрации: {len(filtered_df)}"
-            )
+        )
 
         # Умное обновление структуры Qt без жесткого Reset при совпадении индексов
         old_len = len(old_df)
@@ -164,16 +165,16 @@ class MainWindow(QMainWindow):
                 top_left = self.table_model.index(0, 0)
                 bottom_right = self.table_model.index(
                     new_len - 1, len(filtered_df.columns) - 1
-                    )
+                )
                 self.table_model.dataChanged.emit(top_left, bottom_right)
 
         # Сценарий 2: Строки просто удалились с конца (частый случай при фильтрации)
         elif old_df.index.isin(filtered_df.index).all() and new_len < old_len:
             logger.trace("Применение стратегии Qt: точечное удаление строк")
-            
-            # Предполагаем, что фильтр отсек хвост. 
+
+            # Предполагаем, что фильтр отсек хвост.
             # Если структура сложнее, безопаснее использовать reset
-            diff = old_len - new_len
+            # diff = old_len - new_len
             self.table_model.beginRemoveRows(QModelIndex(), new_len, old_len - 1)
             self.table_model._df = filtered_df
             self.table_model.endRemoveRows()
@@ -183,7 +184,7 @@ class MainWindow(QMainWindow):
             logger.trace(
                 "Применение стратегии Qt: "
                 "beginResetModel (критическое изменение структуры)"
-                )
+            )
             self.table_model.beginResetModel()
             self.table_model._df = filtered_df
             self.table_model.endResetModel()
@@ -197,34 +198,34 @@ class MainWindow(QMainWindow):
             logger.debug(
                 f"Восстановление сортировки. Колонка: "
                 f"{sort_column}, Направление: {sort_order}"
-                )
+            )
             self.table_model.sort(sort_column, sort_order)
 
         self.statusBar().showMessage(f"Отфильтровано бумаг: {len(filtered_df)}")
 
     @Slot()
     def handle_refresh_data(self):
-        """Мягкая блокировка (Loading State) графического интерфейса при сетевом обмене."""
+        """Мягкая блокировка графического интерфейса при сетевом обмене."""
         logger.info("Пользователь запросил принудительное обновление сети через UI.")
-        
+
         # 1. Активируем Loading State на кнопке панели
         self.filter_panel.refresh_btn.setEnabled(False)
         self.filter_panel.refresh_btn.setText("⏳ Загрузка...")
         self.statusBar().showMessage(
             "Сетевой обмен: загрузка актуальных котировок MOEX ISS..."
-            )
+        )
 
         try:
             # Запускаем штатный метод загрузки
             self.load_market_data()
-            
+
             # 2. Возвращаем исходное состояние и выводим метку времени
             current_time = datetime.now().strftime("%H:%M:%S")
             self.filter_panel.refresh_btn.setEnabled(True)
             self.filter_panel.refresh_btn.setText("🔄 Обновить данные")
             self.statusBar().showMessage(f"Данные обновлены в {current_time}")
 
-        except Exception as e:
+        except Exception:
             # Защита: при любом сбое возвращаем управление кнопкой пользователю
             self.filter_panel.refresh_btn.setEnabled(True)
             self.filter_panel.refresh_btn.setText("🔄 Обновить данные")
@@ -236,12 +237,12 @@ class MainWindow(QMainWindow):
         """Динамическое скрытие колонок в QTableView на основе выбранного режима."""
         try:
             logger.info(f"Переключение пресета колонок таблицы на режим: '{mode}'")
-            
+
             if not self.table_model or self.table_model._df is None:
                 logger.warning(
                     "Отмена переключения режима: "
                     "модель или данные еще не инициализированы."
-                    )
+                )
                 return
 
             # Определяем список разрешенных колонок для каждого режима
@@ -251,8 +252,8 @@ class MainWindow(QMainWindow):
                 allowed_columns = PROFESSIONAL_COLUMNS
             else:  # Режим "full" (Все поля)
                 allowed_columns = (
-                    list(self.table_model._source_df.columns) 
-                    if self.table_model._source_df is not None 
+                    list(self.table_model._source_df.columns)
+                    if self.table_model._source_df is not None
                     else []
                 )
 
@@ -267,17 +268,17 @@ class MainWindow(QMainWindow):
                 # Скрываем колонку, если её имени нет в списке разрешенных
                 is_hidden = col_name not in allowed_columns
                 self.table_view.setColumnHidden(i, is_hidden)
-                
+
             self.statusBar().showMessage(f"Применен режим отображения: {mode}")
             logger.success(f"Сетка колонок успешно перестроена для режима '{mode}'.")
-            
+
         except Exception as e:
             logger.exception(
                 f"Ошибка динамической перестройки колонок для режима {mode}"
-                )
+            )
             QMessageBox.critical(
                 self, "Ошибка интерфейса", f"Не удалось изменить режим отображения: {e}"
-                )
+            )
 
     @Slot(str)
     def handle_export_data(self, file_format: str):
@@ -289,9 +290,9 @@ class MainWindow(QMainWindow):
         if self.table_model.rowCount() == 0:
             logger.warning("Блокировка экспорта: таблица не содержит записей.")
             QMessageBox.warning(
-                self, 
-                "Экспорт", 
-                "Невозможно экспортировать пустую таблицу. Смягчите фильтры!"
+                self,
+                "Экспорт",
+                "Невозможно экспортировать пустую таблицу. Смягчите фильтры!",
             )
             return
 
@@ -301,7 +302,7 @@ class MainWindow(QMainWindow):
                 self,
                 "Сохранить экспорт биржевых данных",
                 "",
-                "Comma Separated Values (*.csv);;All Files (*)"
+                "Comma Separated Values (*.csv);;All Files (*)",
             )
 
             if not file_path:
@@ -311,20 +312,18 @@ class MainWindow(QMainWindow):
             # 3. Извлекаем текущий отфильтрованный срез DataFrame из модели
             export_df = self.table_model._df
 
-            # 4. Безопасная запись на диск 
+            # 4. Безопасная запись на диск
             export_df.to_csv(file_path, index=False, encoding="utf-8-sig")
-            
+
             logger.info(f"Данные успешно экспортированы в: {file_path}")
             self.statusBar().showMessage(f"Файл успешно сохранен: {file_path}")
             QMessageBox.information(self, "Экспорт", "Данные успешно сохранены в файл!")
 
         except Exception as e:
-            logger.exception(
-                "Критическая ошибка при записи CSV файла на жесткий диск"
-                )
+            logger.exception("Критическая ошибка при записи CSV файла на жесткий диск")
             QMessageBox.critical(
                 self, "Ошибка экспорта", f"Не удалось сохранить файл:\n{e}"
-                )
+            )
 
     def closeEvent(self, event: QCloseEvent):
         """Вызывается автоматически при закрытии главного окна пользователем"""

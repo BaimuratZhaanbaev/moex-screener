@@ -1,13 +1,13 @@
 import json
+import os
 from pathlib import Path
 
 import pandas as pd
 import pytest
 from loguru import logger
-import os
 
-from src.views.main_window import MainWindow
 from src.models.table_model import MoexTableModel
+from src.views.main_window import MainWindow
 
 
 @pytest.fixture(autouse=True)
@@ -163,7 +163,7 @@ def filter_panel(qtbot):
             f.write("/* Test mock style */")
 
     from src.views.filter_panel import FilterPanel
-    
+
     panel = FilterPanel()
     qtbot.addWidget(panel)
     return panel
@@ -176,11 +176,11 @@ def main_window(qtbot, mocker, reference_market_data):
     Заливает в модель эталонный DataFrame, чтобы не зависеть от сети.
     """
     mocker.patch(
-        "src.api.client.MoexClient.fetch_from_api", 
+        "src.api.client.MoexClient.fetch_from_api",
         return_value={
-            "securities": {"columns": [], "data": []}, 
-            "marketdata": {"columns": [], "data": []}
-            }
+            "securities": {"columns": [], "data": []},
+            "marketdata": {"columns": [], "data": []},
+        },
     )
 
     mocker.patch("PySide6.QtWidgets.QMessageBox.critical", return_value=None)
@@ -193,6 +193,6 @@ def main_window(qtbot, mocker, reference_market_data):
     window.table_model._df = reference_market_data.copy()
     window.table_model._source_df = reference_market_data.copy()
     window.table_model.endResetModel()
-    
+
     qtbot.addWidget(window)
     return window
