@@ -14,7 +14,7 @@ from PySide6.QtWidgets import (
 
 from src.api.client import MoexAPIError, MoexClient
 from src.core.analytics import DataFilterService
-from src.core.constants import PROFESSIONAL_COLUMNS
+from src.core.constants import PROFESSIONAL_COLUMNS, DEFAULT_COLUMNS
 from src.core.parser import MoexDataParser
 from src.models.table_model import MoexTableModel
 from src.views.filter_panel import FilterPanel
@@ -64,7 +64,7 @@ class MainWindow(QMainWindow):
         self.filter_panel.export_requested.connect(self.handle_export_data)
 
         # Инициализация боевых служб
-        self.moex_parser = MoexDataParser(allowed_columns=PROFESSIONAL_COLUMNS)
+        self.moex_parser = MoexDataParser()
         self.moex_client = MoexClient()
 
         # ЗАПУСК: Загружаем реальные данные с биржи!
@@ -95,6 +95,7 @@ class MainWindow(QMainWindow):
 
             # Передаем DataFrame в модель Qt
             self.table_model.set_dataframe(df)
+            self.handle_mode_changed("basic")
 
             self.statusBar().showMessage(
                 f"Данные успешно обновлены. Всего бумаг в кэше: {len(df)}"
@@ -247,7 +248,7 @@ class MainWindow(QMainWindow):
 
             # Определяем список разрешенных колонок для каждого режима
             if mode == "basic":
-                allowed_columns = ["SECID", "SHORTNAME", "LAST"]
+                allowed_columns = DEFAULT_COLUMNS
             elif mode == "professional":
                 allowed_columns = PROFESSIONAL_COLUMNS
             else:  # Режим "full" (Все поля)
