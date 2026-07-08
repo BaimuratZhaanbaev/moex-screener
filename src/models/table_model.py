@@ -4,7 +4,7 @@ import pandas as pd
 from loguru import logger
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt
 
-from src.core.constants import COLUMN_MAPPING, FORMAT_GROUPS
+from src.core.constants import COLUMN_MAPPING, FORMAT_GROUPS, MoexColumns
 
 
 class MoexTableModel(QAbstractTableModel):
@@ -16,9 +16,9 @@ class MoexTableModel(QAbstractTableModel):
     def __init__(self, parent: Any | None = None):
         super().__init__(parent)
         # Шаг 1: Инициализация скрытых полей для хранения данных
-        self._source_df = pd.DataFrame()  # Эталонный (мастер) массив от биржи
+        self._source_df: pd.DataFrame = pd.DataFrame()  # Эталонный (мастер) массив от биржи
         # Текущий отображаемый срез (отфильтрованный/отсортированный)
-        self._df = pd.DataFrame()
+        self._df: pd.DataFrame = pd.DataFrame()
         logger.debug("MoexTableModel успешно инициализирована.")
 
     # Переопределение "Святой Троицы" методов модели Qt
@@ -34,7 +34,11 @@ class MoexTableModel(QAbstractTableModel):
             return 0
         return len(self._df.columns)
 
-    def data(self, index: QModelIndex, role: int = Qt.ItemDataRole.DisplayRole) -> Any:
+    def data(
+        self, 
+        index: QModelIndex, 
+        role: int = Qt.ItemDataRole.DisplayRole,
+    ) -> Any:
         """
         Поставляет данные ячейкам таблицы.
         Это самый важный, объемный и производительный узел модели.
@@ -45,8 +49,8 @@ class MoexTableModel(QAbstractTableModel):
             logger.trace("Запрошен невалидный QModelIndex")
             return None
 
-        row = index.row()
-        col = index.column()
+        row: int = index.row()
+        col: int = index.column()
 
         # Защита от выхода за границы DataFrame
         # (если интерфейс и данные рассинхронизировались)
@@ -57,11 +61,9 @@ class MoexTableModel(QAbstractTableModel):
             )
             return None
 
-        col_name = self._df.columns[col]
-        val = self._df.iloc[row, col]
+        col_name: str = self._df.columns[col]
+        val: Any = self._df.iloc[row, col]
 
-        # Включаем TRACE-логирование для детальной отладки отрисовки конкретных ячеек
-        # Будет срабатывать только если в настройках логгера явно включен TRACE
         logger.trace(
             f"Запрос ячейки [{row}, {col}] ({col_name}), значение: {val}, роль: {role}"
         )
@@ -77,25 +79,32 @@ class MoexTableModel(QAbstractTableModel):
                 return "-"
 
             # Универсальное динамическое форматирование на основе групп из config.py
-            if col_name in FORMAT_GROUPS["price_2dp"]:
+            if col_name in FORMAT_GROUPS.get("price_2dp", []):
                 return f"{val:,.2f}".replace(",", " ")
 
-            elif col_name in FORMAT_GROUPS["percent"]:
+            if col_name in FORMAT_GROUPS.get("percent", []):
                 return f"{val:+.2f}%"
 
-            elif col_name in FORMAT_GROUPS["integer_volume"]:
+            if col_name in FORMAT_GROUPS.get("integer_volume", []):
                 return f"{int(val):,}".replace(",", " ")
 
-            elif col_name in FORMAT_GROUPS["large_money"]:
+            if col_name in FORMAT_GROUPS.get("large_money", []):
                 return f"{val:,.0f}".replace(",", " ")
 
             return str(val)
 
         # 2. Форматирование выравнивания (TextAlignmentRole)
         if role == Qt.ItemDataRole.TextAlignmentRole:
+            text_columns = {
+                MoexColumns.SECID.value, 
+                MoexColumns.SHORTNAME.value, 
+                MoexColumns.ISIN.value,
+            }
+
             # Текстовые данные прижимаем влево, финансовые/числа — вправо
-            if col_name in ["SECID", "SHORTNAME", "ISIN"]:
+            if col_name in text_columns:
                 return Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
+            
             return Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter
 
         return None
@@ -117,10 +126,10 @@ class MoexTableModel(QAbstractTableModel):
             and role == Qt.ItemDataRole.DisplayRole
         ):
             if not self._df.empty and section < len(self._df.columns):
-                technical_name = self._df.columns[section]
+                technical_name: str = self._df.columns[section]
 
                 # русский перевод из маппинга или техническое имя как резерв
-                display_name = COLUMN_MAPPING.get(technical_name, technical_name)
+                display_name: str = COLUMN_MAPPING.get(technical_name, technical_name)
 
                 logger.trace(
                     f"Успешный маппинг заголовка: {technical_name} -> '{display_name}'"
@@ -136,7 +145,11 @@ class MoexTableModel(QAbstractTableModel):
         return None
 
     # Реализация алгоритма быстрой сортировки
-    def sort(self, column: int, order: Qt.SortOrder = Qt.SortOrder.AscendingOrder):
+    def sort(
+        self, 
+        column: int, 
+        order: Qt.SortOrder = Qt.SortOrder.AscendingOrder,
+    ) -> None:
         """Выполняет мгновенную сортировку строк в Pandas."""
         if self._df.empty:
             logger.debug(
@@ -144,7 +157,7 @@ class MoexTableModel(QAbstractTableModel):
             )
             return
 
-        col_name = self._df.columns[column]
+        col_name: str = self._df.columns[column]
         logger.debug(
             f"Запущена сортировка по колонке: '{col_name}' "
             f"(Индекс: {column}), Направление: {order}"
@@ -153,12 +166,15 @@ class MoexTableModel(QAbstractTableModel):
         # Сигнализируем интерфейсу Qt о начале перестройки структуры строк
         self.layoutAboutToBeChanged.emit()
 
-        ascending = order == Qt.SortOrder.AscendingOrder
+        ascending: bool = order == Qt.SortOrder.AscendingOrder
 
         # na_position='last' — критически важное требование!
         # Бумаги у которых цена LAST = null при любой сортировке уходят вниз таблицы
         self._df.sort_values(
-            by=col_name, ascending=ascending, inplace=True, na_position="last"
+            by=col_name, 
+            ascending=ascending, 
+            inplace=True, 
+            na_position="last",
         )
 
         # Уведомляем представление (View) о завершении перерисовки
@@ -174,8 +190,8 @@ class MoexTableModel(QAbstractTableModel):
         self.beginResetModel()
 
         # Сохраняем мастер-копию для фильтрации и делаем её активной для отображения
-        self._source_df = new_df.copy()
-        self._df = new_df
+        self._source_df: pd.DataFrame = new_df.copy()
+        self._df: pd.DataFrame = new_df
 
         self.endResetModel()
         logger.info(

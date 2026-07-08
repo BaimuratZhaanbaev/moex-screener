@@ -135,9 +135,9 @@ def test_null_values_isolation(real_api_data: dict[str, Any]) -> None:
 
 
 def test_parser_resilience_to_corrupted_data(
-        corrupted_fixture_source: Any, 
-        load_fixture: Any,
-    ) -> None:
+    corrupted_fixture_source: Any, 
+    load_fixture: Any,
+) -> None:
     """Проверяет отказоустойчивость конвейера к поврежденным структурам JSON-пакетов.
     
     Гарантирует перехват исключений и предотвращает аварийное завершение главного
