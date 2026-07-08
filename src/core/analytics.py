@@ -3,6 +3,8 @@ import time
 import pandas as pd
 from loguru import logger
 
+from src.core.constants import MoexColumns
+
 
 class DataFilterService:
     """Сервис чистого анализа и фильтрации данных (Бизнес-логика)."""
@@ -25,70 +27,59 @@ class DataFilterService:
         initial_rows = len(df)
         start_time = time.perf_counter()  # Фиксируем время старта
 
+        # Подгружаем строгие ключи колонок из наших констант
+        col_secid = MoexColumns.SECID.value
+        col_name = MoexColumns.SHORTNAME.value
+        col_last = MoexColumns.LAST.value
+        col_change = MoexColumns.LASTTOPREVPRICE.value
+
         # Собираем активные фильтры для лога
         active_filters = []
         if ticker:
             active_filters.append(f"ticker='{ticker}'")
-
         if name:
             active_filters.append(f"name='{name}'")
-
         if price_from is not None or price_to is not None:
             active_filters.append(f"price=[{price_from}:{price_to}]")
-
         if change_from is not None or change_to is not None:
             active_filters.append(f"change=[{change_from}:{change_to}]")
-
         logger.info(
             f"Запуск фильтрации. Активные критерии: "
             f"{', '.join(active_filters) if active_filters else 'НЕТ'}"
         )
 
-        working_df = df  # Работаем по ссылке, память не дублируем
-
-        # Текстовые фильтры (регистронезависимые)
+        # Текстовые фильтры (регистронезависимые). Накладываем битовые фильтры на маску
+        mask = pd.Series(True, index=df.index)
+        
         if ticker:
-            working_df = working_df[
-                working_df["SECID"].str.contains(ticker, case=False, na=False)
-            ]
+            mask &= df[col_secid].str.contains(ticker, case=False, na=False)
 
         if name:
-            working_df = working_df[
-                working_df["SHORTNAME"].str.contains(name, case=False, na=False)
-            ]
+            mask &= df[col_name].str.contains(name, case=False, na=False)
 
         # Числовые фильтры цены (LAST)
         if price_from is not None:
-            working_df = working_df[
-                (working_df["LAST"].notna()) & (working_df["LAST"] >= price_from)
-            ]
+            mask &= df[col_last].notna() & (df[col_last] >= price_from)
 
         if price_to is not None:
-            working_df = working_df[
-                (working_df["LAST"].notna()) & (working_df["LAST"] <= price_to)
-            ]
+            mask &= df[col_last].notna() & (df[col_last] <= price_to)
 
         # Числовые фильтры изменения цены (LASTTOPREVPRICE)
         if change_from is not None:
-            working_df = working_df[
-                working_df["LASTTOPREVPRICE"].notna()
-                & (working_df["LASTTOPREVPRICE"] >= change_from)
-            ]
+            mask &= df[col_change].notna() & (df[col_change] >= change_from)
 
         if change_to is not None:
-            working_df = working_df[
-                working_df["LASTTOPREVPRICE"].notna()
-                & (working_df["LASTTOPREVPRICE"] <= change_to)
-            ]
+            mask &= df[col_change].notna() & (df[col_change] <= change_to)
+
+        # Выделяем память под срез данных ровно ОДИН раз
+        filtered_df = df[mask].copy()
 
         # Замеряем итоговые метрики
         elapsed_time = (time.perf_counter() - start_time) * 1000  # переводим в мс
-        final_rows = len(working_df)
 
         logger.success(
             f"Фильтрация завершена за {elapsed_time:.2f} мс. "
-            f"Было строк: {initial_rows} -> Осталось: "
-            f"{final_rows} (Отсечено: {initial_rows - final_rows})"
+            f"Было строк: {len(df)} -> Осталось: {len(filtered_df)}"
         )
 
-        return working_df
+        return filtered_df

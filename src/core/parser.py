@@ -4,10 +4,13 @@ from typing import Any
 import pandas as pd
 from loguru import logger
 
+from src.core.constants import MoexBlocks, MoexColumns
+from src.core.extractor import MoexSchemaExtractor
+
 
 class MoexDataParser:
-    def __init__(self, allowed_columns: list[str] = None):
-        self.allowed_columns = allowed_columns
+    def __init__(self, allowed_columns: list[str] = None) -> None:
+        self.allowed_columns: list[str] | None = allowed_columns
         logger.debug(
             "Инициализирован MoexDataParser с динамическим определением типов."
         )
@@ -20,103 +23,77 @@ class MoexDataParser:
         :param raw_data: Десериализованный JSON-ответ от MOEX ISS API.
         :return: Очищенный pd.DataFrame, готовый к фильтрации и выводу в Qt.
         """
+        if not isinstance(raw_data, dict):
+            logger.error("Контракт нарушен: сырые данные не являются словарем.")
+            return pd.DataFrame()
+        
+        securities_raw = raw_data.get(MoexBlocks.SECURITIES.value)
+        market_raw = raw_data.get(MoexBlocks.MARKETDATA.value)
+        
         logger.info("Запуск конвейера трансформации данных MOEX...")
 
-        if not raw_data or "securities" not in raw_data or "marketdata" not in raw_data:
+        if not securities_raw or not market_raw:
             logger.warning(
                 "Получен пустой или некорректный пакет данных от API. "
                 "Возвращаем пустой DataFrame."
             )
             return pd.DataFrame()
+        
+        try:
+            securities_df = self._convert_block_to_df(securities_raw)
+            market_df = self._convert_block_to_df(market_raw)
+        except Exception as e:
+            logger.error(f"Сбой десериализации блоков JSON в DataFrame: {e}")
+            return pd.DataFrame()
+
+        if securities_df.empty or market_df.empty:
+            return pd.DataFrame()
 
         try:
-            # 1. Автоматически извлекаем числовые колонки на основе метаданных ответа!
-            numeric_cols = self._get_numeric_columns(raw_data)
-            logger.debug(f"Идентификация числовых колонок биржи: {numeric_cols}")
+            pk = MoexColumns.SECID.value
+            
+            # Индексация для бесконфликтного выравнивания
+            securities_df.set_index(pk, inplace=True, drop=False)
+            market_df.set_index(pk, inplace=True, drop=True)
 
-            # 2. Конвертируем блоки
-            logger.debug("Десериализация блока 'securities'...")
-            sec_df = self._convert_block_to_df(raw_data["securities"])
-            logger.debug("Десериализация блока 'marketdata'...")
-            market_df = self._convert_block_to_df(raw_data["marketdata"])
+            # Вычисление уникальных колонок котировок (исключая дубликаты индексов)
+            unique_market_cols = market_df.columns.difference(securities_df.columns)
+            merged_df = securities_df.join(market_df[unique_market_cols], how="left")
 
-            if sec_df.empty or market_df.empty:
-                logger.warning("Один из ключевых информационных блоков пуст.")
-                return pd.DataFrame()
+            # Извлечение числовых полей через внешний экстрактор (Принцип S из SOLID)
+            numeric_cols = MoexSchemaExtractor.extract_numeric_columns(raw_data)
+            
+            # Фильтрация, кастинг типов и финальная сортировка
+            filtered_df = self._filter_columns(merged_df)
+            final_df = self._cast_data_types(filtered_df, numeric_cols)
 
-            # 3. Реляционное слияние таблиц (Left Join) по первичному ключу SECID
-            logger.debug("Выполнение реляционного слияния таблиц по ключу SECID...")
-            merged_df = pd.merge(sec_df, market_df, on="SECID", how="left")
-            logger.info(
-                f"Реляционное слияние успешно завершено. "
-                f"Сформировано записей: {len(merged_df)}"
+            if pk in final_df.columns:
+                final_df.reset_index(drop=True, inplace=True)
+                final_df.sort_values(by=pk, inplace=True)
+
+            logger.success(
+                f"Конвейер успешно завершен. "
+                f"Сформировано записей: {len(final_df)}"
             )
-
-            # Лог аномалии слияния
-            if len(merged_df) < len(sec_df):
-                logger.error(
-                    "Размер таблицы уменьшился после слияния! "
-                    "Возможно, нарушена уникальность SECID."
-                )
-
-            # Очистка от инфраструктурного шума (фильтрация колонок)
-            cleaned_df = self._filter_columns(merged_df)
-
-            # 4. Приведение типов с использованием динамического списка
-            final_df = self._cast_data_types(cleaned_df, numeric_cols)
             return final_df
+        
         except Exception as e:
             logger.error(
                 f"Критическая ошибка в процессе парсинга данных: {e}", exc_info=True
             )
             return pd.DataFrame()
 
-    def _get_numeric_columns(self, raw_data: dict[str, Any]) -> list[str]:
-        """
-        Автоматически извлекает названия колонок числовых типов из метаданных MOEX ISS.
-        """
-        numeric_fields = []
-
-        # Проверяем метаданные в обоих информационных блоках
-        for block_name in ["securities", "marketdata"]:
-            block = raw_data.get(block_name, {})
-            metadata = block.get("metadata", {})
-
-            if not metadata:
-                logger.warning(f"Метаданные для блока '{block_name}' не найдены.")
-                continue
-
-            for col_name, info in metadata.items():
-                data_type = info.get("type", "").lower()
-
-                # Если тип равен double, float, int32 или int64 — это число
-                if "double" in data_type or "int" in data_type or "float" in data_type:
-                    if col_name not in numeric_fields:
-                        numeric_fields.append(col_name)
-
-            logger.debug(
-                f"В блоке '{block_name}' обнаружено {len(numeric_fields)} "
-                "числовых полей."
-            )
-
-        logger.info(
-            f"Парсер определил {len(numeric_fields)} числовых колонок для обработки."
-        )
-        return numeric_fields
-
     def _cast_data_types(
-        self, df: pd.DataFrame, numeric_columns: list[str]
-    ) -> pd.DataFrame:
+        self, df: pd.DataFrame, numeric_columns: list[str],) -> pd.DataFrame:
         """
         Принудительно переводит финансовые метрики в числа
         на основе динамического списка.
         """
         df_casted = df.copy()
+        target_cols = df_casted.columns.intersection(numeric_columns)
 
-        for col in df_casted.columns:
-            if col in numeric_columns:
-                # Наше требование ТЗ: null -> NaN (не ноль!)
-                df_casted[col] = pd.to_numeric(df_casted[col], errors="coerce")
+        for col in target_cols:
+            df_casted[col] = pd.to_numeric(df_casted[col], errors="coerce")
 
         logger.debug(
             "Приведение типов данных завершено. Значения null изолированы как NaN."
@@ -150,7 +127,8 @@ class MoexDataParser:
                 "Список allowed_columns не задан, возвращаем исходный DataFrame."
             )
             return df
-
+        
+        pk = MoexColumns.SECID.value
         existing_columns = [col for col in self.allowed_columns if col in df.columns]
 
         # Логируем отсутствие ожидаемых колонок в данных биржи
@@ -159,8 +137,8 @@ class MoexDataParser:
         if missing:
             logger.warning(f"В данных отсутствуют запрошенные колонки: {missing}")
 
-        if "SECID" not in existing_columns and "SECID" in df.columns:
-            existing_columns.insert(0, "SECID")
+        if pk not in existing_columns and pk in df.columns:
+            existing_columns.insert(0, pk)
             logger.debug("SECID принудительно добавлен в список отображаемых колонок.")
 
         logger.info(
