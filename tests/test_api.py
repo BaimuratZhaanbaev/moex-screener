@@ -198,7 +198,7 @@ def test_fetch_from_api_http_status_error(mocker):
     with pytest.raises(MoexAPIError) as exc_info:
         client.fetch_from_api()
 
-    assert "Ошибка сервера MOEX" in str(exc_info.value)
+    assert "Произошла непредвиденная ошибка" in str(exc_info.value)
 
 
 def test_fetch_from_api_request_error(mocker):

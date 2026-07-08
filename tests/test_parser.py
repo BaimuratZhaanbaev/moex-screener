@@ -4,6 +4,8 @@ import pandas as pd
 import pytest
 
 from src.core.parser import MoexDataParser
+from src.core.extractor import MoexSchemaExtractor
+from src.core.constants import MoexColumns
 
 
 def test_parse_valid_data(real_api_data: dict[str, Any]):
@@ -31,15 +33,8 @@ def test_parse_valid_data(real_api_data: dict[str, Any]):
     assert "SECID" in df.columns, "Потерян ключевой идентификатор SECID"
 
 
-# test_parser.py
-
-# test_parser.py
-
-
 def test_get_numeric_columns_logic(numeric_casting_case):
     """Тест: Тестируем логику парсинга типов на контролируемых синтетических данных."""
-    parser = MoexDataParser()
-
     # Распаковываем кортеж из фикстуры
     mock_metadata, expected_in, expected_out = numeric_casting_case
 
@@ -49,7 +44,8 @@ def test_get_numeric_columns_logic(numeric_casting_case):
         "marketdata": {"metadata": {}},
     }
 
-    numeric_cols = parser._get_numeric_columns(fake_raw_data)
+    # Вызов переправлен на новый сервисный класс-экстрактор
+    numeric_cols = MoexSchemaExtractor.extract_numeric_columns(fake_raw_data)
 
     # Проверяем наличие ожидаемых колонок
     for col in expected_in:
@@ -71,8 +67,8 @@ def test_dynamic_numeric_casting_on_real_data(real_api_data: dict[str, Any]):
     Проверка, что на реальных данных извлекаются
     хоть какие-то числовые колонки и нет дубликатов.
     """
-    parser = MoexDataParser()
-    numeric_cols = parser._get_numeric_columns(real_api_data)
+    # Вызов переправлен на новый сервисный класс-экстрактор
+    numeric_cols = MoexSchemaExtractor.extract_numeric_columns(real_api_data)
 
     # 1. Проверяем, что список в принципе не пустой (ведь на бирже точно есть числа)
     assert len(numeric_cols) > 0, (
@@ -100,7 +96,8 @@ def test_null_values_isolation(real_api_data: dict[str, Any]):
     df = parser.parse_to_dataframe(real_api_data)
 
     # Извлекаем все значения колонки LAST, которые парсер пометил как NaN/None
-    null_prices = df[df["LAST"].isna()]["LAST"]
+    col_last = MoexColumns.LAST.value
+    null_prices = df[df[col_last].isna()][col_last]
 
     # Если в файле securities_real.json есть хотя бы один null в LAST, проверим его
     if not null_prices.empty:
