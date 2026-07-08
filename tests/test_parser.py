@@ -1,3 +1,9 @@
+"""Комплекс юнит-тестирования конвейеров трансформации данных Мосбиржи.
+
+Обеспечивает валидацию сквозной сборки матриц Pandas, контроль динамического
+приведения финансовых типов данных и проверку устойчивости парсера к аномалиям сети.
+"""
+
 from typing import Any
 
 import pandas as pd
@@ -8,8 +14,12 @@ from src.core.extractor import MoexSchemaExtractor
 from src.core.constants import MoexColumns
 
 
-def test_parse_valid_data(real_api_data: dict[str, Any]):
-    """Тест: Проверка корректности работы главного конвейера и реляционного слияния."""
+def test_parse_valid_data(real_api_data: dict[str, Any]) -> None:
+    """Проверяет корректность работы главного конвейера и реляционного слияния таблиц.
+    
+    Убеждается, что результирующая матрица формируется без потерь строк и колонок
+    обоих исходных блоков.
+    """
     parser = MoexDataParser()
     df = parser.parse_to_dataframe(real_api_data)
 
@@ -33,28 +43,32 @@ def test_parse_valid_data(real_api_data: dict[str, Any]):
     assert "SECID" in df.columns, "Потерян ключевой идентификатор SECID"
 
 
-def test_get_numeric_columns_logic(numeric_casting_case):
-    """Тест: Тестируем логику парсинга типов на контролируемых синтетических данных."""
-    # Распаковываем кортеж из фикстуры
+def test_get_numeric_columns_logic(numeric_casting_case: tuple) -> None:
+    """Тестирует логику динамического определения типов на синтетических метаданных.
+    
+    Гарантирует, что экстрактор безошибочно выявляет числовые типы биржи и отсекает
+    текстовые поля.
+    """
+    # Распаковка кортежа из фикстуры
     mock_metadata, expected_in, expected_out = numeric_casting_case
 
-    # Формируем структуру, похожую на ответ MOEX ISS
+    # Формирование структуры, похожую на ответ MOEX ISS
     fake_raw_data = {
         "securities": {"metadata": mock_metadata},
         "marketdata": {"metadata": {}},
     }
 
-    # Вызов переправлен на новый сервисный класс-экстрактор
+    # Переправление вызова на сервисный класс-экстрактор
     numeric_cols = MoexSchemaExtractor.extract_numeric_columns(fake_raw_data)
 
-    # Проверяем наличие ожидаемых колонок
+    # Проверка на наличие ожидаемых колонок
     for col in expected_in:
         assert col in numeric_cols, (
             f"Колонка '{col}' с типом {mock_metadata[col]['type']} "
             f"ДОЛЖНА быть распознана как числовая"
         )
 
-    # Проверяем отсутствие лишних колонок
+    # Проверка отсутствия лишних колонок
     for col in expected_out:
         assert col not in numeric_cols, (
             f"Колонка '{col}' с типом {mock_metadata[col]['type']} "
@@ -62,10 +76,10 @@ def test_get_numeric_columns_logic(numeric_casting_case):
         )
 
 
-def test_dynamic_numeric_casting_on_real_data(real_api_data: dict[str, Any]):
-    """Тест:
-    Проверка, что на реальных данных извлекаются
-    хоть какие-то числовые колонки и нет дубликатов.
+def test_dynamic_numeric_casting_on_real_data(real_api_data: dict[str, Any]) -> None:
+    """Проверяет корректность парсинга типов на реальном дампе ответов Московской Биржи.
+    
+    Убеждается, что в результирующий набор числовых колонок не попадает явный текст.
     """
     # Вызов переправлен на новый сервисный класс-экстрактор
     numeric_cols = MoexSchemaExtractor.extract_numeric_columns(real_api_data)
@@ -90,8 +104,12 @@ def test_dynamic_numeric_casting_on_real_data(real_api_data: dict[str, Any]):
     )
 
 
-def test_null_values_isolation(real_api_data: dict[str, Any]):
-    """Тест: Проверка требования, что null должен переходить в NaN, а не в 0."""
+def test_null_values_isolation(real_api_data: dict[str, Any]) -> None:
+    """Проверяет соответствие требованию по изоляции неопределенных биржевых цен.
+    
+    Гарантирует, что пустые значения (null) переходят в NaN, предотвращая ложные
+    срабатывания фильтров котировок по цене 0.0.
+    """
     parser = MoexDataParser()
     df = parser.parse_to_dataframe(real_api_data)
 
@@ -116,11 +134,18 @@ def test_null_values_isolation(real_api_data: dict[str, Any]):
         )
 
 
-def test_parser_resilience_to_corrupted_data(corrupted_fixture_source, load_fixture):
-    """Тест: Проверка отказоустойчивости к аномалиям структуры JSON-товетов."""
+def test_parser_resilience_to_corrupted_data(
+        corrupted_fixture_source: Any, 
+        load_fixture: Any,
+    ) -> None:
+    """Проверяет отказоустойчивость конвейера к поврежденным структурам JSON-пакетов.
+    
+    Гарантирует перехват исключений и предотвращает аварийное завершение главного
+    цикла Qt GUI при сетевых аномалиях.
+    """
     parser = MoexDataParser()
 
-    # Извлекаем данные (из файла или берем сырую структуру)
+    # Извлечение данных (из файла или берем сырую структуру)
     bad_data = (
         load_fixture(corrupted_fixture_source)
         if isinstance(corrupted_fixture_source, str)

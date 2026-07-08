@@ -1,14 +1,20 @@
-"""Глобальные константы и справочники Скринера Московской Биржи.
+"""Глобальные константы, перечисления и справочники Скринера Московской Биржи.
 
-Содержит конфигурации пресетов колонок, правила локализации заголовков
-и группы форматирования финансовых данных для слоя отображения (View).
+Данный модуль консолидирует конфигурации пресетов колонок, правила локализации
+системных заголовков MOEX ISS API и группы форматирования финансовых данных
+для слоя графического интерфейса (View/Model). Использует перечисления Enum
+для исключения технического долга в виде "магических строк".
 """
 
 from enum import Enum
 
 
 class MoexColumns(str, Enum):
-    """Строгие идентификаторы колонок MOEX ISS API."""
+    """Строгие идентификаторы колонок MOEX ISS API.
+    
+    Служит единой точкой правки при изменении спецификации ответов Московской
+    Биржи. Защищает конвейеры парсинга, фильтрации и форматирования от опечаток.
+    """
 
     # Идентификаторы и базовые поля
     SECID = "SECID"
@@ -16,13 +22,13 @@ class MoexColumns(str, Enum):
     ISIN = "ISIN"
     LISTLEVEL = "LISTLEVEL"
     
-    # Объемы торгов
+    # Объемы торгов и масштабы эмитента
     ISSUECAPITALIZATION = "ISSUECAPITALIZATION"
     VOLTODAY = "VOLTODAY"
     VALTODAY_RUR = "VALTODAY_RUR"
     NUMTRADES = "NUMTRADES"
     
-    # Ценовые экстремумы сессии
+    # Ценовые экстремумы и расчетные показатели сессии
     OPEN = "OPEN"
     HIGH = "HIGH"
     LOW = "LOW"
@@ -31,17 +37,19 @@ class MoexColumns(str, Enum):
     WAPRICE = "WAPRICE"
     PREVWAPRICE = "PREVWAPRICE"
     
-    # Изменения цен и стакан
+    # Показатели ценовой динамики (Моментум)
     LASTCHANGEPRCNT = "LASTCHANGEPRCNT"
     LASTTOPREVPRICE = "LASTTOPREVPRICE"
     WAPTOPREVWAPRICEPRCNT = "WAPTOPREVWAPRICEPRCNT"
+
+    # Параметры ликвидности и котировки стакана
     BID = "BID"
     OFFER = "OFFER"
     SPREAD = "SPREAD"
     HIGHBID = "HIGHBID"
     LOWOFFER = "LOWOFFER"
     
-    # Глубина стакана и заявки
+    # Глубина очереди заявок (Рыночная микроструктура)
     BIDDEPTH = "BIDDEPTH"
     OFFERDEPTH = "OFFERDEPTH"
     BIDDEPTHT = "BIDDEPTHT"
@@ -49,20 +57,23 @@ class MoexColumns(str, Enum):
     NUMBIDS = "NUMBIDS"
     NUMOFFERS = "NUMOFFERS"
     
-    # Системные флаги
+    # Системные флаги и операционные статусы
     TRADINGSTATUS = "TRADINGSTATUS"
     TRADINGSESSION = "TRADINGSESSION"
 
 
 class MoexBlocks(str, Enum):
-    """Идентификаторы корневых табличных блоков в ответах API."""
+    """Идентификаторы корневых табличных блоков в JSON-ответах MOEX ISS API.
+    
+    Используется для десериализации структурированных массивов биржевых данных.
+    """
 
     SECURITIES = "securities"
     MARKETDATA = "marketdata"
     DATAVERSION = "dataversion"
     MARKETDATA_YIELDS = "marketdata_yields"
 
-# Пресет 1. Базовые колонки для экспресс-анализа (Минимальный трафик)
+# Пресет 1. Базовые колонки для экспресс-анализа (Минимальный сетевой трафик)
 DEFAULT_COLUMNS: list[str] = [
     MoexColumns.SECID.value,
     MoexColumns.SHORTNAME.value,
@@ -140,8 +151,8 @@ COLUMN_MAPPING: dict[str, str] = {
     MoexColumns.LOWOFFER.value: "Наинизший OFFER",
 }
 
-# Правила распределения финансовых полей по группам отображения.
-# Используются MoexTableModel для точечного применения стилей форматирования.
+# Агрегированные правила распределения полей по математическим группам отображения.
+# Используется в MoexTableModel для применения точечных делегатов и стилей округления.
 FORMAT_GROUPS: dict[str, list[str]] = {
     "price_2dp": [
         MoexColumns.LAST.value,

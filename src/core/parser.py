@@ -1,4 +1,10 @@
-# src/core/parser.py
+"""Модуль парсинга и структурной трансформации данных Московской Биржи.
+
+Отвечает за сборку, реляционное объединение (Left Join) таблиц инструментов и
+котировок MOEX ISS API, а также обеспечивает динамическую строгую типизацию
+и защиту от конфликтов многоуровневых индексов Pandas.
+"""
+
 from typing import Any
 
 import pandas as pd
@@ -9,20 +15,36 @@ from src.core.extractor import MoexSchemaExtractor
 
 
 class MoexDataParser:
-    def __init__(self, allowed_columns: list[str] = None) -> None:
+    """Парсер сырых данных MOEX ISS API, управляющий конвейером трансформации."""
+
+    def __init__(self, allowed_columns: list[str] | None = None) -> None:
+        """Инициализирует конвейер парсинга с опциональной конфигурацией пресета.
+
+        Args:
+            allowed_columns (list[str] | None, optional): Список колонок, которые
+                необходимо сохранить. Если равен None — сохраняются все поля.
+        """
         self.allowed_columns: list[str] | None = allowed_columns
         logger.debug(
             "Инициализирован MoexDataParser с динамическим определением типов."
         )
 
     def parse_to_dataframe(self, raw_data: dict[str, Any]) -> pd.DataFrame:
-        """
-        Главный фасадный метод конвейера трансформации данных.
-        Принимает грязный JSON-словарь, возвращает чистый отсортированный DataFrame.
+        """Реализует сквозную сборку, очистку и реляционное слияние таблиц MOEX.
 
-        :param raw_data: Десериализованный JSON-ответ от MOEX ISS API.
-        :return: Очищенный pd.DataFrame, готовый к фильтрации и выводу в Qt.
+        Последовательно проверяет входные контракты, производит
+        атомарную десериализацию блоков, связывает статический справочник
+        и динамический стакан по ключу SECID, после чего сбрасывает неоднозначные
+        индексы Pandas перед финальной сортировкой.
+
+        Args:
+            raw_data (dict[str, Any]): Сырой JSON-пакет от ответа ISS API Мосбиржи.
+
+        Returns:
+            pd.DataFrame: Очищенная, отсортированная по тикеру и строго типизированная
+                матрица данных, готовая для передачи в слой аналитики и Qt Model.
         """
+        # 1. Ограничивающие условия (принцип быстрого отказа)
         if not isinstance(raw_data, dict):
             logger.error("Контракт нарушен: сырые данные не являются словарем.")
             return pd.DataFrame()
@@ -39,6 +61,7 @@ class MoexDataParser:
             )
             return pd.DataFrame()
         
+        # 2. Изолированная десериализация блоков JSON в DataFrames
         try:
             securities_df = self._convert_block_to_df(securities_raw)
             market_df = self._convert_block_to_df(market_raw)
@@ -49,24 +72,26 @@ class MoexDataParser:
         if securities_df.empty or market_df.empty:
             return pd.DataFrame()
 
+        # 3. Выравнивание, реляционное объединение и нормализация
         try:
             pk = MoexColumns.SECID.value
             
-            # Индексация для бесконфликтного выравнивания
+            # Временная индексация для корректного горизонтального слияния по тикеру
             securities_df.set_index(pk, inplace=True, drop=False)
             market_df.set_index(pk, inplace=True, drop=True)
 
-            # Вычисление уникальных колонок котировок (исключая дубликаты индексов)
+            # Вычисление уникального среза колонок котировок для предотвращения коллизий
             unique_market_cols = market_df.columns.difference(securities_df.columns)
             merged_df = securities_df.join(market_df[unique_market_cols], how="left")
 
-            # Извлечение числовых полей через внешний экстрактор (Принцип S из SOLID)
+            # Анализ типов метаданных внешней службой
             numeric_cols = MoexSchemaExtractor.extract_numeric_columns(raw_data)
             
-            # Фильтрация, кастинг типов и финальная сортировка
+            # Фильтрация структуры и приведение типов финансовых метрик
             filtered_df = self._filter_columns(merged_df)
             final_df = self._cast_data_types(filtered_df, numeric_cols)
 
+            # Устранение неоднозначности 'SECID' (как индекс и как колонка одновременно)
             if pk in final_df.columns:
                 final_df.reset_index(drop=True, inplace=True)
                 final_df.sort_values(by=pk, inplace=True)
@@ -84,10 +109,21 @@ class MoexDataParser:
             return pd.DataFrame()
 
     def _cast_data_types(
-        self, df: pd.DataFrame, numeric_columns: list[str],) -> pd.DataFrame:
-        """
-        Принудительно переводит финансовые метрики в числа
-        на основе динамического списка.
+        self, 
+        df: pd.DataFrame, 
+        numeric_columns: list[str],
+    ) -> pd.DataFrame:
+        """Типизирует финансовые метрики в числа с изоляцией пустых значений.
+
+        Переводит задекларированные числовые столбцы в float/int. В соответствии с ТЗ,
+        ошибочные или пустые финансовые ячейки (null) переводит в NaN (а не в ноль).
+
+        Args:
+            df (pd.DataFrame): Объединенный нетипизированный DataFrame.
+            numeric_columns (set[str]): Справочный набор числовых колонок от экстрактора.
+
+        Returns:
+            pd.DataFrame: Копия DataFrame с нормализованными типами данных.
         """
         df_casted = df.copy()
         target_cols = df_casted.columns.intersection(numeric_columns)
@@ -101,9 +137,14 @@ class MoexDataParser:
         return df_casted
 
     def _convert_block_to_df(self, block: dict[str, Any]) -> pd.DataFrame:
-        """
-        Внутренний метод преобразования специфической структуры MOEX (columns/data)
-        в DataFrame.
+        """Преобразует внутренний табличный узел ответа MOEX (columns/data) в DataFrame.
+
+        Args:
+            block (dict[str, Any]): Конкретный информационный узел JSON-пакета биржи.
+
+        Returns:
+            pd.DataFrame: 
+                Плоская таблица данных Pandas или пустой DataFrame в случае неудачи.
         """
         columns = block.get("columns")
         data = block.get("data")
@@ -121,7 +162,14 @@ class MoexDataParser:
         return df
 
     def _filter_columns(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Оставляет в датафрейме только целевые колонки без технического шума"""
+        """Очищает итоговый датафрейм от избыточных колонок и технического шума.
+
+        Args:
+            df (pd.DataFrame): Исходная объединенная матрица данных.
+
+        Returns:
+            pd.DataFrame: Срез данных, содержащий только целевые колонки текущего пресета.
+        """
         if not self.allowed_columns:
             logger.debug(
                 "Список allowed_columns не задан, возвращаем исходный DataFrame."
@@ -137,6 +185,7 @@ class MoexDataParser:
         if missing:
             logger.warning(f"В данных отсутствуют запрошенные колонки: {missing}")
 
+        # Обязательное наличие ключевого тикера на первой позиции таблицы
         if pk not in existing_columns and pk in df.columns:
             existing_columns.insert(0, pk)
             logger.debug("SECID принудительно добавлен в список отображаемых колонок.")

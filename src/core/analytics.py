@@ -1,3 +1,9 @@
+"""Компонент высокопроизводительного анализа и фильтрации финансовых инструментов.
+
+Предоставляет сервисные методы инспекции рыночных котировок, оптимизированные для
+обработки больших массивов тикеров в оперативной памяти без избыточных аллокаций.
+"""
+
 import time
 
 import pandas as pd
@@ -19,21 +25,37 @@ class DataFilterService:
         change_from: float | None = None,
         change_to: float | None = None,
     ) -> pd.DataFrame:
-        """Применяет маски к DataFrame и возвращает новый отфильтрованный срез."""
+        """Выполняет комплексную условную фильтрацию рыночной матрицы инструментов.
+
+        Оптимизирует использование ОЗУ (Memory Footprint) за счет расчета единой
+        булевой маски без генерации промежуточных каскадных копий DataFrame на
+        каждый шаг пользовательских фильтров.
+
+        Args:
+            df (pd.DataFrame): Исходный DataFrame акций, полученный от парсера.
+            ticker (str, optional): Текстовый фильтр по тикеру (инвариантен к регистру).
+            name (str, optional): Фильтр по названию компании (инвариантен к регистру).
+            price_from (float | None, optional): Нижняя граница цены последней сделки.
+            price_to (float | None, optional): Верхняя граница цены последней сделки.
+            change_from (float | None, optional): Минимальное изменение цены в %.
+            change_to (float | None, optional): Максимальное изменение цены в %.
+
+        Returns:
+            pd.DataFrame: Отфильтрованная копия матрицы данных.
+        """
         if df.empty:
             logger.warning("Фильтрация отменена: передан пустой DataFrame.")
             return df
 
-        initial_rows = len(df)
         start_time = time.perf_counter()  # Фиксируем время старта
 
-        # Подгружаем строгие ключи колонок из наших констант
+        # Извлечение строгих строковых ключей полей из перечислений Enum
         col_secid = MoexColumns.SECID.value
         col_name = MoexColumns.SHORTNAME.value
         col_last = MoexColumns.LAST.value
         col_change = MoexColumns.LASTTOPREVPRICE.value
 
-        # Собираем активные фильтры для лога
+        # Активные фильтры для лога
         active_filters = []
         if ticker:
             active_filters.append(f"ticker='{ticker}'")
@@ -48,7 +70,7 @@ class DataFilterService:
             f"{', '.join(active_filters) if active_filters else 'НЕТ'}"
         )
 
-        # Текстовые фильтры (регистронезависимые). Накладываем битовые фильтры на маску
+        # # Инициализация базовой единой маску (все элементы равны True)
         mask = pd.Series(True, index=df.index)
         
         if ticker:
@@ -71,12 +93,10 @@ class DataFilterService:
         if change_to is not None:
             mask &= df[col_change].notna() & (df[col_change] <= change_to)
 
-        # Выделяем память под срез данных ровно ОДИН раз
+        # Выделение памяти под срез данных ровно один раз
         filtered_df = df[mask].copy()
 
-        # Замеряем итоговые метрики
-        elapsed_time = (time.perf_counter() - start_time) * 1000  # переводим в мс
-
+        elapsed_time = (time.perf_counter() - start_time) * 1000
         logger.success(
             f"Фильтрация завершена за {elapsed_time:.2f} мс. "
             f"Было строк: {len(df)} -> Осталось: {len(filtered_df)}"
