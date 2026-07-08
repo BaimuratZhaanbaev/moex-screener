@@ -1,3 +1,10 @@
+"""Компонент отображения данных в архитектуре Qt Model-View (MVC).
+
+Предоставляет кастомную табличную модель, связывающую высокопроизводительные
+матрицы Pandas DataFrame с графическими виджетами PySide6 (QTableView)
+с обеспечением локализации, форматирования финансовых чисел и сортировки.
+"""
+
 from typing import Any
 
 import pandas as pd
@@ -8,28 +15,48 @@ from src.core.constants import COLUMN_MAPPING, FORMAT_GROUPS, MoexColumns
 
 
 class MoexTableModel(QAbstractTableModel):
-    """
-    Кастомная модель данных Qt для эффективного сопряжения аналитических матриц
-    Pandas DataFrame с графическим представлением QTableView.
+    """Кастомная модель данных Qt для сопряжения таблиц Pandas с QTableView.
+    
+    Обеспечивает реактивное обновление интерфейса, потокобезопасный сброс
+    состояний и форматирование биржевых метрик в реальном времени.
     """
 
     def __init__(self, parent: Any | None = None):
+        """Инициализирует пустую модель данных и резервирует структуры Pandas.
+
+        Args:
+            parent (Any | None, optional): Родительский Qt-объект для управления
+                памятью в иерархии QObject. По умолчанию None.
+        """
         super().__init__(parent)
-        # Шаг 1: Инициализация скрытых полей для хранения данных
-        self._source_df: pd.DataFrame = pd.DataFrame()  # Эталонный (мастер) массив от биржи
-        # Текущий отображаемый срез (отфильтрованный/отсортированный)
-        self._df: pd.DataFrame = pd.DataFrame()
+        self._source_df: pd.DataFrame = pd.DataFrame()  # Эталонный массив от биржи
+        self._df: pd.DataFrame = pd.DataFrame() # Отфильтрованный срез для отрисовки
         logger.debug("MoexTableModel успешно инициализирована.")
 
-    # Переопределение "Святой Троицы" методов модели Qt
     def rowCount(self, parent: QModelIndex = QModelIndex()) -> int:
-        """Возвращает текущее количество строк в видимой таблице."""
+        """"Возвращает текущее количество строк в активном срезе данных.
+
+        Args:
+            parent (QModelIndex, optional): Индекс родительского элемента
+                (используется в древовидных структурах). По умолчанию пустой.
+
+        Returns:
+            int: Число строк, доступных для отрисовки.
+        """
         if parent.isValid():
             return 0
         return len(self._df)
 
     def columnCount(self, parent: QModelIndex = QModelIndex()) -> int:
-        """Возвращает текущее количество колонок в видимой таблице."""
+        """Возвращает текущее количество колонок в активном срезе данных.
+
+        Args:
+            parent (QModelIndex, optional): Индекс родительского элемента.
+                По умолчанию пустой.
+
+        Returns:
+            int: Число столбцов, доступных для отрисовки.
+        """
         if parent.isValid():
             return 0
         return len(self._df.columns)
@@ -39,11 +66,18 @@ class MoexTableModel(QAbstractTableModel):
         index: QModelIndex, 
         role: int = Qt.ItemDataRole.DisplayRole,
     ) -> Any:
-        """
-        Поставляет данные ячейкам таблицы.
-        Это самый важный, объемный и производительный узел модели.
-        Он вызывается движком Qt динамически в реальном времени для каждой видимой
-        ячейки при запуске программы и при прокрутке (скроллинге) таблицы.
+        """Поставляет отформатированные финансовые данные в ячейки QTableView.
+
+        Вызывается ядром Qt динамически при отрисовке и скроллинге. Оптимизирован
+        для предотвращения задержек интерфейса (UI Lag) при работе с большими матрицами.
+
+        Args:
+            index (QModelIndex): Координаты запрашиваемой ячейки (строка/колонка).
+            role (int, optional): Роль запроса данных (отображение, выравнивание, цвет).
+                По умолчанию DisplayRole.
+
+        Returns:
+            Any: Строковое представление, флаг выравнивания или None, если роль не поддерживается.
         """
         if not index.isValid():
             logger.trace("Запрошен невалидный QModelIndex")
@@ -52,8 +86,7 @@ class MoexTableModel(QAbstractTableModel):
         row: int = index.row()
         col: int = index.column()
 
-        # Защита от выхода за границы DataFrame
-        # (если интерфейс и данные рассинхронизировались)
+        # Защитный барьер против гонки данных при асинхронном обновлении
         if row >= len(self._df) or col >= len(self._df.columns):
             logger.warning(
                 f"Индекс Qt [{row}, {col}] "
@@ -78,7 +111,7 @@ class MoexTableModel(QAbstractTableModel):
                 )
                 return "-"
 
-            # Универсальное динамическое форматирование на основе групп из config.py
+            # Безопасное форматирование через извлечение списков по ключам
             if col_name in FORMAT_GROUPS.get("price_2dp", []):
                 return f"{val:,.2f}".replace(",", " ")
 
@@ -101,22 +134,30 @@ class MoexTableModel(QAbstractTableModel):
                 MoexColumns.ISIN.value,
             }
 
-            # Текстовые данные прижимаем влево, финансовые/числа — вправо
             if col_name in text_columns:
                 return Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
             
+            # Финансовые показатели и объёмы всегда выравниваем по правому краю
             return Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter
 
         return None
 
-    # Настройка человекочитаемых заголовков таблицы
     def headerData(
         self,
         section: int,
         orientation: Qt.Orientation,
         role: int = Qt.ItemDataRole.DisplayRole,
     ) -> Any:
-        """Определяет названия столбцов на верхней панели QTableView."""
+        """Конфигурирует человекочитаемые русскоязычные заголовки столбцов.
+
+        Args:
+            section (int): Индекс столбца или строки.
+            orientation (Qt.Orientation): Направление заголовка (Horizontal/Vertical).
+            role (int, optional): Роль отображения. По умолчанию DisplayRole.
+
+        Returns:
+            Any: Локализованная строка заголовка из COLUMN_MAPPING или None.
+        """
         logger.trace(
             f"Запрос заголовка: секция={section}, ориентация={orientation}, роль={role}"
         )
@@ -168,7 +209,6 @@ class MoexTableModel(QAbstractTableModel):
 
         ascending: bool = order == Qt.SortOrder.AscendingOrder
 
-        # na_position='last' — критически важное требование!
         # Бумаги у которых цена LAST = null при любой сортировке уходят вниз таблицы
         self._df.sort_values(
             by=col_name, 
@@ -181,10 +221,14 @@ class MoexTableModel(QAbstractTableModel):
         self.layoutChanged.emit()
 
     # Безопасный метод заливки новых данных от АПИ-клиента
-    def set_dataframe(self, new_df: pd.DataFrame):
-        """
-        Принимает очищенный на DataFrame, обновляет мастер-копию
-        и сбрасывает виджет к исходному состоянию.
+    def set_dataframe(self, new_df: pd.DataFrame) -> None:
+        """Безопасно атомарно обновляет внутренние матрицы данных парсера.
+
+        Использует встроенный механизм транзакций Qt (beginResetModel/endResetModel),
+        чтобы виджеты отображения корректно пересчитали новые размеры и сбросили кэш.
+
+        Args:
+            new_df (pd.DataFrame): Очищенный и типизированный DataFrame от MoexDataParser.
         """
         # Гарантируем жесткий сброс модели через встроенные транзакции Qt
         self.beginResetModel()
