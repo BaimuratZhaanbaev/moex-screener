@@ -9,7 +9,12 @@ from datetime import datetime
 from typing import Any
 
 from loguru import logger
-from PySide6.QtCore import QModelIndex, Slot, Qt
+from PySide6.QtCore import (
+    QModelIndex, 
+    Slot, 
+    Qt,
+    QCoreApplication,
+)
 from PySide6.QtGui import QCloseEvent
 from PySide6.QtWidgets import (
     QFileDialog,
@@ -97,6 +102,8 @@ class MainWindow(QMainWindow):
         self.filter_panel.btn_refresh.setEnabled(False)
         self.filter_panel.btn_refresh.setText("⏳ Загрузка...")
         self.statusBar().showMessage("Запрос данных от MOEX ISS API...")
+
+        QCoreApplication.processEvents()
 
         try:
             # Сетевой запрос к ISS API
