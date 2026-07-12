@@ -56,6 +56,9 @@ class MainWindow(QMainWindow):
         self.table_view.setModel(self.table_model)
         logger.debug("Модель данных успешно подключена к QTableView.")
 
+        # Активируем чередование цветов строк
+        self.table_view.setAlternatingRowColors(True)
+
         self.filter_panel = FilterPanel()
 
         central_widget = QWidget()

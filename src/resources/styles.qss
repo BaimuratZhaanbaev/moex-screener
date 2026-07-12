@@ -1,47 +1,178 @@
-/* Главный контейнер панели — наследует цвет фона системы, меняем только рамку */
+/* ==========================================================================
+   1. ПАНЕЛЬ ФИЛЬТРОВ И КОНТЕЙНЕРЫ
+   ========================================================================== */
+
+/* Главный контейнер панели — мягкая рамка с легким скруглением */
 QFrame#FilterPanelFrame { 
-    border: 1px solid rgba(128, 128, 128, 0.3); /* Полупрозрачная рамка */
+    border: 1px solid rgba(128, 128, 128, 0.25);
     border-radius: 6px; 
 }
 
-/* Поля ввода текста и чисел */
-QLineEdit, QDoubleSpinBox, QComboBox {
-    border: 1px solid rgba(128, 128, 128, 0.5);
+/* ==========================================================================
+   2. ТАБЛИЦА (QTableView) И ЭФФЕКТ «ЗЕБРЫ»
+   ========================================================================== */
+
+QTableView {
+    gridline-color: rgba(128, 128, 128, 0.15); /* Едва заметная мягкая сетка */
+    border: 1px solid rgba(128, 128, 128, 0.3);
     border-radius: 4px;
-    padding: 4px;
-    /* Фоны и цвета текста УДАЛЕНЫ — они подтягиваются из системы автоматически */
+    outline: none; /* Убираем дефолтную пунктирную рамку фокуса */
 }
 
-/* Подсветка активных фильтров — тут мы принудительно подсвечиваем поле */
+/* Стилизация ячеек таблицы */
+QTableView::item {
+    padding: 6px 10px; /* Свободные отступы, чтобы текст «дышал» */
+}
+
+/* Мягкая зебра: фон для нечетных (альтернативных) строк */
+QTableView::item:alternate {
+    background-color: rgba(128, 128, 128, 0.05); /* Адаптивный пастельный оттенок */
+}
+
+/* Эффект при наведении мыши на ячейку */
+QTableView::item:hover {
+    background-color: rgba(0, 120, 212, 0.08); 
+}
+
+/* Стиль выделенной строки (современный приглушенный синий вместо ядовитого дефолтного) */
+QTableView::item:selected {
+    background-color: #bae6fd;
+    color: #0c4a6e;
+}
+
+/* ==========================================================================
+   3. ЗАГОЛОВКИ ТАБЛИЦЫ (QHeaderView)
+   ========================================================================== */
+
+QHeaderView::section {
+    background-color: rgba(128, 128, 128, 0.08);
+    color: inherit;
+    padding: 6px;
+    font-weight: bold;
+    border: none;
+    border-right: 1px solid rgba(128, 128, 128, 0.15);
+    border-bottom: 2px solid rgba(128, 128, 128, 0.25);
+}
+
+QHeaderView::section:hover {
+    background-color: rgba(128, 128, 128, 0.15);
+}
+
+/* ==========================================================================
+   4. ПОЛЯ ВВОДА И ВЫПАДАЮЩИЕ СПИСКИ
+   ========================================================================== */
+
+/* Общий стиль полей ввода текста, чисел и комбобоксов */
+QLineEdit, QDoubleSpinBox, QComboBox {
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 4px;
+    padding: 5px 8px;
+    min-height: 20px;
+}
+
+/* Эффект наведения на поля ввода */
+QLineEdit:hover, QDoubleSpinBox:hover, QComboBox:hover {
+    border-color: rgba(0, 120, 212, 0.6);
+}
+
+/* Подсветка Активных (заполненных) фильтров (бизнес-логика приложения) */
 QLineEdit[active="true"], QDoubleSpinBox[active="true"] { 
     border: 1px solid #0078D4; 
-    background-color: rgba(0, 120, 212, 0.15); /* Полупрозрачный синий (работает и на темном, и на светлом) */
+    background-color: rgba(0, 120, 212, 0.12); /* Приятный полупрозрачный синий */
 }
+
+/* Специфика выпадающих списков */
+QComboBox::drop-down {
+    border: none;
+    padding-right: 4px;
+}
+
+QComboBox::abstractItemView {
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 4px;
+    padding: 4px;
+}
+
+/* ==========================================================================
+   5. КНОПКИ (QPushButton)
+   ========================================================================== */
 
 /* Базовый стиль кнопок */
 QPushButton {
-    padding: 5px 12px;
-    border: 1px solid rgba(128, 128, 128, 0.5);
+    padding: 6px 14px;
+    border: 1px solid rgba(128, 128, 128, 0.4);
     border-radius: 4px;
     font-weight: 500;
 }
 
-/* Кнопка Обновить данные */
-QPushButton#RefreshBtn {
+/* Кнопка "Применить" (Акцентная, синяя) */
+QPushButton#ApplyFilterButton {
+    background-color: #0078D4;
+    color: white;
+    border: 1px solid #006cc2;
     font-weight: bold;
 }
 
-/* Кнопка Применить (Синяя акцентная — она обычно остается синей в любой теме) */
-QPushButton#ApplyBtn {
-    background-color: #0078D4;
-    color: #FFFFFF; /* Белый текст */
+QPushButton#ApplyFilterButton:hover {
+    background-color: #106ebe;
+}
+
+QPushButton#ApplyFilterButton:pressed {
+    background-color: #005a9e;
+}
+
+/* Обычные интерактивные кнопки (Сброс, Обновить) */
+QPushButton:hover {
+    background-color: rgba(128, 128, 128, 0.15);
+    border-color: rgba(128, 128, 128, 0.6);
+}
+
+QPushButton:pressed {
+    background-color: rgba(128, 128, 128, 0.25);
+}
+
+/* ==========================================================================
+   6. ПОЛОСЫ ПРОКРУТКИ (QScrollBar) — Тонкие и современные
+   ========================================================================== */
+
+QScrollBar:vertical {
     border: none;
+    background: transparent;
+    width: 8px;
+    margin: 0px;
 }
 
-QPushButton#ApplyBtn:hover {
-    background-color: #106EBE;
+QScrollBar::handle:vertical {
+    background: rgba(128, 128, 128, 0.4);
+    min-height: 20px;
+    border-radius: 4px;
 }
 
-QDoubleSpinBox {
-    padding-right: 20px; /* Резервируем гарантированное место под системные стрелочки */
+QScrollBar::handle:vertical:hover {
+    background: rgba(128, 128, 128, 0.6);
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+QScrollBar:horizontal {
+    border: none;
+    background: transparent;
+    height: 8px;
+    margin: 0px;
+}
+
+QScrollBar::handle:horizontal {
+    background: rgba(128, 128, 128, 0.4);
+    min-width: 20px;
+    border-radius: 4px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background: rgba(128, 128, 128, 0.6);
+}
+
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    width: 0px;
 }
