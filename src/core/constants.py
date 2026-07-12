@@ -7,6 +7,12 @@
 """
 
 from enum import Enum
+from typing import Literal
+
+
+# Определение литералов для строго типизированных режимов интерфейса
+ViewMode = Literal["basic", "professional", "full"]
+ExportFormat = Literal["csv"]
 
 
 class MoexColumns(str, Enum):
