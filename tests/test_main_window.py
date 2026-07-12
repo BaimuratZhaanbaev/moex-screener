@@ -13,8 +13,8 @@ def test_main_window_integration_filtering(main_window, qtbot):
 
     assert view.model().rowCount() == 5
 
-    qtbot.keyClicks(panel.ticker_input, "aflt")
-    qtbot.mouseClick(panel.apply_btn, Qt.MouseButton.LeftButton)
+    qtbot.keyClicks(panel.txt_ticker, "aflt")
+    qtbot.mouseClick(panel.btn_apply, Qt.MouseButton.LeftButton)
 
     assert view.model().rowCount() == 1
 
@@ -27,13 +27,13 @@ def test_main_window_integration_reset(main_window, qtbot):
     panel = main_window.filter_panel
     view = main_window.table_view
 
-    qtbot.keyClicks(panel.ticker_input, "SBER")
-    qtbot.mouseClick(panel.apply_btn, Qt.MouseButton.LeftButton)
+    qtbot.keyClicks(panel.txt_ticker, "SBER")
+    qtbot.mouseClick(panel.btn_apply, Qt.MouseButton.LeftButton)
     assert view.model().rowCount() == 1
 
-    qtbot.mouseClick(panel.reset_btn, Qt.MouseButton.LeftButton)
+    qtbot.mouseClick(panel.btn_reset, Qt.MouseButton.LeftButton)
 
-    assert panel.ticker_input.text() == ""
+    assert panel.txt_ticker.text() == ""
     assert view.model().rowCount() == 5
 
 
@@ -63,10 +63,10 @@ def test_main_window_api_refresh_success(main_window, qtbot, mocker, real_api_da
     panel = main_window.filter_panel
 
     mocker.patch("src.api.client.MoexClient.fetch_from_api", return_value=real_api_data)
-    qtbot.mouseClick(panel.refresh_btn, Qt.MouseButton.LeftButton)
+    qtbot.mouseClick(panel.btn_refresh, Qt.MouseButton.LeftButton)
 
     status_text = main_window.statusBar().currentMessage()
-    assert "Данные обновлены" in status_text
+    assert "Данные успешно обновлены" in status_text
 
 
 @pytest.mark.skip(reason="Проблема с перехватом QMessageBox в текущей версии PySide6")
