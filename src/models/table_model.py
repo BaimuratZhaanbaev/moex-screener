@@ -198,14 +198,25 @@ class MoexTableModel(QAbstractTableModel):
             )
             return
 
+        # Сигнализируем интерфейсу Qt о начале перестройки структуры строк
+        self.layoutAboutToBeChanged.emit()
+
+        if column == -1:
+            logger.info(
+                "Сброс сортировки: возвращаем строки к исходному порядку по индексу"
+            )
+
+            # Сортируем текущий DataFrame по его оригинальному индексу (0, 1, 2...)
+            self._df.sort_index(ascending=True, inplace=True)
+            self.layoutChanged.emit()
+            return
+        
+        # Стандартная сортировка по выбранной колонке
         col_name: str = self._df.columns[column]
         logger.debug(
             f"Запущена сортировка по колонке: '{col_name}' "
             f"(Индекс: {column}), Направление: {order}"
         )
-
-        # Сигнализируем интерфейсу Qt о начале перестройки структуры строк
-        self.layoutAboutToBeChanged.emit()
 
         ascending: bool = order == Qt.SortOrder.AscendingOrder
 
