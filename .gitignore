@@ -62,6 +62,11 @@ data/fixtures/securities_real.json
 # Временные файлы редакторы, которые создаются при открытии файла.
 *.swp
 
+# PyInstaller
+build/
+dist/
+*.spec
+
 # --- Системные файлы ---
 # Файлы ОС macOS и Windows, создаваемые при просмотре папок. Не несут никакой пользы.
 .DS_Store
