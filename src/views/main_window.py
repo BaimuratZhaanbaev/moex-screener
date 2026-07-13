@@ -7,6 +7,7 @@
 import os
 from datetime import datetime
 from typing import Any
+from pathlib import Path
 
 from loguru import logger
 from PySide6.QtCore import (
@@ -15,7 +16,6 @@ from PySide6.QtCore import (
     Qt,
     QCoreApplication,
 )
-from PySide6.QtGui import QCloseEvent
 from PySide6.QtWidgets import (
     QFileDialog,
     QMainWindow,
@@ -24,6 +24,7 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
+from PySide6.QtGui import QCloseEvent, QIcon
 
 from src.api.client import MoexAPIError, MoexClient
 from src.core.analytics import DataFilterService
@@ -45,6 +46,17 @@ class MainWindow(QMainWindow):
         # Настройка параметров окна
         self.setWindowTitle("MOEX Stock Screener")
         self.resize(1000, 600)
+
+        # Вычисление пути к иконке и его установка
+        icon_path = (
+            Path(__file__).resolve().parent.parent
+            / "resources"
+            / "moex_screener_icon.png"
+        )
+
+        
+        if icon_path.exists():
+            self.setWindowIcon(QIcon(str(icon_path)))
 
         # Инициализация инфраструктурных слоев
         self.ui_config = UIConfig()

@@ -2,7 +2,7 @@
 
 Desktop stock screener for MOEX shares using PySide6, pandas, and MOEX ISS API.
 
-## Развертывание (Команды для отчета)
+## Развертывание
 1. Установка зависимостей:
    ```bash
    poetry install
@@ -183,3 +183,6 @@ poetry run ruff check . --fix
 
 * **PyCharm:** Установите плагин `Ruff` через `Settings -> Plugins`. Включите чекбокс `Run ruff format on save` в настройках плагина.
 
+
+## Credits
+* Icon made by [srip](https://flaticon.com) from [://flaticon.com](https://://flaticon.com/)

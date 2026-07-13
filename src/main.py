@@ -1,5 +1,6 @@
 import os
 import sys
+import ctypes
 
 from loguru import logger
 from PySide6.QtWidgets import QApplication
@@ -32,9 +33,13 @@ def load_application_styles(app: QApplication) -> None:
 
 
 def main():
-    init_logger()
-    logger.info("Запуск ядра скринера акций MOEX...")
+    if sys.platform == "win32":
+        myappid = "proxy.baika.screener.v1" 
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
+    init_logger()
+    logger.info("Запуск ядра скринера акций MOEX...")    
+    
     app = QApplication(sys.argv)
 
     #app.setStyle("Fusion") 
