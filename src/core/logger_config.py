@@ -17,18 +17,22 @@ def init_logger():
     log_file = log_dir / "moex_screener.log"
 
     # 1. Настройка вывода в терминал (консоль IDE) — яркий, цветной, для разработки
-    logger.add(
-        sys.stdout,
-        colorize=True,
-        format=(
-            "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | "
-            "<level>{level: <8}</level> | "
-            "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - "
-            "<level>{message}</level>"
-        ),
-        # В консоли во время разработки хотим видеть всё, включая дебаг
-        level="DEBUG",
-    )
+    #    и защищаем от обнуления системы (sys.stdout)
+    if sys.stdout is not None:
+        logger.add(
+            sys.stdout,
+            colorize=True,
+            format=(
+                "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | "
+                "<level>{level: <8}</level> | "
+                "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - "
+                "<level>{message}</level>"
+            ),
+            # В консоли во время разработки хотим видеть всё, включая дебаг
+            level="DEBUG",
+        )
+    else:
+        pass
 
     # 2. Настройка записи в файл — формат с архивацией
     logger.add(
