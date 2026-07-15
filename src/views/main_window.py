@@ -5,6 +5,7 @@
 """
 
 import os
+import sys
 from datetime import datetime
 from typing import Any
 from pathlib import Path
@@ -48,15 +49,23 @@ class MainWindow(QMainWindow):
         self.resize(1000, 600)
 
         # Вычисление пути к иконке и его установка
-        icon_path = (
-            Path(__file__).resolve().parent.parent
-            / "resources"
-            / "moex_screener_icon.png"
-        )
+        if hasattr(sys, '_MEIPASS'):
+            # Если запущено внутри скомпилированного .exe
+            base_path = Path(sys._MEIPASS)
+            icon_path = base_path / "src" / "resources" / "moex_screener_icon.ico"
+        else:
+            # Если запущено как обычный .py скрипт
+            base_path = Path(__file__).resolve().parent.parent
+            icon_path = base_path / "resources" / "moex_screener_icon.ico"
 
-        
+        logger.debug(f"Попытка загрузки иконки окна из: {icon_path}")
+
         if icon_path.exists():
             self.setWindowIcon(QIcon(str(icon_path)))
+            # Установка иконки для панели задач (Taskbar)
+            QCoreApplication.instance().setWindowIcon(QIcon(str(icon_path)))
+        else:
+            logger.warning("Файл иконки для интерфейса окна не найден!")
 
         # Инициализация инфраструктурных слоев
         self.ui_config = UIConfig()

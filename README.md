@@ -1,16 +1,69 @@
-# Baika
+# MOEX Screener
 
 Desktop stock screener for MOEX shares using PySide6, pandas, and MOEX ISS API.
 
-## Развертывание
-1. Установка зависимостей:
+
+<!-- Окружение и Базовый стек -->
+[![Python Version](https://img.shields.io/badge/Python-3.13-3776AB.svg?style=flat-square&logo=python&logoColor=white)](https://www.python.org)
+[![GUI Framework](https://img.shields.io/badge/GUI-PySide6%20(Qt)-41CD52.svg?style=flat-square&logo=qt&logoColor=white)](https://doc.qt.io/qtforpython-6/)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey.svg?style=flat-square)](#-требования-prerequisites)
+
+<!-- Аналитика, Сеть и Логирование -->
+[![Data Processing](https://img.shields.io/badge/Data-Pandas-150458.svg?style=flat-square&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![Network Client](https://img.shields.io/badge/Network-HTTPX-008080.svg?style=flat-square)](https://www.python-httpx.org/)
+[![Logging](https://img.shields.io/badge/Logging-Loguru-BA55D3.svg?style=flat-square)](https://github.com/Delgan/loguru)
+
+<!-- Тестирование и Качество кода -->
+[![Core Tests](https://img.shields.io/badge/Tests-PyTest-0A9EDC.svg?style=flat-square&logo=pytest&logoColor=white)](https://docs.pytest.org/)
+[![GUI Tests](https://img.shields.io/badge/Tests%20GUI-PyTest--Qt-blueviolet.svg?style=flat-square&logo=pytest&logoColor=white)](https://pytest-qt.readthedocs.io/)
+[![Linter/Formatter](https://img.shields.io/badge/Linter-Ruff-000000.svg?style=flat-square)](https://github.com/astral-sh/ruff)
+
+<!-- DevOps, Шаблонизация и Дистрибуция -->
+[![VCS](https://img.shields.io/badge/VCS-Git-F05032.svg?style=flat-square&logo=git&logoColor=white)](https://git-scm.com/)
+[![Dependency Manager](https://img.shields.io/badge/Poetry-Package%20Manager-60A5FA.svg?style=flat-square&logo=poetry&logoColor=white)](https://python-poetry.org/)
+[![Project Template](https://img.shields.io/badge/Template-Copier-FF5A5F.svg?style=flat-square)](https://copier.readthedocs.io/)
+[![Compiler](https://img.shields.io/badge/Build-PyInstaller-F39C12.svg?style=flat-square&logo=python&logoColor=white)](https://pyinstaller.org/)
+
+---
+
+## 🎯 Ключевые возможности (Features)
+* **Real-time Data:** Автоматическая загрузка справочных и рыночных данных с Московской Биржи через ISS API.
+* **Высокая производительность:** Векторизованная фильтрация таблиц средствами `pandas` со сложностью по памяти $O(1)$.
+* **Гибкий интерфейс:** Переключение табличных пресетов (Базовый, Профессиональный) и динамический парсинг схем данных.
+* **Надежность:** Автономное логирование с ротацией файлов и защита от сбоев в окружении Windows (`--noconsole` safe).
+
+## 💻 Требования (Prerequisites)
+* **Операционная система:** Windows 10/11 (сборка протестирована локально), Linux / macOS (архитектурная совместимость).
+* **Интерпретатор:** Python версии `3.11` — `3.13`.
+* **Менеджер пакетов:** Poetry.
+
+## 📥 Установка и запуск (для пользователей)
+
+Приложение поставляется в формате **Portable (один файл)** и не требует установки Python или дополнительных библиотек.
+
+1. Перейдите в раздел **Releases** на GitHub.
+2. Скачайте файл `screener.exe`.
+3. Запустите скачанный файл двойным кликом.
+
+## 🚀 Быстрый старт (Quick Start)
+
+1. Клонирование репозитория и установка зависимостей:
+
    ```bash
+   git clone https://github.com/BaimuratZhaanbaev/moex-screener.git
+   cd moex-screener
    poetry install
+   ```
+
+2. Запуск приложения:
+
+    ```Bash
+    poetry run screener
+    # или напрямую через интерпретатор:
+    poetry run python src/main.py
     ```
-    
-2. Запуск тестов:
-    
-    
+
+3. Запуск тестов:
     
     ```Bash
     poetry run pytest
@@ -35,7 +88,7 @@ moex-screener/                            # Корневая директори�
 │   │   ├── constants.py                  # Константные данные (списки колонок: DEFAULT_COLUMNS, PROFESSIONAL_COLUMNS)
 │   │   ├── logger_config.py              # Настройка логирования приложения с помощью библиотеки Loguru
 │   │   ├── parser.py                     # MoexDataParser (десериализация JSON от биржи, конвертация и сборка в Pandas DataFrame)
-│   │   ├── worker.py                     # QRunnable / QThread воркеры для выполнения тяжелых сетевых задач в фоне
+│   │   ├── extractor.py                  # MoexSchemaExtractor (автоматический анализ метаданных и динамических схем типов ISS API)
 │   │   └── __init__.py                   # Инициализация ядра системы
 │   │
 │   ├── models/                           # Модели отображения данных (Архитектура Qt MVC / Model-View)
@@ -43,6 +96,8 @@ moex-screener/                            # Корневая директори�
 │   │   └── __init__.py                   # Инициализация слоя моделей данных
 │   │
 │   ├── resources/                        # Статические ресурсы приложения
+│   │   ├── moex_screener_icon.ico        # Иконка приложения в формате .ico
+│   │   ├── moex_screener_icon.png        # Иконка приложения в формате .png
 │   │   └── styles.qss                    # Каскадные таблицы стилей Qt (дизайн, цвета, шрифты графического интерфейса)
 │   │
 │   └── views/                            # ГРАФИЧЕСКИЙ ИНТЕРФЕЙС (Слой визуализации / View)
@@ -77,8 +132,7 @@ moex-screener/                            # Корневая директори�
 ├── LICENSE                               # Юридическое соглашение / Лицензия на использование кода проекта
 ├── poetry.lock                           # Фиксация точных версий всех установленных Python-пакетов и их зависимостей
 ├── pyproject.toml                        # Главный файл конфигурации Poetry (зависимости, настройки сборщика ruff/pytest)
-├── README.md                             # Документация проекта для разработчиков (инструкция по установке, описание архитектуры)
-└── report.html                           # Локальный отчет о результатах прохождения тестов (генерируется автоматически)
+└── README.md                             # Документация проекта для разработчиков (инструкция по установке, описание архитектуры)
 ```
 
 ## 🔬 Модульное и интеграционное тестирование (`pytest`)
@@ -151,38 +205,22 @@ poetry run pytest -v -s
 ### 🚀 Команды для терминала
 
 1. **Автоматическое форматирование кода** (заменяет Black/isort, выравнивает отступы, сортирует импорты):
+
 ```bash
 poetry run ruff format .
 ```
 
 2. **Статический анализ и поиск ошибок** (линтер):
+
 ```bash
 poetry run ruff check .
 ```
 
-
 3. **Автоматическое исправление безопасных ошибок** (удаление неиспользуемых импортов, исправление простых нарушений):
+
 ```bash
 poetry run ruff check . --fix
 ```
-
-
-
-### ⚙️ Настройка в IDE (VS Code / PyCharm)
-
-Чтобы код форматировался автоматически при каждом сохранении файла (`Ctrl + S`):
-
-* **VS Code:** Установите официальное расширение `Ruff` от Astral. В `settings.json` добавьте:
-```json
-"[python]": {
-    "editor.defaultFormatter": "astral-sh.ruff",
-    "editor.formatOnSave": true
-}
-```
-
-
-* **PyCharm:** Установите плагин `Ruff` через `Settings -> Plugins`. Включите чекбокс `Run ruff format on save` в настройках плагина.
-
 
 ## Credits
 * Icon made by [srip](https://flaticon.com) from [://flaticon.com](https://://flaticon.com/)
